@@ -1,8 +1,8 @@
-#include <SFML/Graphics.hpp>
 #include "Mapa.h"
 #include "Personaje.h"
 #include "Gameplay.h"
 #include "CamaraPrincipal.h"
+#include <SFML/Graphics.hpp>
 
 int main(int argc, char *argv[]){
 	sf::RenderWindow ventana(sf::VideoMode(1024,768),"BENJAMIN PEREZ");

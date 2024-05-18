@@ -5,9 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 
-Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _personaje()
-	, _mapa(), _fondo(), _plataformas(), _muerte()
-
+Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 
 {
 	_camaraPrincipal = camaraPrincipal;
@@ -54,9 +52,9 @@ void Gameplay::ChequeoColisiones()
 	sf::FloatRect hitBoxPlayerHead;
 	sf::FloatRect hitBoxMapHead;
 	
-	for(int i=0; i<60; i++)
+	for(int i=0; i<31; i++)
 	{
-		for(int j=0; j<31; j++)
+		for(int j=0; j<60; j++)
 		{	
 			hitBoxMap = sf::FloatRect(_mapa.getSprite(i, j).getGlobalBounds().left, _mapa.getSprite(i, j).getGlobalBounds().top - 16, _mapa.getSprite(i, j).getGlobalBounds().width, 16);
 			hitBoxMapIzq = sf::FloatRect(_mapa.getSprite(i, j).getGlobalBounds().left - 4, _mapa.getSprite(i, j).getGlobalBounds().top, _mapa.getSprite(i, j).getGlobalBounds().width + 4, _mapa.getSprite(i, j).getGlobalBounds().height);
@@ -107,9 +105,9 @@ sf::Vector2f Gameplay::getPosicionPersonaje()
 
 void Gameplay::draw(sf::RenderWindow& window)
 {	
-	for(int i=0; i<60; i++)
+	for(int i=0; i<31; i++)
 	{
-		for(int j=0; j<31; j++)
+		for(int j=0; j<60; j++)
 		{	
 			
 			window.draw(_fondo.getSprite(i,j));

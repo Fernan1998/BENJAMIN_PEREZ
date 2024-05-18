@@ -10,6 +10,7 @@ Mapa::Mapa()
 	{
 		_bloque[i].resize(nColumnas);
 	}
+	
 	for (int i = 0; i < 20; i++)
 	{
 		switch (i)
