@@ -1,10 +1,10 @@
 #include "Personaje.h"
 
-Personaje::Personaje() : animacion(&_textura, sf::Vector2u(4,1), 0.3f)
+Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,1), 0.1f)
 {
-	_textura.loadFromFile("Textura/Player/BENJAMIN.PNG");
+	_textura.loadFromFile("Textura/Player/CharacterWalk.PNG");
 	_cuerpo.setTexture(&_textura);
-	_cuerpo.setSize(sf::Vector2f(42.0f, 87.0f));
+	_cuerpo.setSize(sf::Vector2f(120.0f, 120.0f));
 	_cuerpo.setPosition(120,150);
 	_velocidad = sf::Vector2f(0,0);
 	_estado = ESTADOS::CAYENDO;
@@ -119,15 +119,17 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.setScale(1,1);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
 			_estado= ESTADOS::CAYENDO;
+			
 			animacion.Update(0, deltaTime);
-			_cuerpo.setTextureRect(animacion.uvRect);	break;
+			_cuerpo.setTextureRect(animacion.uvRect);
 			break;
 		case CAMINANDO_ATRAS:
 			_cuerpo.setScale(-1,1);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
 			_estado= ESTADOS::CAYENDO;
+			
 			animacion.Update(0, deltaTime);
-			_cuerpo.setTextureRect(animacion.uvRect);	break;
+			_cuerpo.setTextureRect(animacion.uvRect);
 			break;
 		case SALTANDO:
 			_cuerpo.move(0, -_velocidadSalto);

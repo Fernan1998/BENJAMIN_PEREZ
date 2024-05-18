@@ -48,7 +48,7 @@ Mapa::Mapa()
 			_textura[i].loadFromFile("Textura/Mapa/techo.png");
 			break;
 		case 11:
-			_textura[i].loadFromFile("Textura/Mapa/piedritas.png");
+			_textura[i].loadFromFile("Textura/Mapa/fondo1.png");
 			break;
 		case 12:
 			_textura[i].loadFromFile("Textura/Mapa/techo_izq.png");

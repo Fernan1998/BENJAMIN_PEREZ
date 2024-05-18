@@ -25,6 +25,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	file_dead.open("Mapas_txt/mapa_cueva1_plataformas.txt");
 	_muerte.CreadorMapa(file_dead);
 	
+	
 }
 Gameplay::~Gameplay()
 {
@@ -33,6 +34,7 @@ Gameplay::~Gameplay()
 void Gameplay::actualizar(float deltaTime)
 {	
 	_personaje.actualizar(deltaTime);
+
 	_camaraPrincipal.FollowAndUpdate(_personaje.getPosicion(), &_camaraPrincipal);
 	
 }
