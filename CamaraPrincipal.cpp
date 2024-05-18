@@ -10,6 +10,10 @@ CamaraPrincipal::CamaraPrincipal(sf::RenderWindow *w, int width, int height, int
 	setSize(width, height);
 	setCenter(worldLimitWidth / 2, worldLimitHeight / 2);
 }
+CamaraPrincipal::CamaraPrincipal()
+{
+	
+}
 CamaraPrincipal::~CamaraPrincipal()
 {
 	

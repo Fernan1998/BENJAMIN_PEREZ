@@ -14,6 +14,7 @@ class CamaraPrincipal : public sf::View
 		
 	public:
 		CamaraPrincipal(sf::RenderWindow *w, int width, int height, int worldLimitWidth, int worldLimitHeight);
+		CamaraPrincipal();
 		~CamaraPrincipal();
 	void FollowAndUpdate(sf::Vector2f target, CamaraPrincipal *camera);
 };
