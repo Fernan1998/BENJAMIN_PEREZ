@@ -12,13 +12,17 @@ class Personaje : public sf::Drawable
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		sf::Vector2f getPosicion();
 		sf::RectangleShape getCuerpo();
+		sf::RectangleShape getCajaAtaque();
 		float getVelocidadSalto();
 		void setPosicion(sf::Vector2f posicion);
 		void quieto(float x, float y);
 		void cayendo();
 		void setDerecha();
 		void setIzquierda();
-		
+		bool getAtacando();
+		float getDanio();
+		float getSalud();
+
 	private:
 		enum ESTADOS{
 			QUIETO,
@@ -33,11 +37,16 @@ class Personaje : public sf::Drawable
 		ESTADOS _estado;
 		sf::Texture _textura;
 		sf::RectangleShape _cuerpo;
+		sf::RectangleShape _cajaAtaque;
 		sf::Vector2f _velocidad;
+		float _salud;
+		float _danio;
 		float _velocidadSalto;
 		bool _saltando;
 		bool _colisionandoIzq;
-		bool _colisionandoDer;
+		bool _colisionandoDer;		
+		bool _atacando;
+		float _tiempo;
 		Animacion animacion;
 };
 

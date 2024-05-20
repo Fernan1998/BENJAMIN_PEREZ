@@ -1,6 +1,7 @@
 #include "Personaje.h"
+#include <iostream>
 
-Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,1), 0.05f, 120,120)
+Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,1), 0.1f, 120,120)
 {
 	_textura.loadFromFile("Textura/Player/CharacterWalk.PNG");
 	_cuerpo.setTexture(&_textura);
@@ -11,8 +12,13 @@ Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,1), 0.05f, 120,120
 	_velocidadSalto = 0;
 	_cuerpo.setOrigin(_cuerpo.getGlobalBounds().width/2,_cuerpo.getGlobalBounds().height/2);
 	_saltando = true;
+	_cajaAtaque.setSize(sf::Vector2f(90.0f, 120.0f));
+	_cajaAtaque.setOrigin(_cajaAtaque.getGlobalBounds().width/2, _cajaAtaque.getGlobalBounds().height/2);
 	_colisionandoDer = false;
 	_colisionandoIzq = false;
+	_atacando = false;
+	_danio = 10;
+	_salud = 100;
  
 }
 Personaje::~Personaje()
@@ -22,6 +28,10 @@ Personaje::~Personaje()
 sf::RectangleShape Personaje::getCuerpo()
 {
 	return _cuerpo;
+}
+sf::RectangleShape Personaje::getCajaAtaque()
+{
+	return _cajaAtaque;
 }
 float Personaje::getVelocidadSalto()
 {
@@ -81,23 +91,21 @@ void Personaje::comandos()
 			_velocidad.x = 4;
 		};
 	}
+	if(_estado == ESTADOS::QUIETO)
+	{
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2))
+		{
+			_estado = ESTADOS::ATACANDO;
+		}
+	}
 	
 	if(!_saltando)
 	{
-//		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1))
-//		{
-//			_estado = ESTADOS::SALTANDO_ADELANTE;
-//			_jumpVelocity = 10;
-//		}
-//		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1))
-//		{
-//			_estado = ESTADOS::SALTANDO_ATRAS;
-//			_jumpVelocity = 10;
-//		}
+
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1))
 		{
 			_estado = ESTADOS::SALTANDO;
-			_velocidadSalto = 10;
+			_velocidadSalto = 20;
 		}
 //		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1) && sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 //		{
@@ -107,6 +115,7 @@ void Personaje::comandos()
 	_saltando = true;	
 	_colisionandoDer = false;
 	_colisionandoIzq = false;
+	_atacando = false;
 }
 void Personaje::actualizar(float deltaTime)
 {
@@ -148,14 +157,29 @@ void Personaje::actualizar(float deltaTime)
 		case CAYENDO:
 			_cuerpo.move(0, -_velocidadSalto);
 			break;
+		case ATACANDO:
+			_atacando = true;
+			break;
+		
 			
 		}
 	_velocidadSalto-=0.5;
 	_velocidad=sf::Vector2f(0,0);
+	_cajaAtaque.setPosition(_cuerpo.getPosition());
+	std::cout << deltaTime << std::endl;
 }
 void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 {
 	target.draw(_cuerpo, states);
+	//target.draw(_cajaAtaque, states);
 }
 
 
+bool Personaje::getAtacando()
+{
+	return _atacando;
+}
+float Personaje::getDanio()
+{
+	return _danio;
+}

@@ -5,8 +5,9 @@
 #include "Enemigo.h"
 #include <SFML/Graphics.hpp>
 #include <fstream>
+#include <iostream>
 
-Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _enemigo1(sf::Vector2f(600,310))
+Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _enemigo1(sf::Vector2f(1008,336))
 {
 	_camaraPrincipal = camaraPrincipal;
 	std::ifstream file_map;
@@ -41,6 +42,7 @@ void Gameplay::actualizar(float deltaTime)
 void Gameplay::comando()
 {
 	_personaje.comandos();
+	_enemigo1.comando(1008,1872, _personaje);
 }
 void Gameplay::ChequeoColisiones()
 {
@@ -98,8 +100,18 @@ void Gameplay::ChequeoColisiones()
 				  }
 		}
 	}
+	if(_personaje.getAtacando() == true && _personaje.getCajaAtaque().getGlobalBounds().intersects(_enemigo1.getCuerpo().getGlobalBounds()))
+	{
+		std::cout << "GOLPEANDO\n";
+		std::cout << _enemigo1.getSalud();
+		_enemigo1.setSalud(_personaje.getDanio());
+		_enemigo1.recibiendoDanio();
+
+	}
+
 	
 }
+
 sf::Vector2f Gameplay::getPosicionPersonaje()
 {
 	return _personaje.getPosicion();
