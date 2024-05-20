@@ -5,8 +5,9 @@
 #include <SFML/Graphics.hpp>
 
 int main(int argc, char *argv[]){
-	sf::RenderWindow ventana(sf::VideoMode(1024,768),"BENJAMIN PEREZ");
+	sf::RenderWindow ventana(sf::VideoMode(1024,768),"BENJAMIN PEREZ THE GAME");
 	CamaraPrincipal camaraPrincipal(&ventana,1024,768,1920,992);
+	
 	
 	Gameplay nivel1(camaraPrincipal);
 	

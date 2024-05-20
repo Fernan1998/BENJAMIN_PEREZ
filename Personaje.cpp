@@ -1,10 +1,10 @@
 #include "Personaje.h"
 
-Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,1), 0.1f)
+Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,1), 0.05f)
 {
 	_textura.loadFromFile("Textura/Player/CharacterWalk.PNG");
 	_cuerpo.setTexture(&_textura);
-	_cuerpo.setSize(sf::Vector2f(120.0f, 120.0f));
+	_cuerpo.setSize(sf::Vector2f(60.0f, 120.0f));
 	_cuerpo.setPosition(120,150);
 	_velocidad = sf::Vector2f(0,0);
 	_estado = ESTADOS::CAYENDO;
@@ -63,7 +63,7 @@ void Personaje::comandos()
 {
 	if(_estado == ESTADOS::QUIETO && !_colisionandoIzq ||
 	   _estado == ESTADOS::CAYENDO && !_colisionandoIzq ||
-	   _estado == ESTADOS::CAMINANDO_ADELANTE && !_colisionandoIzq)
+	   _estado == ESTADOS::CAMINANDO_ATRAS && !_colisionandoIzq)
 	{
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
@@ -73,7 +73,7 @@ void Personaje::comandos()
 	}
 	if(_estado == ESTADOS::QUIETO && !_colisionandoDer ||
 	   _estado == ESTADOS::CAYENDO && !_colisionandoDer ||
-	   _estado == ESTADOS::CAMINANDO_ADELANTE && !_colisionandoDer)
+	   _estado == ESTADOS::CAMINANDO_ATRAS && !_colisionandoDer)
 	{	
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
@@ -119,7 +119,7 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.setScale(1,1);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
 			_estado= ESTADOS::CAYENDO;
-			
+
 			animacion.Update(0, deltaTime);
 			_cuerpo.setTextureRect(animacion.uvRect);
 			break;
