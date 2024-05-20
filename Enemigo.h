@@ -5,15 +5,16 @@
 class Enemigo : public sf::Drawable
 {
 	public:
-		Enemigo();
+		Enemigo(sf::Vector2f ubicacion);
 		~Enemigo();
 		void setSalud();
 		void setDanio();
 		int getSalud();
 		int getDanio();
-		void actualizar();
+		void actualizar(float deltaTime);
 		void comando();
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		void colisiones();
 		
 		
 	private:
@@ -25,6 +26,7 @@ class Enemigo : public sf::Drawable
 			ATACANDO,
 			MUERTO
 		};
+		ESTADOS _estado;
 		sf::RectangleShape _cuerpo;
 		sf::Texture _textura;
 		sf::FloatRect _rangoVision;
@@ -32,7 +34,7 @@ class Enemigo : public sf::Drawable
 		int _salud;
 		int _danio;
 		sf::Vector2f _velocidad;
-		bool _estado;
+		bool _vivo;
 		Animacion _animacion;
 		
 };

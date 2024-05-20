@@ -1,6 +1,6 @@
 #include "Personaje.h"
 
-Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,1), 0.05f)
+Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,1), 0.05f, 120,120)
 {
 	_textura.loadFromFile("Textura/Player/CharacterWalk.PNG");
 	_cuerpo.setTexture(&_textura);
@@ -13,7 +13,7 @@ Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,1), 0.05f)
 	_saltando = true;
 	_colisionandoDer = false;
 	_colisionandoIzq = false;
-	
+ 
 }
 Personaje::~Personaje()
 {

@@ -1,14 +1,14 @@
 #include "Animacion.h"
 
-Animacion::Animacion(sf::Texture* textura, sf::Vector2u imageCount, float switchTime) 
+Animacion::Animacion(sf::Texture* textura, sf::Vector2u imageCount, float switchTime, int alto, int ancho) 
 {
 	this->imageCount=imageCount;
 	this->switchTime=switchTime;
 	totalTime=0.0f;
 	imagenActual.x = 0;
 	
-	uvRect.width = 120;
-	uvRect.height = 120;
+	uvRect.width = ancho;
+	uvRect.height = alto;
 }
 
 void Animacion::Update(int columna, float deltaTime)

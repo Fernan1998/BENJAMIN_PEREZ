@@ -2,11 +2,11 @@
 #include "Personaje.h"
 #include "CamaraPrincipal.h"
 #include "Mapa.h"
+#include "Enemigo.h"
 #include <SFML/Graphics.hpp>
 #include <fstream>
 
-Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
-
+Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _enemigo1(sf::Vector2f(600,310))
 {
 	_camaraPrincipal = camaraPrincipal;
 	std::ifstream file_map;
@@ -34,7 +34,7 @@ Gameplay::~Gameplay()
 void Gameplay::actualizar(float deltaTime)
 {	
 	_personaje.actualizar(deltaTime);
-
+	_enemigo1.actualizar(deltaTime);
 	_camaraPrincipal.FollowAndUpdate(_personaje.getPosicion(), &_camaraPrincipal);
 	
 }
@@ -120,5 +120,6 @@ void Gameplay::draw(sf::RenderWindow& window)
 		}
 	}	
 	window.draw(_personaje);
+	window.draw(_enemigo1);
 }
 

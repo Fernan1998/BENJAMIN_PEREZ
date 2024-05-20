@@ -2,6 +2,7 @@
 #include "Personaje.h"
 #include "CamaraPrincipal.h"
 #include "Mapa.h"
+#include "Enemigo.h"
 #include <SFML/Graphics.hpp>
 
 class Gameplay 
@@ -23,6 +24,7 @@ class Gameplay
 		Mapa _fondo;
 		Mapa _plataformas;
 		Mapa _muerte;
+		Enemigo _enemigo1;
 
 };
 
