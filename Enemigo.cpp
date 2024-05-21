@@ -3,7 +3,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-Enemigo::Enemigo(sf::Vector2f ubicacion) : _animacion(&_textura, sf::Vector2u(8,2), 0.1f, 96,96)
+Enemigo::Enemigo() : _animacion(&_textura, sf::Vector2u(8,2), 0.1f, 96,96)
 {
 	_salud = 100;
 	_danio = 10;
@@ -12,7 +12,6 @@ Enemigo::Enemigo(sf::Vector2f ubicacion) : _animacion(&_textura, sf::Vector2u(8,
 	_cuerpo.setSize(sf::Vector2f(96,96));
 	_cuerpo.setOrigin(_cuerpo.getGlobalBounds().width/2,_cuerpo.getGlobalBounds().height/2);
 	_velocidad = sf::Vector2f(0,0);
-	_cuerpo.setPosition(ubicacion);
 	_estado = ESTADOS::PATRULLANDO;
 	_vivo = true;
 	_posicionInicial = _cuerpo.getPosition();
@@ -114,4 +113,7 @@ float Enemigo::getSalud()
 {
 	return _salud;
 }
-
+void Enemigo::setPosition(sf::Vector2f aux)
+{
+	_cuerpo.setPosition(aux);
+}

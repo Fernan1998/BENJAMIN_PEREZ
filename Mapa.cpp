@@ -51,10 +51,13 @@ Mapa::Mapa()
 			_textura[i].loadFromFile("Textura/Mapa/fondo1.png");
 			break;
 		case 12:
-			_textura[i].loadFromFile("Textura/Mapa/techo_izq.png");
+			_textura[i].loadFromFile("Textura/Mapa/plataforma0.png");
 			break;
 		case 13:
-			_textura[i].loadFromFile("Textura/Mapa/piedras.png");
+			_textura[i].loadFromFile("Textura/Mapa/plataforma1.png");
+			break;
+		case 14:
+			_textura[i].loadFromFile("Textura/Mapa/plataforma2.png");
 			break;
 		}
 	}
@@ -117,6 +120,9 @@ void Mapa::CreadorMapa(std::ifstream& file)
 				break;
 			case 13:
 				_bloque[i][j].setTexture(_textura[13]);
+				break;
+			case 14:
+				_bloque[i][j].setTexture(_textura[14]);
 				break;
 			}
 			_bloque[i][j].setPosition(j * 32, i * 32); 

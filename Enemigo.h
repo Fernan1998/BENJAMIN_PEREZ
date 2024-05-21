@@ -6,7 +6,7 @@
 class Enemigo : public sf::Drawable
 {
 	public:
-		Enemigo(sf::Vector2f ubicacion);
+		Enemigo();
 		~Enemigo();
 		void setSalud(float danio);
 		void setDanio();
@@ -18,6 +18,7 @@ class Enemigo : public sf::Drawable
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		void colisiones();
 		void recibiendoDanio();
+		void setPosition(sf::Vector2f aux);
 		
 		
 	private:

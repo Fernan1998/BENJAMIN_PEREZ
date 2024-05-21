@@ -3,15 +3,17 @@
 #include "CamaraPrincipal.h"
 #include "Mapa.h"
 #include "Enemigo.h"
+#include <string>
+#include "Nivel.h"
 #include <SFML/Graphics.hpp>
 
 class Gameplay 
 {
 	public:
-		Gameplay(CamaraPrincipal &camaraPrincipal);
+		Gameplay(CamaraPrincipal &camaraPrincipal, std::string mapa, std::string fondo, std::string plataformas);
 		Gameplay();
 		~Gameplay();
-		void actualizar(float deltaTime, Personaje &aux);
+		void actualizar(float deltaTime);
 		void comando();
 		void draw(sf::RenderWindow& window);
 		void ChequeoColisiones();
@@ -20,11 +22,7 @@ class Gameplay
 	private:
 		CamaraPrincipal _camaraPrincipal;
 		Personaje _personaje;
-		Mapa _mapa;
-		Mapa _fondo;
-		Mapa _plataformas;
-		Mapa _muerte;
-		Enemigo _enemigo1;
+		Nivel *nivel1;
 
 };
 

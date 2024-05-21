@@ -1,56 +1,31 @@
 #include "Gameplay.h"
-#include "Personaje.h"
-#include "CamaraPrincipal.h"
-#include "Mapa.h"
-#include "Enemigo.h"
-#include <SFML/Graphics.hpp>
-#include <fstream>
-#include <iostream>
 
-Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _enemigo1(sf::Vector2f(1008,340))
+
+Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal, std::string mapa, std::string fondo, std::string plataformas)
 {
 	_camaraPrincipal = camaraPrincipal;
-	std::ifstream file_map;
-	file_map.open("Mapas_txt/mapa_cueva1.txt");
-	_mapa.CreadorMapa(file_map);
-	
-	std::ifstream file_fondo;
-	file_fondo.open("Mapas_txt/mapa_cueva1_fondo.txt");
-	_fondo.CreadorMapa(file_fondo);
-	
-	std::ifstream file_obstacle;
-	file_obstacle.open("Mapas_txt/mapa_cueva1_plataformas.txt");
-	_plataformas.CreadorMapa(file_obstacle);
-	
-	std::ifstream file_dead;
-	file_dead.open("Mapas_txt/mapa_cueva1_plataformas.txt");
-	_muerte.CreadorMapa(file_dead);
-	
-	
+	nivel1 = new Nivel(mapa, fondo, plataformas);	
 }
 Gameplay::~Gameplay()
 {
 	
 }
-void Gameplay::actualizar(float deltaTime, Personaje &aux)
+void Gameplay::actualizar(float deltaTime)
 {	
 	_personaje.actualizar(deltaTime);
-	_enemigo1.actualizar(deltaTime);
 	_camaraPrincipal.FollowAndUpdate(_personaje.getPosicion(), &_camaraPrincipal);
-	aux = _personaje;
-	
+	nivel1->actualizar(deltaTime);
 	
 }
 void Gameplay::comando()
 {
 	_personaje.comandos();
-	_enemigo1.comando(1008,1872, _personaje);
+	nivel1->comando(_personaje);
 }
 void Gameplay::ChequeoColisiones()
 {
 	sf::FloatRect hitBoxPlayer(_personaje.getCuerpo().getGlobalBounds().left, _personaje.getCuerpo().getGlobalBounds().top + _personaje.getCuerpo().getGlobalBounds().height -16,_personaje.getCuerpo().getGlobalBounds().width , 16);
 	auto playerGlobalBounds = _personaje.getCuerpo().getGlobalBounds();
-	
 	sf::FloatRect hitBoxMap;
 	sf::FloatRect hitBoxMapIzq;
 	sf::FloatRect hitBoxMapDer;
@@ -62,54 +37,48 @@ void Gameplay::ChequeoColisiones()
 	{
 		for(int j=0; j<60; j++)
 		{	
-			hitBoxMap = sf::FloatRect(_mapa.getSprite(i, j).getGlobalBounds().left, _mapa.getSprite(i, j).getGlobalBounds().top - 16, _mapa.getSprite(i, j).getGlobalBounds().width, 16);
-			hitBoxMapIzq = sf::FloatRect(_mapa.getSprite(i, j).getGlobalBounds().left - 4, _mapa.getSprite(i, j).getGlobalBounds().top, _mapa.getSprite(i, j).getGlobalBounds().width + 4, _mapa.getSprite(i, j).getGlobalBounds().height);
-			hitBoxMapDer = sf::FloatRect(_mapa.getSprite(i, j).getGlobalBounds().left + 32, _mapa.getSprite(i, j).getGlobalBounds().top, 4, _mapa.getSprite(i, j).getGlobalBounds().height);
+			hitBoxMap = sf::FloatRect(nivel1->getMapa(i,j).left, nivel1->getMapa(i,j).top - 16, nivel1->getMapa(i,j).width, 16);
+			hitBoxMapIzq = sf::FloatRect(nivel1->getMapa(i,j).left - 4, nivel1->getMapa(i,j).top, nivel1->getMapa(i,j).width + 4, nivel1->getMapa(i,j).height);
+			hitBoxMapDer = sf::FloatRect(nivel1->getMapa(i,j).left + 32, nivel1->getMapa(i,j).top, 4, nivel1->getMapa(i,j).height);
 			hitBoxPlayerHead = sf::FloatRect(playerGlobalBounds.left, playerGlobalBounds.top, playerGlobalBounds.width, 16);
-			hitBoxMapHead = sf::FloatRect(_mapa.getSprite(i, j).getGlobalBounds().left, _mapa.getSprite(i, j).getGlobalBounds().top + 32, _mapa.getSprite(i, j).getGlobalBounds().width , 2);
-			hitBoxMapPlatform = sf::FloatRect(_plataformas.getSprite(i, j).getGlobalBounds().left, _plataformas.getSprite(i, j).getGlobalBounds().top - 16, _plataformas.getSprite(i, j).getGlobalBounds().width, 16);
-			hitBoxMapHead = sf::FloatRect(_mapa.getSprite(i, j).getGlobalBounds().left, _mapa.getSprite(i, j).getGlobalBounds().top + 32, _mapa.getSprite(i, j).getGlobalBounds().width , 2);
+			hitBoxMapHead = sf::FloatRect(nivel1->getMapa(i,j).left, nivel1->getMapa(i,j).top + 32, nivel1->getMapa(i,j).width , 2);
+			hitBoxMapPlatform = sf::FloatRect(nivel1->getPlataforma(i,j).left, nivel1->getPlataforma(i,j).top - 16, nivel1->getPlataforma(i,j).width, 16);
+			hitBoxMapHead = sf::FloatRect(nivel1->getMapa(i,j).left, nivel1->getMapa(i,j).top + 32, nivel1->getMapa(i,j).width , 2);
 			
-			if(playerGlobalBounds.top - playerGlobalBounds.height < _mapa.getSprite(i,j).getGlobalBounds().top
+			if(playerGlobalBounds.top - playerGlobalBounds.height < nivel1->getMapa(i,j).top
 			   && hitBoxPlayer.intersects(hitBoxMap)
 			   && _personaje.getVelocidadSalto() < 0)
 			{
-				_personaje.quieto(_personaje.getPosicion().x, _mapa.getSprite(i,j).getGlobalBounds().top - _personaje.getCuerpo().getGlobalBounds().height/2);
+				_personaje.quieto(_personaje.getPosicion().x, nivel1->getMapa(i,j).top - _personaje.getCuerpo().getGlobalBounds().height/2);
 			}
-			if(playerGlobalBounds.left + playerGlobalBounds.width <= _mapa.getSprite(i,j).getGlobalBounds().left
+			if(playerGlobalBounds.left + playerGlobalBounds.width <= nivel1->getMapa(i,j).left
 			   && playerGlobalBounds.intersects(hitBoxMapIzq))
 			{
 				_personaje.setDerecha();
 			}
-			   if(playerGlobalBounds.left > _mapa.getSprite(i,j).getGlobalBounds().left + _mapa.getSprite(i,j).getGlobalBounds().width
-				  && playerGlobalBounds.intersects(hitBoxMapDer))
-			   {
-				   _personaje.setIzquierda();
-			   }
-				  if(playerGlobalBounds.intersects(_muerte.getSprite(i,j).getGlobalBounds()))
-				  {
-					  _personaje.setPosicion(sf::Vector2f(0,0));
-				  }
-				  if(playerGlobalBounds.top - playerGlobalBounds.height < _plataformas.getSprite(i,j).getGlobalBounds().top
-					 && hitBoxPlayer.intersects(hitBoxMapPlatform)
-					 && _personaje.getVelocidadSalto() < 0)
-				  {
-					  _personaje.quieto(_personaje.getPosicion().x, _plataformas.getSprite(i,j).getGlobalBounds().top - _personaje.getCuerpo().getGlobalBounds().height/2);
-				  }
-				  if(hitBoxPlayerHead.intersects(hitBoxMapHead))
-				  {
-					  _personaje.cayendo();
-				  }
+		    if(playerGlobalBounds.left > nivel1->getMapa(i,j).left + nivel1->getMapa(i,j).width
+			  && playerGlobalBounds.intersects(hitBoxMapDer))
+		    {
+			   _personaje.setIzquierda();
+		    }
+			if(playerGlobalBounds.top - playerGlobalBounds.height < nivel1->getPlataforma(i,j).top
+			 && hitBoxPlayer.intersects(hitBoxMapPlatform)
+			 && _personaje.getVelocidadSalto() < 0)
+			{
+			  _personaje.quieto(_personaje.getPosicion().x, nivel1->getPlataforma(i,j).top - _personaje.getCuerpo().getGlobalBounds().height/2);
+			}
+			if(hitBoxPlayerHead.intersects(hitBoxMapHead))
+			{
+			  _personaje.cayendo();
+			}
 		}
 	}
-	if(_personaje.getAtacando() == true && _personaje.getCajaAtaque().getGlobalBounds().intersects(_enemigo1.getCuerpo().getGlobalBounds()))
-	{
-		std::cout << "GOLPEANDO\n";
-		std::cout << _enemigo1.getSalud();
-		_enemigo1.setSalud(_personaje.getDanio());
-		_enemigo1.recibiendoDanio();
-
-	}
+//	if(_personaje.getAtacando() == true && _personaje.getCajaAtaque().getGlobalBounds().intersects(.getCuerpo().getGlobalBounds()))
+//	{
+//		.setSalud(_personaje.getDanio());
+//		.recibiendoDanio();
+//
+//	}
 
 	
 }
@@ -121,19 +90,9 @@ sf::Vector2f Gameplay::getPosicionPersonaje()
 
 void Gameplay::draw(sf::RenderWindow& window)
 {	
-	for(int i=0; i<31; i++)
-	{
-		for(int j=0; j<60; j++)
-		{	
-			
-			window.draw(_fondo.getSprite(i,j));
-			window.draw(_mapa.getSprite(i,j));
-			window.draw(_plataformas.getSprite(i,j));
-			window.draw(_muerte.getSprite(i,j));
-			
-		}
-	}	
+
+	nivel1->dibujar(window);
 	window.draw(_personaje);
-	window.draw(_enemigo1);
+	
 }
 

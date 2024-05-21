@@ -1,12 +1,12 @@
 #include "Personaje.h"
-#include <iostream>
+
 
 Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,1), 0.1f, 107,78)
 {
 	_textura.loadFromFile("Textura/Player/CharacterWalkTest.png");
 	_cuerpo.setTexture(&_textura);
-	_cuerpo.setSize(sf::Vector2f(60.0f, 120.0f));
-	_cuerpo.setPosition(120,150);
+	_cuerpo.setPosition(sf::Vector2f(130,150));
+	_cuerpo.setSize(sf::Vector2f(78.0f, 107.0f));
 	_velocidad = sf::Vector2f(0,0);
 	_estado = ESTADOS::CAYENDO;
 	_velocidadSalto = 0;
@@ -37,9 +37,9 @@ float Personaje::getVelocidadSalto()
 {
 	return _velocidadSalto;
 }
-void Personaje::setPosicion(sf::Vector2f posicion)
+void Personaje::setPosicion(float a, float b)
 {
-	_cuerpo.setPosition(posicion);
+	_cuerpo.setPosition(a,b);
 }
 void Personaje::quieto(float x, float y)
 {
@@ -105,7 +105,7 @@ void Personaje::comandos()
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1))
 		{
 			_estado = ESTADOS::SALTANDO;
-			_velocidadSalto = 20;
+			_velocidadSalto = 10;
 		}
 //		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1) && sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 //		{
