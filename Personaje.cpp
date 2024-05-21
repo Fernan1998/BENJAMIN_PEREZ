@@ -1,9 +1,9 @@
 #include "Personaje.h"
 
 
-Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,1), 0.1f, 107,78)
+Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,2), 0.05f, 108,73)
 {
-	_textura.loadFromFile("Textura/Player/CharacterWalkTest.png");
+	_textura.loadFromFile("Textura/Player/BenjaminPerez.png");
 	_cuerpo.setTexture(&_textura);
 	_cuerpo.setPosition(sf::Vector2f(130,150));
 	_cuerpo.setSize(sf::Vector2f(78.0f, 107.0f));
@@ -123,6 +123,8 @@ void Personaje::actualizar(float deltaTime)
 	{
 		case QUIETO:
 			_velocidadSalto=0;
+			animacion.Update(1, deltaTime);
+			_cuerpo.setTextureRect(animacion.uvRect);
 			break;
 		case CAMINANDO_ADELANTE:
 			_cuerpo.setScale(1,1);
