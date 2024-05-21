@@ -7,7 +7,7 @@
 #include <fstream>
 #include <iostream>
 
-Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _enemigo1(sf::Vector2f(1008,336))
+Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _enemigo1(sf::Vector2f(1008,340))
 {
 	_camaraPrincipal = camaraPrincipal;
 	std::ifstream file_map;
@@ -32,11 +32,13 @@ Gameplay::~Gameplay()
 {
 	
 }
-void Gameplay::actualizar(float deltaTime)
+void Gameplay::actualizar(float deltaTime, Personaje &aux)
 {	
 	_personaje.actualizar(deltaTime);
 	_enemigo1.actualizar(deltaTime);
 	_camaraPrincipal.FollowAndUpdate(_personaje.getPosicion(), &_camaraPrincipal);
+	aux = _personaje;
+	
 	
 }
 void Gameplay::comando()

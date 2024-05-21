@@ -11,7 +11,7 @@ class Gameplay
 		Gameplay(CamaraPrincipal &camaraPrincipal);
 		Gameplay();
 		~Gameplay();
-		void actualizar(float deltaTime);
+		void actualizar(float deltaTime, Personaje &aux);
 		void comando();
 		void draw(sf::RenderWindow& window);
 		void ChequeoColisiones();

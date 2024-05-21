@@ -19,6 +19,7 @@ Enemigo::Enemigo(sf::Vector2f ubicacion) : _animacion(&_textura, sf::Vector2u(8,
 	_rangoVision.setSize(sf::Vector2f(800,96));
 	_rangoVision.setFillColor(sf::Color::Transparent);
 	_rangoVision.setOrigin(_rangoVision.getGlobalBounds().width/2, _rangoVision.getGlobalBounds().height/2);
+	_cuerpo.setFillColor(sf::Color::Red);
 	
 }
 Enemigo::~Enemigo()
@@ -85,7 +86,7 @@ void Enemigo::actualizar(float deltaTime)
 			_cuerpo.move(_velocidad);
 			break;
 		case SIGUIENDO:
-			_animacion.Update(1, deltaTime);
+			_animacion.Update(1, deltaTime, true);
 			_cuerpo.setTextureRect(_animacion.uvRect);
 			_cuerpo.move(_velocidad);
 			break;

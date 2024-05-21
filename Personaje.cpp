@@ -1,16 +1,16 @@
 #include "Personaje.h"
 #include <iostream>
 
-Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,1), 0.1f, 120,120)
+Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,1), 0.1f, 107,78)
 {
-	_textura.loadFromFile("Textura/Player/CharacterWalk.PNG");
+	_textura.loadFromFile("Textura/Player/CharacterWalkTest.png");
 	_cuerpo.setTexture(&_textura);
 	_cuerpo.setSize(sf::Vector2f(60.0f, 120.0f));
 	_cuerpo.setPosition(120,150);
 	_velocidad = sf::Vector2f(0,0);
 	_estado = ESTADOS::CAYENDO;
 	_velocidadSalto = 0;
-	_cuerpo.setOrigin(_cuerpo.getGlobalBounds().width/2,_cuerpo.getGlobalBounds().height/2);
+	_cuerpo.setOrigin(_cuerpo.getGlobalBounds().width/2,_cuerpo.getGlobalBounds().height/2); 
 	_saltando = true;
 	_cajaAtaque.setSize(sf::Vector2f(90.0f, 120.0f));
 	_cajaAtaque.setOrigin(_cajaAtaque.getGlobalBounds().width/2, _cajaAtaque.getGlobalBounds().height/2);
@@ -166,7 +166,6 @@ void Personaje::actualizar(float deltaTime)
 	_velocidadSalto-=0.5;
 	_velocidad=sf::Vector2f(0,0);
 	_cajaAtaque.setPosition(_cuerpo.getPosition());
-	std::cout << deltaTime << std::endl;
 }
 void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 {

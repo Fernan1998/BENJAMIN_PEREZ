@@ -30,3 +30,22 @@ void Animacion::Update(int columna, float deltaTime)
 	uvRect.top = imagenActual.y * uvRect.height;
 	
 }
+void Animacion::Update(int columna, float deltaTime, bool atk)
+{
+	imagenActual.y = columna;
+	totalTime += deltaTime;
+	
+	if(totalTime>=switchTime)
+	{
+		totalTime -= switchTime;
+		imagenActual.x++;
+		if(imagenActual.x >= imageCount.x)
+		{
+			imagenActual.x--;
+		}
+	}
+	
+	uvRect.left = imagenActual.x * uvRect.width;
+	uvRect.top = imagenActual.y * uvRect.height;
+	
+}
