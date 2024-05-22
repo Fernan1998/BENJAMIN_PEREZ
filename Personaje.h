@@ -13,6 +13,7 @@ class Personaje : public sf::Drawable
 		sf::Vector2f getPosicion();
 		sf::RectangleShape getCuerpo();
 		sf::RectangleShape getCajaAtaque();
+		sf::FloatRect getCajaCuerpo();
 		float getVelocidadSalto();
 		void setPosicion(float a, float b);
 		void quieto(float x, float y);

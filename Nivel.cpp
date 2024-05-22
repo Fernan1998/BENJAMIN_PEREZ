@@ -48,7 +48,7 @@ void Nivel::dibujar(sf::RenderWindow& window)
 			
 			window.draw(_fondo.getSprite(i,j));
 			window.draw(_mapa.getSprite(i,j));
-			window.draw(_plataformas.getSprite(i,j));
+			//window.draw(_plataformas.getSprite(i,j));
 			
 		}
 	}	
