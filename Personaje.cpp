@@ -33,6 +33,10 @@ sf::RectangleShape Personaje::getCajaAtaque()
 {
 	return _cajaAtaque;
 }
+sf::FloatRect Personaje::getCajaCuerpo()
+{
+	return _cuerpo.getGlobalBounds();
+}
 float Personaje::getVelocidadSalto()
 {
 	return _velocidadSalto;
@@ -101,16 +105,11 @@ void Personaje::comandos()
 	
 	if(!_saltando)
 	{
-
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1))
 		{
 			_estado = ESTADOS::SALTANDO;
 			_velocidadSalto = 10;
 		}
-//		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1) && sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-//		{
-//			_velocidad = -16;
-//		}
 	}
 	_saltando = true;	
 	_colisionandoDer = false;
@@ -123,6 +122,7 @@ void Personaje::actualizar(float deltaTime)
 	{
 		case QUIETO:
 			_velocidadSalto=0;
+			
 			animacion.Update(1, deltaTime);
 			_cuerpo.setTextureRect(animacion.uvRect);
 			break;
@@ -146,24 +146,13 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.move(0, -_velocidadSalto);
 			_estado= ESTADOS::CAYENDO;
 			break;
-//		case SALTANDO_ADELANTE:
-//			_body.setScale(1,1);
-//			_body.move(10, -_jumpVelocity);
-//			_estado= ESTADOS::CAYENDO;
-//			break;
-//		case SALTANDO_ATRAS:
-//			_body.setScale(-1,1);
-//			_body.move(-10, -_velocidadSalto);
-//			_estado= ESTADOS::CAYENDO;
-//			break; 
 		case CAYENDO:
 			_cuerpo.move(0, -_velocidadSalto);
 			break;
 		case ATACANDO:
 			_atacando = true;
 			break;
-		
-			
+	
 		}
 	_velocidadSalto-=0.5;
 	_velocidad=sf::Vector2f(0,0);

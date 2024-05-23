@@ -1,4 +1,5 @@
 #include "Gameplay.h"
+#include <iostream>
 
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal, std::string mapa, std::string fondo, std::string plataformas)
@@ -24,21 +25,23 @@ void Gameplay::comando()
 }
 void Gameplay::ChequeoColisiones()
 {
-	sf::FloatRect hitBoxPlayer(_personaje.getCuerpo().getGlobalBounds().left, _personaje.getCuerpo().getGlobalBounds().top + _personaje.getCuerpo().getGlobalBounds().height -16,_personaje.getCuerpo().getGlobalBounds().width , 16);
-	auto playerGlobalBounds = _personaje.getCuerpo().getGlobalBounds();
+	
+	sf::FloatRect hitBoxPlayer(_personaje.getCajaCuerpo().left, _personaje.getCajaCuerpo().top + _personaje.getCajaCuerpo().height -16,_personaje.getCajaCuerpo().width , 16);
+	auto playerGlobalBounds = _personaje.getCajaCuerpo();
 	sf::FloatRect hitBoxMap;
 	sf::FloatRect hitBoxMapIzq;
 	sf::FloatRect hitBoxMapDer;
 	sf::FloatRect hitBoxMapPlatform;
 	sf::FloatRect hitBoxPlayerHead;
 	sf::FloatRect hitBoxMapHead;
-	
+	Enemigo *enemigo = nivel1->getEnemigo();
 	for(int i=0; i<31; i++)
 	{
 		for(int j=0; j<60; j++)
 		{	
+			
 			hitBoxMap = sf::FloatRect(nivel1->getMapa(i,j).left, nivel1->getMapa(i,j).top - 16, nivel1->getMapa(i,j).width, 16);
-			hitBoxMapIzq = sf::FloatRect(nivel1->getMapa(i,j).left - 4, nivel1->getMapa(i,j).top, nivel1->getMapa(i,j).width + 4, nivel1->getMapa(i,j).height);
+			hitBoxMapIzq = sf::FloatRect(nivel1->getMapa(i,j).left - 4, nivel1->getMapa(i,j).top+4, nivel1->getMapa(i,j).width + 4, nivel1->getMapa(i,j).height);
 			hitBoxMapDer = sf::FloatRect(nivel1->getMapa(i,j).left + 32, nivel1->getMapa(i,j).top, 4, nivel1->getMapa(i,j).height);
 			hitBoxPlayerHead = sf::FloatRect(playerGlobalBounds.left, playerGlobalBounds.top, playerGlobalBounds.width, 16);
 			hitBoxMapHead = sf::FloatRect(nivel1->getMapa(i,j).left, nivel1->getMapa(i,j).top + 32, nivel1->getMapa(i,j).width , 2);
@@ -46,10 +49,9 @@ void Gameplay::ChequeoColisiones()
 			hitBoxMapHead = sf::FloatRect(nivel1->getMapa(i,j).left, nivel1->getMapa(i,j).top + 32, nivel1->getMapa(i,j).width , 2);
 			
 			if(playerGlobalBounds.top - playerGlobalBounds.height < nivel1->getMapa(i,j).top
-			   && hitBoxPlayer.intersects(hitBoxMap)
-			   && _personaje.getVelocidadSalto() < 0)
+			   && hitBoxPlayer.intersects(hitBoxMap) && _personaje.getVelocidadSalto() < 0)
 			{
-				_personaje.quieto(_personaje.getPosicion().x, nivel1->getMapa(i,j).top - _personaje.getCuerpo().getGlobalBounds().height/2);
+				_personaje.quieto(_personaje.getPosicion().x, nivel1->getMapa(i,j).top - _personaje.getCajaCuerpo().height/2);
 			}
 			if(playerGlobalBounds.left + playerGlobalBounds.width <= nivel1->getMapa(i,j).left
 			   && playerGlobalBounds.intersects(hitBoxMapIzq))
@@ -65,20 +67,41 @@ void Gameplay::ChequeoColisiones()
 			 && hitBoxPlayer.intersects(hitBoxMapPlatform)
 			 && _personaje.getVelocidadSalto() < 0)
 			{
-			  _personaje.quieto(_personaje.getPosicion().x, nivel1->getPlataforma(i,j).top - _personaje.getCuerpo().getGlobalBounds().height/2);
+				_personaje.quieto(_personaje.getPosicion().x, nivel1->getPlataforma(i,j).top - _personaje.getCajaCuerpo().height/2);
 			}
 			if(hitBoxPlayerHead.intersects(hitBoxMapHead))
 			{
-			  _personaje.cayendo();
+				_personaje.cayendo();
 			}
+
+			sf::FloatRect hitBoxEnemigo = enemigo->getHitBox();
+			if (hitBoxEnemigo.intersects(nivel1->getMapa(i,j)) && hitBoxEnemigo.top - hitBoxEnemigo.height < nivel1->getMapa(i,j).top)			
+			{
+				enemigo->quieto(enemigo->getPosition().x,nivel1->getMapa(i,j).top - enemigo->getHitBox().height/2);
+			}
+			
+//			if(enemigo->getHitBox().left > nivel1->getMapa(i,j).left + nivel1->getMapa(i,j).width
+//			   && enemigo->getHitBox().intersects(hitBoxMapDer))
+//			{
+//				enemigo->setIzquierda();
+//				std::cout << "IZQUERDA\n";
+//			}
+//			if(enemigo->getHitBox().left + enemigo->getHitBox().width <= nivel1->getMapa(i,j).left
+//			   && enemigo->getHitBox().intersects(hitBoxMapIzq))
+//			{
+//				enemigo->setDerecha();
+//				std::cout << "DERECHA\n";
+//			}
+		    
 		}
 	}
-//	if(_personaje.getAtacando() == true && _personaje.getCajaAtaque().getGlobalBounds().intersects(.getCuerpo().getGlobalBounds()))
-//	{
-//		.setSalud(_personaje.getDanio());
-//		.recibiendoDanio();
-//
-//	}
+
+	if(_personaje.getAtacando() == true && _personaje.getCajaAtaque().getGlobalBounds().intersects(enemigo->getHitBox()))
+	{
+		enemigo->setSalud(_personaje.getDanio());
+		enemigo->recibiendoDanio();
+
+	}
 
 	
 }

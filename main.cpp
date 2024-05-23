@@ -6,15 +6,15 @@
 #include <iostream>
 	
 int main(int argc, char *argv[]){
-	sf::RenderWindow ventana(sf::VideoMode(1024,768),"BENJAMIN PEREZ THE GAME");
+	sf::RenderWindow ventana(sf::VideoMode(1366,768),"BENJAMIN PEREZ THE GAME");
 	ventana.setFramerateLimit(60);
 	
 	Personaje personaje;
 	personaje.setPosicion(120,150);
 	
-	CamaraPrincipal camaraPrincipal(&ventana,1024,768,1920,992);
+	CamaraPrincipal camaraPrincipal(&ventana,1366,768,1920,992);
 	
-	Gameplay *nivel1 = new Gameplay(camaraPrincipal, "Mapas_txt/mapa_cueva1.txt", "Mapas_txt/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva1_plataformas.txt");
+	Gameplay *nivel1 = new Gameplay(camaraPrincipal, "Mapas_txt/mapa_noche.txt", "Mapas_txt/fondo_noche.txt", "Mapas_txt/mapa_noche.txt");
 	
 	float tiempoJuego = 0;
 	
@@ -31,7 +31,6 @@ int main(int argc, char *argv[]){
 		}
 		
 		ventana.clear();
-		std::cout << tiempoJuego << std::endl;
 		
 		nivel1->ChequeoColisiones();
 		nivel1->comando();

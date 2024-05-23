@@ -13,19 +13,24 @@ Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas)
 	std::ifstream file_plataformas;
 	file_plataformas.open(plataformas);
 	_plataformas.CreadorMapa(file_plataformas);
+	_enemigo = new Enemigo();
+
+	_enemigo->setPosition(sf::Vector2f(1360,300));
+
 	
-	_enemigo.setPosition(sf::Vector2f(1008,340));
+
 }
+
 Nivel::~Nivel() {
 	
 }
 void Nivel::actualizar(float deltaTime)
 {
-	_enemigo.actualizar(deltaTime);
+	_enemigo->actualizar(deltaTime);
 }
 void Nivel::comando(Personaje &personaje)
 {
-	_enemigo.comando(1008.0f ,1920.0f, personaje);
+	_enemigo->comando(1008.0f ,1920.0f, personaje);
 }
 sf::FloatRect Nivel::getMapa(float a, float b)
 {
@@ -48,9 +53,10 @@ void Nivel::dibujar(sf::RenderWindow& window)
 			
 			window.draw(_fondo.getSprite(i,j));
 			window.draw(_mapa.getSprite(i,j));
-			//window.draw(_plataformas.getSprite(i,j));
+			window.draw(_plataformas.getSprite(i,j));
 			
 		}
 	}	
-	window.draw(_enemigo);
+
+	window.draw(*_enemigo);
 }

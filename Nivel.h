@@ -17,10 +17,14 @@ class Nivel
 		sf::FloatRect getFondo(float a, float b);
 		sf::FloatRect getPlataforma(float a, float b);
 		void dibujar(sf::RenderWindow& window);
+		Enemigo *getEnemigo()
+		{
+			return _enemigo;
+		}
 	private:
 		Mapa _mapa;
 		Mapa _fondo;
 		Mapa _plataformas;
-		Enemigo _enemigo;
-		std::vector<Enemigo> listaEnemigos;
+		Enemigo* _enemigo;
+
 };

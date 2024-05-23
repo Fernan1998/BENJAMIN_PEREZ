@@ -19,12 +19,27 @@ class Enemigo : public sf::Drawable
 		void colisiones();
 		void recibiendoDanio();
 		void setPosition(sf::Vector2f aux);
+		sf::FloatRect getHitBox();
+		sf::Vector2f getPosition(){return _cuerpo.getPosition();};
+		void quieto(float x, float y)
+		{	
+			_velocidad.y = 0;
+		}
+		void setDerecha()
+		{
+			_colisionandoDer = true;
+		}
+		void setIzquierda()
+		{
+			_colisionandoIzq = true;
+		}
 		
 		
 	private:
 		enum ESTADOS
 		{
 			QUIETO,
+			CAYENDO,
 			RDANIO,
 			PATRULLANDO,
 			SIGUIENDO,
@@ -43,6 +58,8 @@ class Enemigo : public sf::Drawable
 		Animacion _animacion;
 		float _gravedad;
 		sf::Vector2f _posicionInicial;
+		bool _colisionandoDer;
+		bool _colisionandoIzq;
 
 		
 };
