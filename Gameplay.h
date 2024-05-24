@@ -10,7 +10,7 @@
 class Gameplay 
 {
 	public:
-		Gameplay(CamaraPrincipal &camaraPrincipal, std::string mapa, std::string fondo, std::string plataformas);
+		Gameplay(Personaje* personaje, CamaraPrincipal &camaraPrincipal, std::string mapa, std::string fondo, std::string plataformas);
 		Gameplay();
 		~Gameplay();
 		void actualizar(float deltaTime);
@@ -21,7 +21,7 @@ class Gameplay
 		
 	private:
 		CamaraPrincipal _camaraPrincipal;
-		Personaje _personaje;
+		Personaje *_personaje;
 		Nivel *nivel1;
 
 };
