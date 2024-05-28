@@ -10,7 +10,7 @@
 class Gameplay 
 {
 	public:
-		Gameplay(Personaje* personaje, CamaraPrincipal &camaraPrincipal, std::string mapa, std::string fondo, std::string plataformas);
+		Gameplay(CamaraPrincipal &camaraPrincipal);
 		Gameplay();
 		~Gameplay();
 		void actualizar(float deltaTime);
@@ -18,11 +18,18 @@ class Gameplay
 		void draw(sf::RenderWindow& window);
 		void ChequeoColisiones();
 		sf::Vector2f getPosicionPersonaje();
+		void cambioEscena();
+		
 		
 	private:
 		CamaraPrincipal _camaraPrincipal;
 		Personaje *_personaje;
 		Nivel *nivel1;
+		Nivel *nivel2;
+		Nivel *nivel3;
+		Nivel *nivelActual;
+		Nivel *listaNiveles[3];
+		int numeroMapa;
 
 };
 

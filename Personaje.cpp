@@ -19,6 +19,7 @@ Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,2), 0.05f, 108,73)
 	_atacando = false;
 	_danio = 10;
 	_salud = 100;
+	_saltoInvertido = false;
  
 }
 Personaje::~Personaje()
@@ -28,6 +29,10 @@ Personaje::~Personaje()
 sf::RectangleShape Personaje::getCuerpo()
 {
 	return _cuerpo;
+}
+void Personaje::saltoInvertido()
+{
+	_saltoInvertido = true;
 }
 sf::RectangleShape Personaje::getCajaAtaque()
 {
@@ -111,10 +116,19 @@ void Personaje::comandos()
 			_velocidadSalto = 10;
 		}
 	}
+	if(_saltoInvertido)
+	{
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			_velocidadSalto = -16;
+			_estado = ESTADOS::SALTANDO;
+		}
+	}
 	_saltando = true;	
 	_colisionandoDer = false;
 	_colisionandoIzq = false;
 	_atacando = false;
+	_saltoInvertido = false;
 }
 void Personaje::actualizar(float deltaTime)
 {
@@ -122,7 +136,6 @@ void Personaje::actualizar(float deltaTime)
 	{
 		case QUIETO:
 			_velocidadSalto=0;
-			
 			animacion.Update(1, deltaTime);
 			_cuerpo.setTextureRect(animacion.uvRect);
 			break;
@@ -157,6 +170,7 @@ void Personaje::actualizar(float deltaTime)
 	_velocidadSalto-=0.5;
 	_velocidad=sf::Vector2f(0,0);
 	_cajaAtaque.setPosition(_cuerpo.getPosition());
+	
 }
 void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 {

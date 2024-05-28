@@ -18,6 +18,7 @@ public:
 	void setControles(int c);
 private:
 	int controles = 1;
+	bool op = false;
 	sf::Sprite _spriteAdelante;
 	sf::Texture _texturaAdelante;
 	sf::Sprite _spriteAtras;

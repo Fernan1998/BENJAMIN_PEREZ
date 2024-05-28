@@ -18,6 +18,7 @@ class Personaje : public sf::Drawable
 		void setPosicion(float a, float b);
 		void quieto(float x, float y);
 		void cayendo();
+		void saltoInvertido();
 		void setDerecha();
 		void setIzquierda();
 		bool getAtacando();
@@ -44,6 +45,7 @@ class Personaje : public sf::Drawable
 		float _danio;
 		float _velocidadSalto;
 		bool _saltando;
+		bool _saltoInvertido;
 		bool _colisionandoIzq;
 		bool _colisionandoDer;		
 		bool _atacando;

@@ -2,6 +2,7 @@
 
 Opciones::Opciones() {
 	// Adelante
+	
 	_texturaAdelante.loadFromFile("Textura/Menu/adelante.png");
 	_spriteAdelante.setTexture(_texturaAdelante);
 	_spriteAdelante.setOrigin(_spriteAdelante.getGlobalBounds().width, _spriteAdelante.getGlobalBounds().height);
@@ -113,11 +114,22 @@ bool Opciones::mostrar(sf::RenderWindow &ventana){
 	if (encimaDeVolver(ventana) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		return false;
 	}else if (encimaDeFlecha1(ventana) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+		if(op)
+		{
+			op = false;
+		}
+		else
+		{
 		controles--;
+		op = true;
+		}
+		
 	}else if (encimaDeFlecha2(ventana) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		controles++;
+		
 	}
 	return true;
+	
 }
 
 bool Opciones::encimaDeVolver(sf::RenderWindow &ventana){
@@ -129,6 +141,7 @@ bool Opciones::encimaDeVolver(sf::RenderWindow &ventana){
 		_spriteVolver.setColor(sf::Color::White);
 		return false;
 	}
+	
 }
 bool Opciones::encimaDeFlecha1(sf::RenderWindow &ventana){
 	if (_spriteFlecha1.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(ventana))))
