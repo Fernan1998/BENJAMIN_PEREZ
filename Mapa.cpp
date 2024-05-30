@@ -11,7 +11,7 @@ Mapa::Mapa()
 		_bloque[i].resize(nColumnas);
 	}
 	
-	for (int i = 0; i < 48; i++)
+	for (int i = 0; i < 61; i++)
 	{
 		switch (i)
 		{
@@ -60,7 +60,7 @@ Mapa::Mapa()
 			_textura[i].loadFromFile("Textura/Mapa/plataforma2.png");
 			break;
 		case 15:
-			_textura[i].loadFromFile("Textura/Mapa/suelo_izq.png");
+			_textura[i].loadFromFile("Textura/Mapa/Cielito.png");
 			break;
 		case 16:
 			_textura[i].loadFromFile("Textura/Mapa/estrellita.png");
@@ -114,7 +114,7 @@ Mapa::Mapa()
 			_textura[i].loadFromFile("Textura/Mapa/piedritas.png");
 			break;
 		case 33:
-			_textura[i].loadFromFile("Textura/Mapa/solcito.png.png");
+			_textura[i].loadFromFile("Textura/Mapa/solcito.png");
 			break;
 		case 34:
 			_textura[i].loadFromFile("Textura/Mapa/sombreado luna 2.png");
@@ -161,7 +161,36 @@ Mapa::Mapa()
 		case 48:
 			_textura[i].loadFromFile("Textura/Mapa/plataforma0.png");
 			break;
-			
+		case 52:
+			_textura[i].loadFromFile("Textura/Mapa/agua_grande.png");
+			break;
+		case 53:
+			_textura[i].loadFromFile("Textura/Mapa/agua_mediana.png");
+			break;
+		case 54:
+			_textura[i].loadFromFile("Textura/Mapa/agua_petisa.png");
+			break;
+		case 55:
+			_textura[i].loadFromFile("Textura/Mapa/barro_central.png");
+			break;
+		case 56:
+			_textura[i].loadFromFile("Textura/Mapa/barro_derecho.png");
+			break;
+		case 57:
+			_textura[i].loadFromFile("Textura/Mapa/barro_izquierdo.png");
+			break;
+		case 58:
+			_textura[i].loadFromFile("Textura/Mapa/plataforma_barro_central.png");
+			break;
+		case 59:
+			_textura[i].loadFromFile("Textura/Mapa/plataforma_barro_derecho.png");
+			break;
+		case 60:
+			_textura[i].loadFromFile("Textura/Mapa/plataforma_barro_izquierdo.png");
+			break;
+		case 61:
+			_textura[i].loadFromFile("Textura/Mapa/plataforma_barro_izquierdo.png");
+			break;
 		}
 	}
 }
@@ -340,6 +369,33 @@ void Mapa::CreadorMapa(std::ifstream& file)
 				break;
 			case 52:
 				_bloque[i][j].setTexture(_textura[52]);
+				break;
+			case 53:
+				_bloque[i][j].setTexture(_textura[53]);
+				break;
+			case 54:
+				_bloque[i][j].setTexture(_textura[54]);
+				break;
+			case 55:
+				_bloque[i][j].setTexture(_textura[55]);
+				break;
+			case 56:
+				_bloque[i][j].setTexture(_textura[56]);
+				break;
+			case 57:
+				_bloque[i][j].setTexture(_textura[57]);
+				break;
+			case 58:
+				_bloque[i][j].setTexture(_textura[58]);
+				break;
+			case 59:
+				_bloque[i][j].setTexture(_textura[59]);
+				break;
+			case 60:
+				_bloque[i][j].setTexture(_textura[60]);
+				break;
+			case 61:
+				_bloque[i][j].setTexture(_textura[61]);
 				break;
 			}
 			_bloque[i][j].setPosition(j * 32, i * 32); 

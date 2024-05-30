@@ -15,6 +15,6 @@ private:
 		int nFilas;
 		int nColumnas;
 		std::vector<std::vector <sf::Sprite>> _bloque;
-		sf::Texture *_textura = new sf::Texture [50];
+		sf::Texture *_textura = new sf::Texture [61];
 };
 

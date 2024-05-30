@@ -1,16 +1,16 @@
 #include "Gameplay.h"
 #include <iostream>
 
-
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 {
 	numeroMapa = 1;
 	_camaraPrincipal = camaraPrincipal;
 	_personaje = new Personaje();
 	_personaje->setPosicion(700.0f, 300.0f);
-	nivel1 = new Nivel("Mapas_txt/mapa_cueva1.txt", "Mapas_txt/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva1_plataformas.txt");	
-	nivel2 = new Nivel("Mapas_txt/mapa_cueva2.txt", "Mapas_txt/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva2_plataformas.txt");	
-	nivel3 = new Nivel("Mapas_txt/mapa_cueva3.txt", "Mapas_txt/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva3_plataformas.txt");	
+	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_relleno.txt");	
+	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt");
+	nivel2 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt");
+	
 	listaNiveles[0] = nivel1;
 	listaNiveles[1] = nivel2;
 	listaNiveles[2] = nivel3;
@@ -49,32 +49,29 @@ void Gameplay::cambioEscena()
 			numeroMapa = 2;
 			_personaje->setPosicion(20,_personaje->getPosicion().y);
 		}
-		if(_personaje->getPosicion().x <= 10)
-		{
-			numeroMapa = 3;
-			_personaje->setPosicion(1900,_personaje->getPosicion().y);
-		}
 	}
 	if(numeroMapa == 2)
 	{
-		if(_personaje->getPosicion().x <= 10)
+		if(_personaje->getPosicion().x <= 0)
 		{
 			numeroMapa = 1;
 			_personaje->setPosicion(1900,_personaje->getPosicion().y);
 		}
-		
+		if(_personaje->getPosicion().x >= 1920)
+		{
+			numeroMapa = 3;
+			_personaje->setPosicion(20,_personaje->getPosicion().y);
+		} 
 	}
 	if(numeroMapa == 3)
 	{
-		if(_personaje->getPosicion().x >= 1920)
+		if(_personaje->getPosicion().x <= 0)
 		{
-			numeroMapa = 1;
-			_personaje->setPosicion(20,_personaje->getPosicion().y);
+			numeroMapa = 2;
+			_personaje->setPosicion(1920,_personaje->getPosicion().y);
 		}
 		
 	}
-	
-
 }
 void Gameplay::comando()
 {
@@ -177,8 +174,6 @@ void Gameplay::ChequeoColisiones()
 		enemigo->recibiendoDanio();
 
 	}
-
-	
 }
 
 sf::Vector2f Gameplay::getPosicionPersonaje()
