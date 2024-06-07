@@ -1,8 +1,8 @@
 #include "Personaje.h"
 
-
-Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,2), 0.05f, 108,73)
+Personaje::Personaje()
 {
+
 	_textura.loadFromFile("Textura/Player/BenjaminPerez.png");
 	_cuerpo.setTexture(&_textura);
 	_cuerpo.setPosition(sf::Vector2f(130,150));
@@ -20,6 +20,8 @@ Personaje::Personaje() : animacion(&_textura, sf::Vector2u(16,2), 0.05f, 108,73)
 	_danio = 10;
 	_salud = 100;
 	_saltoInvertido = false;
+	animacion = new Animacion(&_textura, sf::Vector2u(16,2), 0.05f, 108,73);
+	_sonido = new Sonidos("Sonido/Salto.ogg","Sonido/Salto.ogg","Sonido/Salto.ogg");
  
 }
 Personaje::~Personaje()
@@ -112,6 +114,7 @@ void Personaje::comandos()
 	{
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1))
 		{
+	
 			_estado = ESTADOS::SALTANDO;
 			_velocidadSalto = 10;
 		}
@@ -136,26 +139,27 @@ void Personaje::actualizar(float deltaTime)
 	{
 		case QUIETO:
 			_velocidadSalto=0;
-			animacion.Update(1, deltaTime);
-			_cuerpo.setTextureRect(animacion.uvRect);
+			animacion->Update(1, deltaTime);
+			_cuerpo.setTextureRect(animacion->uvRect);
 			break;
 		case CAMINANDO_ADELANTE:
 			_cuerpo.setScale(1,1);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
+			_sonido->reproducirSonidosBucle(1);
 			_estado= ESTADOS::CAYENDO;
-
-			animacion.Update(0, deltaTime);
-			_cuerpo.setTextureRect(animacion.uvRect);
+			animacion->Update(0, deltaTime);
+			_cuerpo.setTextureRect(animacion->uvRect);
 			break;
 		case CAMINANDO_ATRAS:
 			_cuerpo.setScale(-1,1);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
+			_sonido->reproducirSonidosBucle(1);
 			_estado= ESTADOS::CAYENDO;
-			
-			animacion.Update(0, deltaTime);
-			_cuerpo.setTextureRect(animacion.uvRect);
+			animacion->Update(0, deltaTime);
+			_cuerpo.setTextureRect(animacion->uvRect);
 			break;
 		case SALTANDO:
+			_sonido->reproducirSonidos(0);
 			_cuerpo.move(0, -_velocidadSalto);
 			_estado= ESTADOS::CAYENDO;
 			break;

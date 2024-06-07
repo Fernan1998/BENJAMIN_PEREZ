@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Animacion.h"
+#include "Sonidos.h"
 
 class Personaje : public sf::Drawable
 {
@@ -50,6 +51,7 @@ class Personaje : public sf::Drawable
 		bool _colisionandoDer;		
 		bool _atacando;
 		float _tiempo;
-		Animacion animacion;
+		Animacion *animacion;
+		Sonidos *_sonido;
 };
 

@@ -4,7 +4,6 @@ Mapa::Mapa()
 {
 	nFilas = 31;
 	nColumnas = 60;
-	
 	_bloque.resize(nFilas);
 	for(int i = 0; i < nFilas; i++)
 	{
@@ -202,14 +201,19 @@ sf::Sprite Mapa::getSprite(int i, int j)
 {
 	return _bloque[i][j];
 }
-
+int Mapa::solicitarNumero(int i, int j)
+{
+	return _script[i][j];
+}
 void Mapa::CreadorMapa(std::ifstream& file)
 {
 	
 	int spriteType;
 	
-	for (int i = 0; i < nFilas; i++) {
-		for (int j = 0; j < nColumnas; j++) {
+	for (int i = 0; i < nFilas; i++)
+	{
+		for (int j = 0; j < nColumnas; j++)
+		{
 			file >> spriteType;
 			switch (spriteType) {
 			case 0:
@@ -398,14 +402,24 @@ void Mapa::CreadorMapa(std::ifstream& file)
 				_bloque[i][j].setTexture(_textura[61]);
 				break;
 			}
-			_bloque[i][j].setPosition(j * 32, i * 32); 
+			_bloque[i][j].setPosition(j * 32, i * 32);
+			switch(spriteType)
+			{
+				case 100:
+					_script[i][j] = 0;
+					break;
+				case 101:
+					_script[i][j] = 1;
+					break;
+				case 102:
+					_script[i][j] = 2;
+					break;
+			}
+			
 		}
 	}
 	file.close();
 }
-
-
-
 
 sf::FloatRect Mapa::getOrigen(int i, int j)
 {

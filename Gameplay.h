@@ -3,9 +3,10 @@
 #include "CamaraPrincipal.h"
 #include "Mapa.h"
 #include "Enemigo.h"
-#include <string>
+#include "Cinematica.h"
 #include "Nivel.h"
 #include <SFML/Graphics.hpp>
+#include <string>
 
 class Gameplay 
 {
@@ -30,6 +31,8 @@ class Gameplay
 		Nivel *nivelActual;
 		Nivel *listaNiveles[3];
 		int numeroMapa;
+
+		
 
 };
 

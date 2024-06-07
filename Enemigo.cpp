@@ -19,6 +19,7 @@ Enemigo::Enemigo() : _animacion(&_textura, sf::Vector2u(8,2), 0.1f, 96,96)
 	_rangoVision.setSize(sf::Vector2f(800,96));
 	_rangoVision.setFillColor(sf::Color::Transparent);
 	_rangoVision.setOrigin(_rangoVision.getGlobalBounds().width/2, _rangoVision.getGlobalBounds().height/2);
+	_siguiendoPersonaje = false;
 
 	
 }
@@ -37,38 +38,43 @@ sf::FloatRect Enemigo::getHitBox()
 void Enemigo::comando(float puntoA, float puntoB, Personaje personaje)
 {
 
+	
 	if(_salud <= 0)
 	{
 		_estado = ESTADOS::MUERTO;
 	}
+	
 	if(_velocidad.y != 0)
 	{
 		_estado = ESTADOS::CAYENDO;
 	}
-	if(_estado != ESTADOS::MUERTO && _estado != ESTADOS::CAYENDO)
+	
+	if(_estado != ESTADOS::MUERTO)
 	{
-		_estado = ESTADOS::PATRULLANDO;
-		if(_estado == ESTADOS::PATRULLANDO)
+		
+		if(!_siguiendoPersonaje)
 		{
-			
+			_estado=ESTADOS::PATRULLANDO;
 		}
-		if(_rangoVision.getGlobalBounds().intersects(personaje.getCuerpo().getGlobalBounds()))
+		if(_rangoVision.getGlobalBounds().intersects(personaje.getCuerpo().getGlobalBounds()) || _siguiendoPersonaje)
 		{
 			_estado = ESTADOS::SIGUIENDO;
-			if(personaje.getPosicion().x<_cuerpo.getPosition().x)
-			{
+			if(personaje.getPosicion().x<_cuerpo.getPosition().x && !_colisionandoIzq)
+			{	
 				_velocidad.x = -2;
 				_cuerpo.setScale(1,1);
 			}
-			if(personaje.getPosicion().x>_cuerpo.getPosition().x)
+			if(personaje.getPosicion().x>_cuerpo.getPosition().x && !_colisionandoDer)
 			{
 				_velocidad.x = 2;
 				_cuerpo.setScale(-1,1);
 			}
+			_siguiendoPersonaje = true;
 			
 		}
 		
 	}
+	std::cout << _salud << std::endl;
 }
 void Enemigo::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 {
@@ -79,26 +85,21 @@ void Enemigo::actualizar(float deltaTime)
 {
 	switch(_estado)
 	{
-//		case QUIETO:
-//			_animacion.Update(0, deltaTime);
-//			_cuerpo.setTextureRect(_animacion.uvRect);
-//			_estado = ESTADOS::PATRULLANDO;
-//			std::cout << "ESTAOD QUIETO\n";
 		case CAYENDO:
 			_cuerpo.move(0, _velocidad.y);
 			_estado = ESTADOS::QUIETO;
-			std::cout << "ESTAOD CAYENDO\n";
+
 		case PATRULLANDO:
 			_animacion.Update(0, deltaTime);
 			_cuerpo.setTextureRect(_animacion.uvRect);
 			_cuerpo.move(_velocidad);
-			std::cout << "ESTAOD PATRULLANDO\n";
+
 			break;
 		case SIGUIENDO:
 			_animacion.Update(1, deltaTime, true);
 			_cuerpo.setTextureRect(_animacion.uvRect);
 			_cuerpo.move(_velocidad);
-			std::cout << "ESTAOD SIGUIENDO\n";
+			_estado = ESTADOS::SIGUIENDO;
 			break;
 		case ATACANDO:
 			break;

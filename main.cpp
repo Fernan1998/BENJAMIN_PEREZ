@@ -6,19 +6,16 @@
 #include "Menu.h"
 #include <iostream>
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[])
+{
 	sf::RenderWindow ventana(sf::VideoMode(1024,768),"BENJAMIN PEREZ THE GAME");
 	ventana.setFramerateLimit(60);
-	
-	Personaje* personaje = new Personaje;
-	personaje->setPosicion(700,700);
-	
+
 	int numeroMapa = 1;
 	CamaraPrincipal camaraPrincipal(&ventana,1024,768,1920,992);
 	Gameplay *juego = new Gameplay(camaraPrincipal);
 	
 	float tiempoJuego = 0;
-	
 	sf::Clock clock;
 	while(ventana.isOpen())
 	{

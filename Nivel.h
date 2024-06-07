@@ -9,7 +9,7 @@
 class Nivel
 {
 	public:
-		Nivel(std::string mapa, std::string fondo, std::string plataformas);
+		Nivel(std::string mapa, std::string fondo, std::string plataformas, std::string ruta_musica);
 		~Nivel();
 		void actualizar(float deltaTime);
 		void comando(Personaje &personaje);
@@ -25,6 +25,8 @@ class Nivel
 		Mapa _mapa;
 		Mapa _fondo;
 		Mapa _plataformas;
+		Mapa _script;
 		Enemigo* _enemigo;
+		Sonidos *_sonido;
 
 };

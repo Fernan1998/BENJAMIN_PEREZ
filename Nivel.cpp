@@ -1,6 +1,6 @@
 #include "Nivel.h"
 
-Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas)
+Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas, std::string ruta_musica)
 {
 	std::ifstream file_mapa;
 	file_mapa.open(mapa);
@@ -13,11 +13,12 @@ Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas)
 	std::ifstream file_plataformas;
 	file_plataformas.open(plataformas);
 	_plataformas.CreadorMapa(file_plataformas);
-	_enemigo = new Enemigo();
 
+	_enemigo = new Enemigo();
 	_enemigo->setPosition(sf::Vector2f(1360,300));
 
-	
+	_sonido = new Sonidos(ruta_musica);
+	_sonido->PlayMusic();
 
 }
 
