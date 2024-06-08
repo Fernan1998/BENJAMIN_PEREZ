@@ -22,6 +22,7 @@ Personaje::Personaje()
 	_saltoInvertido = false;
 	animacion = new Animacion(&_textura, sf::Vector2u(16,2), 0.05f, 108,73);
 	_sonido = new Sonidos("Sonido/Salto.ogg","Sonido/Salto.ogg","Sonido/Salto.ogg");
+	_cajaAtaque.setFillColor(sf::Color::Blue);
  
 }
 Personaje::~Personaje()
@@ -145,7 +146,6 @@ void Personaje::actualizar(float deltaTime)
 		case CAMINANDO_ADELANTE:
 			_cuerpo.setScale(1,1);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
-			_sonido->reproducirSonidosBucle(1);
 			_estado= ESTADOS::CAYENDO;
 			animacion->Update(0, deltaTime);
 			_cuerpo.setTextureRect(animacion->uvRect);
@@ -153,7 +153,6 @@ void Personaje::actualizar(float deltaTime)
 		case CAMINANDO_ATRAS:
 			_cuerpo.setScale(-1,1);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
-			_sonido->reproducirSonidosBucle(1);
 			_estado= ESTADOS::CAYENDO;
 			animacion->Update(0, deltaTime);
 			_cuerpo.setTextureRect(animacion->uvRect);
@@ -179,7 +178,7 @@ void Personaje::actualizar(float deltaTime)
 void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 {
 	target.draw(_cuerpo, states);
-	//target.draw(_cajaAtaque, states);
+
 }
 
 

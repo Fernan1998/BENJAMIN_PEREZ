@@ -17,7 +17,7 @@ class Enemigo : public sf::Drawable
 		void comando(float puntoA, float puntoB, Personaje personaje);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		void colisiones();
-		void recibiendoDanio();
+		void recibiendoDanio(int lado);
 		void setPosition(sf::Vector2f aux);
 		sf::FloatRect getHitBox();
 		sf::Vector2f getPosition(){return _cuerpo.getPosition();};
@@ -38,7 +38,6 @@ class Enemigo : public sf::Drawable
 	private:
 		enum ESTADOS
 		{
-			QUIETO,
 			CAYENDO,
 			RDANIO,
 			PATRULLANDO,
@@ -61,6 +60,7 @@ class Enemigo : public sf::Drawable
 		bool _colisionandoDer;
 		bool _colisionandoIzq;
 		bool _siguiendoPersonaje;
+		int _recibiendoDanio;
 
 		
 };

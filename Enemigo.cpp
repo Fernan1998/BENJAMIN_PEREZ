@@ -1,12 +1,13 @@
 #include "Enemigo.h"
 #include "Personaje.h"
 #include <iostream>
+#include "Funciones.h"
 #include <SFML/Graphics.hpp>
 
 
 Enemigo::Enemigo() : _animacion(&_textura, sf::Vector2u(8,2), 0.1f, 96,96)
 {
-	_salud = 100;
+	_salud = 1000;
 	_danio = 10;
 	_textura.loadFromFile("Textura/Babosa/iddle_babosa.png");
 	_cuerpo.setTexture(&_textura);
@@ -20,16 +21,16 @@ Enemigo::Enemigo() : _animacion(&_textura, sf::Vector2u(8,2), 0.1f, 96,96)
 	_rangoVision.setFillColor(sf::Color::Transparent);
 	_rangoVision.setOrigin(_rangoVision.getGlobalBounds().width/2, _rangoVision.getGlobalBounds().height/2);
 	_siguiendoPersonaje = false;
+	_recibiendoDanio = 0;
 
 	
 }
 Enemigo::~Enemigo()
 {
-	
 }
-void Enemigo::recibiendoDanio()
+void Enemigo::recibiendoDanio(int lado)
 {
-	_estado = ESTADOS::RDANIO;
+	_recibiendoDanio = lado;
 }
 sf::FloatRect Enemigo::getHitBox()
 {
@@ -38,6 +39,18 @@ sf::FloatRect Enemigo::getHitBox()
 void Enemigo::comando(float puntoA, float puntoB, Personaje personaje)
 {
 
+	if(_recibiendoDanio==1)
+	{
+		_estado = ESTADOS::RDANIO;
+		_velocidad.x = 25;
+
+	}
+	if(_recibiendoDanio==2)
+	{
+		_estado = ESTADOS::RDANIO;
+		_velocidad.x = -25;
+
+	}
 	
 	if(_salud <= 0)
 	{
@@ -49,7 +62,7 @@ void Enemigo::comando(float puntoA, float puntoB, Personaje personaje)
 		_estado = ESTADOS::CAYENDO;
 	}
 	
-	if(_estado != ESTADOS::MUERTO)
+	if(_estado != ESTADOS::MUERTO  && _recibiendoDanio == 0)
 	{
 		
 		if(!_siguiendoPersonaje)
@@ -74,7 +87,6 @@ void Enemigo::comando(float puntoA, float puntoB, Personaje personaje)
 		}
 		
 	}
-	std::cout << _salud << std::endl;
 }
 void Enemigo::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 {
@@ -87,13 +99,10 @@ void Enemigo::actualizar(float deltaTime)
 	{
 		case CAYENDO:
 			_cuerpo.move(0, _velocidad.y);
-			_estado = ESTADOS::QUIETO;
-
 		case PATRULLANDO:
 			_animacion.Update(0, deltaTime);
 			_cuerpo.setTextureRect(_animacion.uvRect);
 			_cuerpo.move(_velocidad);
-
 			break;
 		case SIGUIENDO:
 			_animacion.Update(1, deltaTime, true);
@@ -102,13 +111,17 @@ void Enemigo::actualizar(float deltaTime)
 			_estado = ESTADOS::SIGUIENDO;
 			break;
 		case ATACANDO:
+			
+			break;
+		case RDANIO:
+			_cuerpo.move(_velocidad.x, 0);
+			_recibiendoDanio = 0;
 			break;
 		case MUERTO:
 			_cuerpo.move(0,0);
+			_cuerpo.setFillColor(sf::Color::Transparent);
 			break;
-		case RDANIO:
 		
-		break;
 	}
 	_rangoVision.setPosition(_cuerpo.getPosition());
 	_velocidad.y = 2;

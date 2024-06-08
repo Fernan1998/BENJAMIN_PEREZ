@@ -4,6 +4,7 @@
 #include "Gameplay.h"
 #include "CamaraPrincipal.h"
 #include "Menu.h"
+#include "Funciones.h"
 #include <iostream>
 
 int main(int argc, char *argv[])
@@ -20,7 +21,7 @@ int main(int argc, char *argv[])
 	while(ventana.isOpen())
 	{
 		float deltaTime = clock.restart().asSeconds();
-		tiempoJuego += deltaTime;
+		pedirNum(deltaTime);
 		sf::Event e;
 		while(ventana.pollEvent(e))
 		{
@@ -35,7 +36,7 @@ int main(int argc, char *argv[])
 		juego->draw(ventana);
 		juego->cambioEscena();
 		ventana.display();
-
+	
 	}
 	return 0;
 }

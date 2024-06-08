@@ -185,9 +185,18 @@ void Gameplay::ChequeoColisiones()
 	if(_personaje->getAtacando() == true && _personaje->getCajaAtaque().getGlobalBounds().intersects(enemigo->getHitBox()) && enemigo->getSalud() >0)
 	{
 		enemigo->setSalud(_personaje->getDanio());
-		enemigo->recibiendoDanio();
+		if(_personaje->getPosicion().x < enemigo->getPosition().x)
+		{
+			enemigo->recibiendoDanio(1);
+		}
+		else
+		{
+			enemigo->recibiendoDanio(2);
+		}
+		
+
 	}
-	
+
 }
 
 sf::Vector2f Gameplay::getPosicionPersonaje()
@@ -210,7 +219,9 @@ void Gameplay::draw(sf::RenderWindow& window)
 			break;
 	}
 	
-	window.draw(*_personaje);
+	window.draw(*_personaje 
+				
+				);
 
 }
 

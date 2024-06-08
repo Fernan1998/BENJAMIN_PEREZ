@@ -1,4 +1,5 @@
 #include "Nivel.h"
+#include <iostream>
 
 Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas, std::string ruta_musica)
 {
@@ -22,8 +23,8 @@ Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas, std::
 
 }
 
-Nivel::~Nivel() {
-	
+Nivel::~Nivel()
+{
 }
 void Nivel::actualizar(float deltaTime)
 {
