@@ -74,9 +74,9 @@ void Gameplay::cambioEscena()
 		
 	}
 }
-void Gameplay::comando()
+void Gameplay::comando(int c)
 {
-	_personaje->comandos();
+	_personaje->comandos(c);
 	switch(numeroMapa)
 	{
 	case 1:

@@ -10,10 +10,10 @@ public:
 	//Menu();
 	~Menu();
 	int mostrar(sf::RenderWindow &ventana);
-	bool clickJugar(sf::RenderWindow &ventana);
-	bool clickOpciones(sf::RenderWindow &ventana);
-	bool clickSalir(sf::RenderWindow &ventana);
+	bool clickEn(sf::RenderWindow &ventana, sf::Sprite &_sprite);
 	bool entrarOpciones(sf::RenderWindow &ventana);
+	void setOpcionesDefault();
+	int getControles();
 private:
 	sf::Sprite _botonJugar;
 	sf::Texture _texturaJugar;

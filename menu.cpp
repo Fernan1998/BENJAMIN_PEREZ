@@ -25,44 +25,24 @@ int Menu::mostrar(sf::RenderWindow &ventana){
 	ventana.draw(_botonJugar);
 	ventana.draw(_botonOpcion);
 	ventana.draw(_botonSalir);
-	if(clickJugar(ventana) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+	if(clickEn(ventana, _botonJugar) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		return 1;
-	}else if(clickOpciones(ventana) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+	}else if(clickEn(ventana, _botonOpcion) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		return 2;
-	}else if(clickSalir(ventana) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+	}else if(clickEn(ventana, _botonSalir) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		return 3;
 	}else{
 		return 0;
 	}
 }
-bool Menu::clickJugar(sf::RenderWindow &ventana){
-	if (_botonJugar.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(ventana))))
-	{
-		_botonJugar.setColor(sf::Color::Red);
-		return true;
-	}else{
-		_botonJugar.setColor(sf::Color::White);
-		return false;
-	}
-}
 
-bool Menu::clickOpciones(sf::RenderWindow &ventana){
-	if (_botonOpcion.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(ventana))))
+bool Menu::clickEn(sf::RenderWindow &ventana, sf::Sprite &_sprite){
+	if (_sprite.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(ventana))))
 	{
-		_botonOpcion.setColor(sf::Color::Red);
+		_sprite.setColor(sf::Color::Red);
 		return true;
 	}else{
-		_botonOpcion.setColor(sf::Color::White);
-		return false;
-	}
-}
-bool Menu::clickSalir(sf::RenderWindow &ventana){
-	if (_botonSalir.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(ventana))))
-	{
-		_botonSalir.setColor(sf::Color::Red);
-		return true;
-	}else{
-		_botonSalir.setColor(sf::Color::White);
+		_sprite.setColor(sf::Color::White);
 		return false;
 	}
 }
@@ -72,4 +52,12 @@ bool Menu::entrarOpciones(sf::RenderWindow &ventana){
 		return false;
 	}
 	return true;
+}
+
+void Menu::setOpcionesDefault(){
+	opciones.setContador(0);
+}
+
+int Menu::getControles(){
+	return opciones.getControles();
 }

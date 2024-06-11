@@ -7,7 +7,7 @@
 
 Enemigo::Enemigo() : _animacion(&_textura, sf::Vector2u(8,2), 0.1f, 96,96)
 {
-	_salud = 1000;
+	_salud = 100;
 	_danio = 10;
 	_textura.loadFromFile("Textura/Babosa/iddle_babosa.png");
 	_cuerpo.setTexture(&_textura);

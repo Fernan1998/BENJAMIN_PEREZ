@@ -15,7 +15,7 @@ class Gameplay
 		Gameplay();
 		~Gameplay();
 		void actualizar(float deltaTime);
-		void comando();
+		void comando(int c);
 		void draw(sf::RenderWindow& window);
 		void ChequeoColisiones();
 		sf::Vector2f getPosicionPersonaje();

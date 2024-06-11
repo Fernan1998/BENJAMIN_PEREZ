@@ -1,24 +1,27 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
 
 class Opciones {
 public:
 	Opciones();
 	~Opciones();
 	bool mostrar(sf::RenderWindow &ventana);
-	int cambiarControles();
-	bool encimaDeVolver(sf::RenderWindow &ventana);
-	bool encimaDeFlecha1(sf::RenderWindow &ventana);
-	bool encimaDeFlecha2(sf::RenderWindow &ventana);
+	void inicializarSprite(sf::Texture &_textura, sf::Sprite &_sprite, int x, int y, float rotacion, std::string ruta, int opcion);
+	bool encimaDe(sf::RenderWindow &ventana, sf::Sprite &_sprite);
+	bool clickMouse();
+	bool clickMouse(int c);
+	
 	/// getters
 	int getControles();
 	
 	/// setters
 	void setControles(int c);
+	void setContador(int c);
 private:
-	int controles = 1;
-	bool op = false;
+	int controles = 1, contador = 0;
+	bool soltarClick = true;
 	sf::Sprite _spriteAdelante;
 	sf::Texture _texturaAdelante;
 	sf::Sprite _spriteAtras;
@@ -47,5 +50,19 @@ private:
 	sf::Texture _texturaNumpad1;
 	sf::Sprite _spriteNumpad2;
 	sf::Texture _texturaNumpad2;
+	sf::Sprite _spriteFlecha3;
+	sf::Texture _texturaFlecha3;
+	sf::Sprite _spriteFlecha4;
+	sf::Texture _texturaFlecha4;
+	sf::Sprite _spriteFlecha5;
+	sf::Texture _texturaFlecha5;
+	sf::Sprite _spriteFlecha6;
+	sf::Texture _texturaFlecha6;
+	sf::Sprite _spriteZ;
+	sf::Texture _texturaZ;
+	sf::Sprite _spriteF;
+	sf::Texture _texturaF;
+	sf::Sprite _spriteAbajo;
+	sf::Texture _texturaAbajo;
 };
 

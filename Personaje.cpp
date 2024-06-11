@@ -81,13 +81,14 @@ void Personaje::setIzquierda()
 {
 	_colisionandoIzq = true;
 }
-void Personaje::comandos()
+void Personaje::comandos(int c)
 {
+	setControles(c);
 	if(_estado == ESTADOS::QUIETO && !_colisionandoIzq ||
 	   _estado == ESTADOS::CAYENDO && !_colisionandoIzq ||
 	   _estado == ESTADOS::CAMINANDO_ATRAS && !_colisionandoIzq)
 	{
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		if(sf::Keyboard::isKeyPressed(controlIzq))
 		{
 			_estado = ESTADOS::CAMINANDO_ATRAS;
 			_velocidad.x = -4;
@@ -97,7 +98,7 @@ void Personaje::comandos()
 	   _estado == ESTADOS::CAYENDO && !_colisionandoDer ||
 	   _estado == ESTADOS::CAMINANDO_ATRAS && !_colisionandoDer)
 	{	
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		if(sf::Keyboard::isKeyPressed(controlDer))
 		{
 			_estado = ESTADOS::CAMINANDO_ADELANTE;
 			_velocidad.x = 4;
@@ -105,7 +106,7 @@ void Personaje::comandos()
 	}
 	if(_estado == ESTADOS::QUIETO)
 	{
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2))
+		if(sf::Keyboard::isKeyPressed(controlAtq))
 		{
 			_estado = ESTADOS::ATACANDO;
 		}
@@ -113,7 +114,7 @@ void Personaje::comandos()
 	
 	if(!_saltando)
 	{
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1))
+		if(sf::Keyboard::isKeyPressed(controlSaltar))
 		{
 	
 			_estado = ESTADOS::SALTANDO;
@@ -122,7 +123,7 @@ void Personaje::comandos()
 	}
 	if(_saltoInvertido)
 	{
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		if(sf::Keyboard::isKeyPressed(controlSaltarInvertido))
 		{
 			_velocidadSalto = -16;
 			_estado = ESTADOS::SALTANDO;
@@ -189,4 +190,47 @@ bool Personaje::getAtacando()
 float Personaje::getDanio()
 {
 	return _danio;
+}
+
+void Personaje::setControles(int c)
+{
+	if (c == 1) {
+		controlIzq = sf::Keyboard::A;
+		controlDer = sf::Keyboard::D;
+		controlSaltar = sf::Keyboard::Numpad1;
+		controlSaltarInvertido = sf::Keyboard::S;
+		controlAtq = sf::Keyboard::Numpad2;
+	}else if (c == 2) {
+		controlIzq = sf::Keyboard::A;
+		controlDer = sf::Keyboard::D;
+		controlSaltar = sf::Keyboard::W;
+		controlSaltarInvertido = sf::Keyboard::S;
+		controlAtq = sf::Keyboard::F;
+	}else {
+		controlIzq = sf::Keyboard::Left;
+		controlDer = sf::Keyboard::Right;
+		controlSaltar = sf::Keyboard::Up;
+		controlSaltarInvertido = sf::Keyboard::Down;
+		controlAtq = sf::Keyboard::Z;
+	}
+}
+
+sf::Keyboard::Key Personaje::getControlIzq(){
+	return controlIzq;
+}
+
+sf::Keyboard::Key Personaje::getControlDer(){
+	return controlDer;
+}
+
+sf::Keyboard::Key Personaje::getControlSaltar(){
+	return controlSaltar;
+}
+
+sf::Keyboard::Key Personaje::getControlAtq(){
+	return controlAtq;
+}
+
+sf::Keyboard::Key Personaje::getControlSaltarInvertido(){
+	return controlSaltarInvertido;
 }

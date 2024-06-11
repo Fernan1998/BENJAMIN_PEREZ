@@ -6,9 +6,9 @@
 class Personaje : public sf::Drawable
 {
 	public:
-		Personaje();
+		/*Personaje();
 		~Personaje();
-		void comandos();
+		void comandos(int c);
 		void actualizar(float deltaTime);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		sf::Vector2f getPosicion();
@@ -24,7 +24,36 @@ class Personaje : public sf::Drawable
 		void setIzquierda();
 		bool getAtacando();
 		float getDanio();
+		float getSalud();*/
+		Personaje();
+		~Personaje();
+		void comandos(int c);
+		void actualizar(float deltaTime);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		void quieto(float x, float y);
+		void cayendo();
+		void saltoInvertido();
+		
+		/// Setters
+		void setDerecha();
+		void setIzquierda();
+		void setControles(int c);
+		void setPosicion(float a, float b);
+		
+		/// Getters
+		sf::Keyboard::Key getControlIzq();
+		sf::Keyboard::Key getControlDer();
+		sf::Keyboard::Key getControlAtq();
+		sf::Keyboard::Key getControlSaltar();
+		sf::Keyboard::Key getControlSaltarInvertido();
+		bool getAtacando();
+		float getDanio();
 		float getSalud();
+		float getVelocidadSalto();
+		sf::Vector2f getPosicion();
+		sf::RectangleShape getCuerpo();
+		sf::RectangleShape getCajaAtaque();
+		sf::FloatRect getCajaCuerpo();
 
 	private:
 		enum ESTADOS{
@@ -53,5 +82,12 @@ class Personaje : public sf::Drawable
 		float _tiempo;
 		Animacion *animacion;
 		Sonidos *_sonido;
+		
+		// Controles
+		sf::Keyboard::Key controlIzq = sf::Keyboard::A;
+		sf::Keyboard::Key controlDer = sf::Keyboard::D;
+		sf::Keyboard::Key controlSaltar = sf::Keyboard::Numpad1;
+		sf::Keyboard::Key controlSaltarInvertido = sf::Keyboard::S;
+		sf::Keyboard::Key controlAtq = sf::Keyboard::Numpad2;
 };
 

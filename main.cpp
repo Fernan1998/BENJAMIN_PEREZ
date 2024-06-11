@@ -5,6 +5,7 @@
 #include "CamaraPrincipal.h"
 #include "Menu.h"
 #include "Funciones.h"
+#include "Menu.h"
 #include <iostream>
 
 int main(int argc, char *argv[])
@@ -18,6 +19,11 @@ int main(int argc, char *argv[])
 	
 	float tiempoJuego = 0;
 	sf::Clock clock;
+	
+	bool jugando = false, enOpciones = false;
+	
+	Menu menu;
+	
 	while(ventana.isOpen())
 	{
 		float deltaTime = clock.restart().asSeconds();
@@ -30,11 +36,38 @@ int main(int argc, char *argv[])
 		}
 		
 		ventana.clear();
-		juego->ChequeoColisiones();
-		juego->comando();
-		juego->actualizar(deltaTime);
-		juego->draw(ventana);
-		juego->cambioEscena();
+		
+		if (jugando) {
+			juego->ChequeoColisiones();
+			juego->comando(menu.getControles());
+			juego->actualizar(deltaTime);
+			juego->draw(ventana);
+			juego->cambioEscena();
+		}
+		else if (enOpciones) {
+			if (menu.entrarOpciones(ventana)) {
+				enOpciones = false;
+				menu.setOpcionesDefault();
+			}
+		}
+		else {
+			switch (menu.mostrar(ventana)) {
+			case 1:
+				jugando = true;
+				enOpciones = false;
+				break;
+			case 2:
+				jugando = false;
+				enOpciones = true;
+				break;
+			case 3:
+				ventana.close();
+				break;
+			default:
+				break;
+			}
+		}
+		
 		ventana.display();
 	
 	}
