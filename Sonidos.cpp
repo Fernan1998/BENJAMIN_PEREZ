@@ -15,7 +15,7 @@ Sonidos::Sonidos(std::string ruta_sonido_caminar, std::string ruta_sonido_saltar
 	if(!sonidosBuffer[1].loadFromFile("Sonido/Caminata.ogg")){
 		std::cout << "ERROR SONIDO SALTO" << std::endl;
 	}
-	if(!sonidosBuffer[2].loadFromFile("Sonido/Salto.ogg")){
+	if(!sonidosBuffer[2].loadFromFile("Sonido/Caminata.ogg")){
 		std::cout << "ERROR SONIDO SALTO" << std::endl;
 	}
 

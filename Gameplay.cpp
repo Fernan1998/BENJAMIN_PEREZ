@@ -22,24 +22,28 @@ Gameplay::~Gameplay()
 	
 }
 void Gameplay::actualizar(float deltaTime)
-{	
-	
-	_personaje->actualizar(deltaTime);
-	
-	switch(numeroMapa)
-	{
-	case 1:
-		nivel1->actualizar(deltaTime);
-		break;
-	case 2:
-		nivel2->actualizar(deltaTime);
-		break;
-	case 3:
-		nivel3->actualizar(deltaTime);
-		break;
+{
+	ponerPausa();
+	if (pausa) {
+		//pausa = true;
+		//menu.
+	}else {
+		_personaje->actualizar(deltaTime);
+		
+		switch(numeroMapa)
+		{
+		case 1:
+			nivel1->actualizar(deltaTime);
+			break;
+		case 2:
+			nivel2->actualizar(deltaTime);
+			break;
+		case 3:
+			nivel3->actualizar(deltaTime);
+			break;
+		}
+		_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
 	}
-	_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
-	
 }
 void Gameplay::cambioEscena()
 {
@@ -204,10 +208,12 @@ sf::Vector2f Gameplay::getPosicionPersonaje()
 	return _personaje->getPosicion();
 }	
 
-void Gameplay::draw(sf::RenderWindow& window)
-{	
-	switch(numeroMapa)
-	{
+int Gameplay::draw(sf::RenderWindow& window)
+{
+	//std::cout << getPosicionPersonaje().x << std::endl;
+	//std::cout << getPosicionPersonaje().y << std::endl;
+	if (pausa){
+		switch (numeroMapa){
 		case 1:
 			nivel1->dibujar(window);
 			break;
@@ -217,11 +223,38 @@ void Gameplay::draw(sf::RenderWindow& window)
 		case 3:
 			nivel3->dibujar(window);
 			break;
+		}
+		switch(menu.mostrar(window, getPosicionPersonaje())){
+		case 1:
+			pausa = false;
+			return 1;
+			break;
+		case 2:
+			return 2;
+			break;
+		case 3:
+			return 3;
+			break;
+		}
+	}else {
+		switch(numeroMapa)
+		{
+			case 1:
+				nivel1->dibujar(window);
+				break;
+			case 2:
+				nivel2->dibujar(window);
+				break;
+			case 3:
+				nivel3->dibujar(window);
+				break;
+		}
 	}
-	
-	window.draw(*_personaje 
-				
-				);
-
+	window.draw(*_personaje);
 }
 
+void Gameplay::ponerPausa(){
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+		pausa = true;
+	}
+}

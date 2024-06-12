@@ -1,5 +1,4 @@
 #include "Nivel.h"
-#include <iostream>
 
 Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas, std::string ruta_musica)
 {

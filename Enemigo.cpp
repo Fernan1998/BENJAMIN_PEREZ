@@ -38,18 +38,15 @@ sf::FloatRect Enemigo::getHitBox()
 }
 void Enemigo::comando(float puntoA, float puntoB, Personaje personaje)
 {
-
 	if(_recibiendoDanio==1)
 	{
 		_estado = ESTADOS::RDANIO;
 		_velocidad.x = 25;
-
 	}
 	if(_recibiendoDanio==2)
 	{
 		_estado = ESTADOS::RDANIO;
 		_velocidad.x = -25;
-
 	}
 	
 	if(_salud <= 0)

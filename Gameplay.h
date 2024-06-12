@@ -5,6 +5,7 @@
 #include "Enemigo.h"
 #include "Cinematica.h"
 #include "Nivel.h"
+#include "Menu.h"
 #include <SFML/Graphics.hpp>
 #include <string>
 
@@ -16,11 +17,11 @@ class Gameplay
 		~Gameplay();
 		void actualizar(float deltaTime);
 		void comando(int c);
-		void draw(sf::RenderWindow& window);
+		int draw(sf::RenderWindow& window);
 		void ChequeoColisiones();
 		sf::Vector2f getPosicionPersonaje();
 		void cambioEscena();
-		
+		void ponerPausa();
 		
 	private:
 		CamaraPrincipal _camaraPrincipal;
@@ -31,8 +32,8 @@ class Gameplay
 		Nivel *nivelActual;
 		Nivel *listaNiveles[3];
 		int numeroMapa;
-
-		
+		bool pausa = false;
+		Menu menu = new Menu(true);
 
 };
 

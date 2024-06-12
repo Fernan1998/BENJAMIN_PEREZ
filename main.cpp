@@ -41,7 +41,18 @@ int main(int argc, char *argv[])
 			juego->ChequeoColisiones();
 			juego->comando(menu.getControles());
 			juego->actualizar(deltaTime);
-			juego->draw(ventana);
+			switch (juego->draw(ventana)) {
+			case 1:
+				jugando = true;
+				break;
+			case 2:
+				jugando = false;
+				enOpciones = true;
+				break;
+			case 3:
+				jugando = false;
+				break;
+			}
 			juego->cambioEscena();
 		}
 		else if (enOpciones) {
