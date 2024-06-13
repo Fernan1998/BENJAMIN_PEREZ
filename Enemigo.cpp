@@ -114,10 +114,9 @@ void Enemigo::comando(float puntoA, float puntoB, Personaje personaje)
 	}
 	if(_atacando && !_recibiendoDanio)
 	{
-		if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 1.0f) {
-			_estado = ESTADOS::ATACANDO;
-			_ultimoAtaque = clock.getElapsedTime().asSeconds();
-		}
+
+		_estado = ESTADOS::ATACANDO;
+
 	}
 
 }
@@ -147,6 +146,7 @@ void Enemigo::actualizar(float deltaTime)
 			break;
 		case RDANIO:
 			_cuerpo.move(_velocidad.x, _velocidad.y);
+			_estado = ESTADOS::CAYENDO;
 			_recibiendoDanio = 0;
 			break;
 		case MUERTO:

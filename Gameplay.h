@@ -38,6 +38,7 @@ class Gameplay
 		sf::RectangleShape _aux;
 		sf::Texture texAux;
 		int i=0;
-
+		float _ultimoAtaque;
+		sf::Clock clock;
 };
 

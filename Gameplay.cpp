@@ -7,7 +7,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : cinematicaPersonaje("dia_
 	_camaraPrincipal = camaraPrincipal;
 	_personaje = new Personaje();
 	_personaje->setPosicion(700.0f, 300.0f);
-	nivel1 = new Nivel("Mapas_txt/mapa_cueva_1/mapa_cueva1.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_plataformas.txt", "Sonido/Folklore.ogg");	
+	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg");	
 	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg");
 	nivel2 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg");
 	
@@ -18,7 +18,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : cinematicaPersonaje("dia_
 	nivel2->reiniciarNivel();
 	nivel3->reiniciarNivel();
 	
-	_aux.setPosition(sf::Vector2f(0, 0));
+	_aux.setPosition(sf::Vector2f(0, 224));
 	_aux.setSize(sf::Vector2f(1024, 768));	
 }
 Gameplay::~Gameplay()
@@ -197,6 +197,7 @@ void Gameplay::ChequeoColisiones()
 			if (hitBoxEnemigo.left > hitBoxMap.left + hitBoxMap.width &&
 				hitBoxEnemigo.intersects(hitBoxMapDer))
 			{ 
+				
 				enemigo->setIzquierda();
 			}
 		    
@@ -217,10 +218,13 @@ void Gameplay::ChequeoColisiones()
 	}
 	if(enemigo->getHitBox().intersects(playerGlobalBounds)&&enemigo->getSalud() >0)
 	{
-		enemigo->setAtacando();
-		_personaje->recibiendoDanio(enemigo->getDanio());
+		if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 0.5f)
+		{
+			enemigo->setAtacando();
+			_personaje->recibiendoDanio(enemigo->getDanio());
+			_ultimoAtaque = clock.getElapsedTime().asSeconds();
+		}
 	}
-
 }
 
 sf::Vector2f Gameplay::getPosicionPersonaje()

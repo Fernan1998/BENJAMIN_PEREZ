@@ -204,11 +204,11 @@ void Personaje::actualizar(float deltaTime)
 			break;
 		case RDANIO:
 			_cuerpo.move(-35,-_velocidadSalto);
+			_estado = ESTADOS::CAYENDO;
 			break;
 		case MUERTO:
 			_cuerpo.move(0,0);
 			_cuerpo.setFillColor(sf::Color::Red);
-			
 			break;
 		}
 	_velocidadSalto-=0.5;
