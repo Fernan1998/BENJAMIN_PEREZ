@@ -23,7 +23,7 @@ Personaje::Personaje()
 	_salud = 100;
 	_saltoInvertido = false;
 	animacion = new Animacion(&_textura, sf::Vector2u(16,2), 0.05f, 108,73);
-	animacionAtaque = new Animacion(&_textura, sf::Vector2u(8,1), 0.065f, 108,91);
+	animacionAtaque = new Animacion(&_texturaAtaque, sf::Vector2u(8,1), 0.065f, 108,91);
 	_sonido = new Sonidos("Sonido/Salto.ogg","Sonido/Salto.ogg","Sonido/Salto.ogg");
 	_ultimoAtaque = 0;
  
@@ -131,7 +131,7 @@ void Personaje::comandos(int c)
 	{
 		if(sf::Keyboard::isKeyPressed(controlAtq))
 		{
-			if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 0.5f) {
+			if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 0.0f) {
 				_estado = ESTADOS::ATACANDO;
 				_ultimoAtaque = clock.getElapsedTime().asSeconds();
 			}
@@ -168,6 +168,7 @@ void Personaje::actualizar(float deltaTime)
 	{
 		case QUIETO:
 			_velocidadSalto=0;
+			_cuerpo.setTexture(&_textura);
 			animacion->Update(2, deltaTime);
 			_cuerpo.setTextureRect(animacion->uvRect);
 			break;
