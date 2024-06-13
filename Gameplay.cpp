@@ -39,6 +39,9 @@ void Gameplay::actualizar(float deltaTime)
 			break;
 		case 2:
 			nivel2->actualizar(deltaTime);
+			texAux = cinematicaPersonaje.cargarImagenes(i);
+			_aux.setTexture(&texAux);
+			
 			break;
 		case 3:
 			nivel3->actualizar(deltaTime);
@@ -271,6 +274,11 @@ int Gameplay::draw(sf::RenderWindow& window)
 		}
 	}
 	window.draw(*_personaje);
+	if(numeroMapa==2){
+		if(i<251){
+			window.draw(_aux);
+		}
+	}
 }
 
 void Gameplay::ponerPausa(){
