@@ -4,6 +4,7 @@ Personaje::Personaje()
 {
 
 	_textura.loadFromFile("Textura/Player/BenjaminPerez.png");
+	_texturaAtaque.loadFromFile("Textura/Player/BPAtaque.png");
 	_cuerpo.setTexture(&_textura);
 	_cuerpo.setPosition(sf::Vector2f(130,150));
 	_cuerpo.setSize(sf::Vector2f(78.0f, 107.0f));
@@ -22,6 +23,7 @@ Personaje::Personaje()
 	_salud = 100;
 	_saltoInvertido = false;
 	animacion = new Animacion(&_textura, sf::Vector2u(16,2), 0.05f, 108,73);
+	animacionAtaque = new Animacion(&_textura, sf::Vector2u(8,1), 0.065f, 108,91);
 	_sonido = new Sonidos("Sonido/Salto.ogg","Sonido/Salto.ogg","Sonido/Salto.ogg");
 	_ultimoAtaque = 0;
  
@@ -167,13 +169,14 @@ void Personaje::actualizar(float deltaTime)
 	{
 		case QUIETO:
 			_velocidadSalto=0;
-			animacion->Update(1, deltaTime);
+			animacion->Update(2, deltaTime);
 			_cuerpo.setTextureRect(animacion->uvRect);
 			break;
 		case CAMINANDO_ADELANTE:
 			_cuerpo.setScale(1,1);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
 			_estado= ESTADOS::CAYENDO;
+			_cuerpo.setTexture(&_textura);
 			animacion->Update(0, deltaTime);
 			_cuerpo.setTextureRect(animacion->uvRect);
 			break;
@@ -181,6 +184,7 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.setScale(-1,1);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
 			_estado= ESTADOS::CAYENDO;
+			_cuerpo.setTexture(&_textura);
 			animacion->Update(0, deltaTime);
 			_cuerpo.setTextureRect(animacion->uvRect);
 			break;
@@ -193,6 +197,9 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.move(0, -_velocidadSalto);
 			break;
 		case ATACANDO:
+			_cuerpo.setTexture(&_texturaAtaque);
+			animacionAtaque->Update(0, deltaTime, true);
+			_cuerpo.setTextureRect(animacionAtaque->uvRect);
 			_atacando = true;
 			break;
 		case RDANIO:

@@ -8,6 +8,8 @@ class Animacion
 		void Update(int columna, float deltaTime);
 		void Update(int columna, float deltaTime, bool atk);
 		sf::IntRect uvRect;
+		bool getFinAnimacion(){return finAnimacion;}
+		
 		
 	private:
 		sf::Vector2u imageCount;
@@ -15,5 +17,6 @@ class Animacion
 		
 		float totalTime;
 		float switchTime;
+		bool finAnimacion = false;
 };
 

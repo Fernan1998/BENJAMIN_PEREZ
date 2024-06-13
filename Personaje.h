@@ -51,6 +51,7 @@ class Personaje : public sf::Drawable
 		};
 		ESTADOS _estado;
 		sf::Texture _textura;
+		sf::Texture _texturaAtaque;
 		sf::RectangleShape _cuerpo;
 		sf::RectangleShape _cajaAtaque;
 		sf::Vector2f _velocidad;
@@ -65,6 +66,7 @@ class Personaje : public sf::Drawable
 		float _ultimoAtaque;
 		sf::Clock clock;
 		Animacion *animacion;
+		Animacion *animacionAtaque;
 		Sonidos *_sonido;
 		
 		// Controles

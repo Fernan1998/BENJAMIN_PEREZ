@@ -41,8 +41,9 @@ void Animacion::Update(int columna, float deltaTime, bool atk)
 		imagenActual.x++;
 		if(imagenActual.x >= imageCount.x)
 		{
-			imagenActual.x--;
-		}
+			imagenActual.x = 0;
+			finAnimacion = true;
+		}else{finAnimacion=false;}
 	}
 	
 	uvRect.left = imagenActual.x * uvRect.width;
