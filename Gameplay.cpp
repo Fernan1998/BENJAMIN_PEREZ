@@ -1,7 +1,7 @@
 #include "Gameplay.h"
 #include <iostream>
 
-Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
+Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : cinematicaPersonaje("dia_noche/dia_noche", 251)
 {
 	numeroMapa = 1;
 	_camaraPrincipal = camaraPrincipal;
@@ -18,7 +18,8 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	nivel2->reiniciarNivel();
 	nivel3->reiniciarNivel();
 	
-
+	_aux.setPosition(sf::Vector2f(0, 0));
+	_aux.setSize(sf::Vector2f(1024, 768));	
 }
 Gameplay::~Gameplay()
 {
@@ -40,6 +41,8 @@ void Gameplay::actualizar(float deltaTime)
 			break;
 		case 2:
 			nivel2->actualizar(deltaTime);
+			texAux = cinematicaPersonaje.cargarImagenes(i);
+			_aux.setTexture(&texAux);			
 			break;
 		case 3:
 			nivel3->actualizar(deltaTime);
@@ -268,6 +271,12 @@ int Gameplay::draw(sf::RenderWindow& window)
 		}
 	}
 	window.draw(*_personaje);
+	window.draw(*_personaje);
+	if(numeroMapa==2){
+		if(i<251){
+			window.draw(_aux);
+		}
+	}
 }
 
 void Gameplay::ponerPausa(){

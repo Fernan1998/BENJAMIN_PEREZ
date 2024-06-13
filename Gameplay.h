@@ -34,6 +34,10 @@ class Gameplay
 		int numeroMapa;
 		bool pausa = false;
 		Menu menu = new Menu(true);
+		Cinematica cinematicaPersonaje;
+		sf::RectangleShape _aux;
+		sf::Texture texAux;
+		int i=0;
 
 };
 
