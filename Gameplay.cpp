@@ -267,18 +267,17 @@ int Gameplay::draw(sf::RenderWindow& window)
 			break;
 		case 2:
 			nivel2->dibujar(window);
+			if(i<251){
+				window.draw(_aux);
+			}
 			break;
 		case 3:
 			nivel3->dibujar(window);
 			break;
 		}
 	}
+	
 	window.draw(*_personaje);
-	if(numeroMapa==2){
-		if(i<251){
-			window.draw(_aux);
-		}
-	}
 }
 
 void Gameplay::ponerPausa(){

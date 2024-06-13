@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	float tiempoJuego = 0;
 	sf::Clock clock;
 	
-	bool jugando = false, enOpciones = false, enOpcionesDesdeJugando = false, opcionesJugando = false;
+	bool jugando = false, enOpciones = false, enOpcionesDesdeJugando = false;//, opcionesJugando = false;
 	
 	Menu menu;
 	
@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
 			case 3:
 				jugando = false;
 				enOpciones = false;
+				enOpcionesDesdeJugando = false;
 				break;
 			}
 			juego->cambioEscena();
@@ -85,12 +86,12 @@ int main(int argc, char *argv[])
 				enOpciones = true;
 				break;
 			case 3:
-				if (opcionesJugando){
-					jugando = false;
-					enOpciones = false;
-				}else{
+//				if (opcionesJugando){
+//					jugando = false;
+//					enOpciones = false;
+//				}else{
 					ventana.close();
-				}
+				//}
 				break;
 			default:
 				break;
