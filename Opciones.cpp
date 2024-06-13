@@ -87,7 +87,7 @@ bool Opciones::mostrar(sf::RenderWindow &ventana){
 	ventana.draw(_spriteFlecha2);
 	bool click = clickMouse();
 	if (soltarClick && !click) {
-		if (contador < 5) {
+		if (contador < 3) {
 			contador++;
 		}else {
 			contador = 0;
@@ -107,7 +107,9 @@ bool Opciones::mostrar(sf::RenderWindow &ventana){
 }
 
 bool Opciones::encimaDe(sf::RenderWindow &ventana, sf::Sprite &_sprite){
-	if (_sprite.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(ventana))))
+	sf::Vector2i posicionMouse = sf::Mouse::getPosition(ventana);
+	sf::Vector2f posicionEnMundo = ventana.mapPixelToCoords(posicionMouse);
+	if (_sprite.getGlobalBounds().contains(posicionEnMundo))
 	{
 		_sprite.setColor(sf::Color::Red);
 		return true;
@@ -131,7 +133,6 @@ bool Opciones::clickMouse(){
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		soltarClick = true;
 		return true;
-		
 	}
 	return false;
 }

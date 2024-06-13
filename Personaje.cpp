@@ -156,7 +156,6 @@ void Personaje::comandos(int c)
 			_estado = ESTADOS::SALTANDO;
 		}
 	}
-	
 	_saltando = true;	
 	_colisionandoDer = false;
 	_colisionandoIzq = false;

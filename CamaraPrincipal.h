@@ -9,12 +9,19 @@ class CamaraPrincipal : public sf::View
 		sf::Vector2f worldDimension;
 		sf::Vector2f cameraPosition;
 		
-		void CalcularPosicion(sf::Vector2f target);
-		void MoveCamera();
-		
 	public:
 		CamaraPrincipal(sf::RenderWindow *w, int width, int height, int worldLimitWidth, int worldLimitHeight);
 		CamaraPrincipal();
 		~CamaraPrincipal();
-	void FollowAndUpdate(sf::Vector2f target, CamaraPrincipal *camera);
+		void CalcularPosicion(sf::Vector2f target);
+		void MoveCamera();
+		void FollowAndUpdate(sf::Vector2f target, CamaraPrincipal *camera);
+		
+		/// Getters
+		sf::Vector2f getCameraPosition(){
+			return cameraPosition;
+		}
+		
+		/// Setters
+		void setCamera(int x, int y);
 };

@@ -27,11 +27,9 @@ Gameplay::~Gameplay()
 }
 void Gameplay::actualizar(float deltaTime)
 {
+	_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
 	ponerPausa();
-	if (pausa) {
-		//pausa = true;
-		//menu.
-	}else {
+	if (!pausa) {
 		_personaje->actualizar(deltaTime);
 		
 		switch(numeroMapa)
@@ -41,14 +39,11 @@ void Gameplay::actualizar(float deltaTime)
 			break;
 		case 2:
 			nivel2->actualizar(deltaTime);
-			texAux = cinematicaPersonaje.cargarImagenes(i);
-			_aux.setTexture(&texAux);			
 			break;
 		case 3:
 			nivel3->actualizar(deltaTime);
 			break;
 		}
-		_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
 	}
 	std::cout << "SALUD PERSONAJE:"<< _personaje->getSalud() << " /// " << "SALUD ENEMIGO: " << nivel1->getEnemigo()->getSalud() << std::endl;
 	
@@ -257,30 +252,25 @@ int Gameplay::draw(sf::RenderWindow& window)
 			return 2;
 			break;
 		case 3:
+			pausa = false;
 			return 3;
 			break;
 		}
 	}else {
 		switch(numeroMapa)
 		{
-			case 1:
-				nivel1->dibujar(window);
-				break;
-			case 2:
-				nivel2->dibujar(window);
-				break;
-			case 3:
-				nivel3->dibujar(window);
-				break;
+		case 1:
+			nivel1->dibujar(window);
+			break;
+		case 2:
+			nivel2->dibujar(window);
+			break;
+		case 3:
+			nivel3->dibujar(window);
+			break;
 		}
 	}
 	window.draw(*_personaje);
-	window.draw(*_personaje);
-	if(numeroMapa==2){
-		if(i<251){
-			window.draw(_aux);
-		}
-	}
 }
 
 void Gameplay::ponerPausa(){

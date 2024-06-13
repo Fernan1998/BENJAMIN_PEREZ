@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	float tiempoJuego = 0;
 	sf::Clock clock;
 	
-	bool jugando = false, enOpciones = false;
+	bool jugando = false, enOpciones = false, enOpcionesDesdeJugando = false, opcionesJugando = false;
 	
 	Menu menu;
 	
@@ -44,24 +44,37 @@ int main(int argc, char *argv[])
 			switch (juego->draw(ventana)) {
 			case 1:
 				jugando = true;
+				enOpciones = false;
+				enOpcionesDesdeJugando = false;
 				break;
 			case 2:
 				jugando = false;
+				enOpcionesDesdeJugando = true;
 				enOpciones = true;
 				break;
 			case 3:
 				jugando = false;
+				enOpciones = false;
 				break;
 			}
 			juego->cambioEscena();
 		}
 		else if (enOpciones) {
-			if (menu.entrarOpciones(ventana)) {
+			camaraPrincipal.setCamera(0,0);
+			if (menu.entrarOpciones(ventana) && !enOpcionesDesdeJugando) {
 				enOpciones = false;
+				menu.setOpcionesDefault();
+			}else if (menu.entrarOpciones(ventana) && enOpcionesDesdeJugando) {
+				enOpciones = false;
+				enOpcionesDesdeJugando = false;
+				jugando = true;
 				menu.setOpcionesDefault();
 			}
 		}
 		else {
+			//std::cout << camaraPrincipal.getCameraPosition().x << std::endl;
+			//std::cout << camaraPrincipal.getCameraPosition().y << std::endl;
+			camaraPrincipal.setCamera(0,0);
 			switch (menu.mostrar(ventana)) {
 			case 1:
 				jugando = true;
@@ -72,7 +85,12 @@ int main(int argc, char *argv[])
 				enOpciones = true;
 				break;
 			case 3:
-				ventana.close();
+				if (opcionesJugando){
+					jugando = false;
+					enOpciones = false;
+				}else{
+					ventana.close();
+				}
 				break;
 			default:
 				break;
