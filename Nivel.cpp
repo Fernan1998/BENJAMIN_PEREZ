@@ -15,8 +15,6 @@ Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas, std::
 	_plataformas.CreadorMapa(file_plataformas);
 
 	_enemigo = new Enemigo();
-	_enemigo->setPosition(sf::Vector2f(1360,300));
-
 	_sonido = new Sonidos(ruta_musica);
 	_sonido->PlayMusic();
 
@@ -24,6 +22,10 @@ Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas, std::
 
 Nivel::~Nivel()
 {
+}
+void Nivel::reiniciarNivel()
+{
+	_enemigo->reiniciar(sf::Vector2f(1200,200));
 }
 void Nivel::actualizar(float deltaTime)
 {

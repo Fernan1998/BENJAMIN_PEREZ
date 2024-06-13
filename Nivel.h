@@ -21,7 +21,8 @@ class Nivel
 		Enemigo *getEnemigo()
 		{
 			return _enemigo;
-		}
+		} 
+		void reiniciarNivel();
 	private:
 		Mapa _mapa;
 		Mapa _fondo;

@@ -12,17 +12,18 @@ Personaje::Personaje()
 	_velocidadSalto = 0;
 	_cuerpo.setOrigin(_cuerpo.getGlobalBounds().width/2,_cuerpo.getGlobalBounds().height/2); 
 	_saltando = true;
-	_cajaAtaque.setSize(sf::Vector2f(90.0f, 120.0f));
+	_cajaAtaque.setSize(sf::Vector2f(150.0f, 107.0f));
 	_cajaAtaque.setOrigin(_cajaAtaque.getGlobalBounds().width/2, _cajaAtaque.getGlobalBounds().height/2);
+	_cajaAtaque.setFillColor(sf::Color::Blue);
 	_colisionandoDer = false;
 	_colisionandoIzq = false;
 	_atacando = false;
-	_danio = 10;
+	_danio = 35;
 	_salud = 100;
 	_saltoInvertido = false;
 	animacion = new Animacion(&_textura, sf::Vector2u(16,2), 0.05f, 108,73);
 	_sonido = new Sonidos("Sonido/Salto.ogg","Sonido/Salto.ogg","Sonido/Salto.ogg");
-	_cajaAtaque.setFillColor(sf::Color::Blue);
+	_ultimoAtaque = 0;
  
 }
 Personaje::~Personaje()
@@ -36,6 +37,22 @@ sf::RectangleShape Personaje::getCuerpo()
 void Personaje::saltoInvertido()
 {
 	_saltoInvertido = true;
+}
+void Personaje::recibiendoDanio(int danio)
+{
+	_estado = ESTADOS::RDANIO;
+	_salud -= danio;
+}
+void Personaje::reiniciar(sf::Vector2f posicion)
+{
+	_cuerpo.setPosition(posicion);
+	_salud = 100;
+	_estado = ESTADOS::QUIETO;
+	_cuerpo.setFillColor(sf::Color::White);
+}
+float Personaje::getSalud()
+{
+	return _salud;
 }
 sf::RectangleShape Personaje::getCajaAtaque()
 {
@@ -83,6 +100,10 @@ void Personaje::setIzquierda()
 }
 void Personaje::comandos(int c)
 {
+	if(_salud <= 0)
+	{
+		_estado = ESTADOS::MUERTO;
+	}
 	setControles(c);
 	if(_estado == ESTADOS::QUIETO && !_colisionandoIzq ||
 	   _estado == ESTADOS::CAYENDO && !_colisionandoIzq ||
@@ -108,7 +129,11 @@ void Personaje::comandos(int c)
 	{
 		if(sf::Keyboard::isKeyPressed(controlAtq))
 		{
-			_estado = ESTADOS::ATACANDO;
+			if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 0.5f) {
+				_estado = ESTADOS::ATACANDO;
+				_ultimoAtaque = clock.getElapsedTime().asSeconds();
+			}
+			
 		}
 	}
 	
@@ -129,6 +154,7 @@ void Personaje::comandos(int c)
 			_estado = ESTADOS::SALTANDO;
 		}
 	}
+	
 	_saltando = true;	
 	_colisionandoDer = false;
 	_colisionandoIzq = false;
@@ -169,17 +195,24 @@ void Personaje::actualizar(float deltaTime)
 		case ATACANDO:
 			_atacando = true;
 			break;
-	
+		case RDANIO:
+			_cuerpo.move(-35,-_velocidadSalto);
+			break;
+		case MUERTO:
+			_cuerpo.move(0,0);
+			_cuerpo.setFillColor(sf::Color::Red);
+			
+			break;
 		}
 	_velocidadSalto-=0.5;
 	_velocidad=sf::Vector2f(0,0);
 	_cajaAtaque.setPosition(_cuerpo.getPosition());
+
 	
 }
 void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 {
 	target.draw(_cuerpo, states);
-
 }
 
 

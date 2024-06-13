@@ -14,6 +14,9 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	listaNiveles[0] = nivel1;
 	listaNiveles[1] = nivel2;
 	listaNiveles[2] = nivel3;
+	nivel1->reiniciarNivel();
+	nivel2->reiniciarNivel();
+	nivel3->reiniciarNivel();
 	
 
 }
@@ -44,6 +47,8 @@ void Gameplay::actualizar(float deltaTime)
 		}
 		_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
 	}
+	std::cout << "SALUD PERSONAJE:"<< _personaje->getSalud() << " /// " << "SALUD ENEMIGO: " << nivel1->getEnemigo()->getSalud() << std::endl;
+	
 }
 void Gameplay::cambioEscena()
 {
@@ -77,6 +82,15 @@ void Gameplay::cambioEscena()
 		}
 		
 	}
+	if(_personaje->getSalud()<=0)
+	{
+		nivel1->reiniciarNivel();
+		nivel2->reiniciarNivel();
+		nivel3->reiniciarNivel();
+		_personaje->reiniciar(sf::Vector2f(200,200));
+		numeroMapa = 1;
+	}
+	
 }
 void Gameplay::comando(int c)
 {
@@ -197,8 +211,11 @@ void Gameplay::ChequeoColisiones()
 		{
 			enemigo->recibiendoDanio(2);
 		}
-		
-
+	}
+	if(enemigo->getHitBox().intersects(playerGlobalBounds)&&enemigo->getSalud() >0)
+	{
+		enemigo->setAtacando();
+		_personaje->recibiendoDanio(enemigo->getDanio());
 	}
 
 }

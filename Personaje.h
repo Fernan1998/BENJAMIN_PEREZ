@@ -6,25 +6,6 @@
 class Personaje : public sf::Drawable
 {
 	public:
-		/*Personaje();
-		~Personaje();
-		void comandos(int c);
-		void actualizar(float deltaTime);
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-		sf::Vector2f getPosicion();
-		sf::RectangleShape getCuerpo();
-		sf::RectangleShape getCajaAtaque();
-		sf::FloatRect getCajaCuerpo();
-		float getVelocidadSalto();
-		void setPosicion(float a, float b);
-		void quieto(float x, float y);
-		void cayendo();
-		void saltoInvertido();
-		void setDerecha();
-		void setIzquierda();
-		bool getAtacando();
-		float getDanio();
-		float getSalud();*/
 		Personaje();
 		~Personaje();
 		void comandos(int c);
@@ -54,17 +35,19 @@ class Personaje : public sf::Drawable
 		sf::RectangleShape getCuerpo();
 		sf::RectangleShape getCajaAtaque();
 		sf::FloatRect getCajaCuerpo();
+		void recibiendoDanio(int danio);
+		void reiniciar(sf::Vector2f posicion);
 
 	private:
 		enum ESTADOS{
 			QUIETO,
 			CAMINANDO_ADELANTE,
-			SALTANDO_ADELANTE,
 			CAMINANDO_ATRAS,
-			SALTANDO_ATRAS,
 			SALTANDO,
 			ATACANDO,
-			CAYENDO
+			CAYENDO,
+			RDANIO,
+			MUERTO
 		};
 		ESTADOS _estado;
 		sf::Texture _textura;
@@ -79,7 +62,8 @@ class Personaje : public sf::Drawable
 		bool _colisionandoIzq;
 		bool _colisionandoDer;		
 		bool _atacando;
-		float _tiempo;
+		float _ultimoAtaque;
+		sf::Clock clock;
 		Animacion *animacion;
 		Sonidos *_sonido;
 		
