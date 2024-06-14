@@ -29,8 +29,11 @@ class Gameplay
 		Nivel *nivel1;
 		Nivel *nivel2;
 		Nivel *nivel3;
+		Nivel *nivel4;
+		Nivel *nivel5;
+		Nivel *nivel6;
 		Nivel *nivelActual;
-		Nivel *listaNiveles[3];
+		Nivel *listaNiveles[10];
 		int numeroMapa;
 		bool pausa = false;
 		Menu menu = new Menu(true);

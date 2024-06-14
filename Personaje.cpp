@@ -2,7 +2,6 @@
 
 Personaje::Personaje()
 {
-
 	_textura.loadFromFile("Textura/Player/BenjaminPerez.png");
 	_texturaAtaque.loadFromFile("Textura/Player/BPAtaque.png");
 	_cuerpo.setTexture(&_textura);
@@ -26,7 +25,7 @@ Personaje::Personaje()
 	animacionAtaque = new Animacion(&_texturaAtaque, sf::Vector2u(8,1), 0.065f, 108,91);
 	_sonido = new Sonidos("Sonido/Salto.ogg","Sonido/Salto.ogg","Sonido/Salto.ogg");
 	_ultimoAtaque = 0;
- 
+	_pausa = false;
 }
 Personaje::~Personaje()
 {
@@ -35,6 +34,11 @@ Personaje::~Personaje()
 sf::RectangleShape Personaje::getCuerpo()
 {
 	return _cuerpo;
+}
+void Personaje::modoPausa()
+{
+	_pausa = true;
+	_cuerpo.setFillColor(sf::Color::Transparent);
 }
 void Personaje::saltoInvertido()
 {
@@ -49,7 +53,7 @@ void Personaje::reiniciar(sf::Vector2f posicion)
 {
 	_cuerpo.setPosition(posicion);
 	_salud = 100;
-	_estado = ESTADOS::QUIETO;
+	_estado = ESTADOS::CAYENDO;
 	_cuerpo.setFillColor(sf::Color::White);
 }
 float Personaje::getSalud()
@@ -92,6 +96,7 @@ void Personaje::cayendo()
 	}
 	_estado = ESTADOS::CAYENDO;
 }
+
 void Personaje::setDerecha()
 {
 	_colisionandoDer = true;
@@ -107,9 +112,9 @@ void Personaje::comandos(int c)
 		_estado = ESTADOS::MUERTO;
 	}
 	setControles(c);
-	if(_estado == ESTADOS::QUIETO && !_colisionandoIzq ||
-	   _estado == ESTADOS::CAYENDO && !_colisionandoIzq ||
-	   _estado == ESTADOS::CAMINANDO_ATRAS && !_colisionandoIzq)
+	if(_estado == ESTADOS::QUIETO && !_colisionandoIzq && !_pausa ||
+	   _estado == ESTADOS::CAYENDO && !_colisionandoIzq && !_pausa ||
+	   _estado == ESTADOS::CAMINANDO_ATRAS && !_colisionandoIzq && !_pausa)
 	{
 		if(sf::Keyboard::isKeyPressed(controlIzq))
 		{
@@ -117,9 +122,9 @@ void Personaje::comandos(int c)
 			_velocidad.x = -4;
 		};
 	}
-	if(_estado == ESTADOS::QUIETO && !_colisionandoDer ||
-	   _estado == ESTADOS::CAYENDO && !_colisionandoDer ||
-	   _estado == ESTADOS::CAMINANDO_ATRAS && !_colisionandoDer)
+	if(_estado == ESTADOS::QUIETO && !_colisionandoDer && !_pausa || 
+	   _estado == ESTADOS::CAYENDO && !_colisionandoDer && !_pausa ||
+	   _estado == ESTADOS::CAMINANDO_ATRAS && !_colisionandoDer && !_pausa)
 	{	
 		if(sf::Keyboard::isKeyPressed(controlDer))
 		{
@@ -129,7 +134,7 @@ void Personaje::comandos(int c)
 	}
 	if(_estado == ESTADOS::QUIETO)
 	{
-		if(sf::Keyboard::isKeyPressed(controlAtq))
+		if(sf::Keyboard::isKeyPressed(controlAtq) && !_pausa)
 		{
 			if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 0.0f) {
 				_estado = ESTADOS::ATACANDO;
@@ -139,7 +144,7 @@ void Personaje::comandos(int c)
 		}
 	}
 	
-	if(!_saltando)
+	if(!_saltando&& !_pausa)
 	{
 		if(sf::Keyboard::isKeyPressed(controlSaltar))
 		{
@@ -148,7 +153,7 @@ void Personaje::comandos(int c)
 			_velocidadSalto = 10;
 		}
 	}
-	if(_saltoInvertido)
+	if(_saltoInvertido&& !_pausa)
 	{
 		if(sf::Keyboard::isKeyPressed(controlSaltarInvertido))
 		{
@@ -164,6 +169,7 @@ void Personaje::comandos(int c)
 }
 void Personaje::actualizar(float deltaTime)
 {
+	_barraVida.actualizar(_salud, sf::Vector2f(_cuerpo.getPosition().x, _cuerpo.getPosition().y-80));
 	switch(_estado)
 	{
 		case QUIETO:
@@ -210,11 +216,13 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.move(0,0);
 			_cuerpo.setFillColor(sf::Color::Red);
 			break;
+			
 		}
 	_velocidadSalto-=0.5;
 	_velocidad=sf::Vector2f(0,0);
 	_cajaAtaque.setPosition(_cuerpo.getPosition());
-
+	_pausa = false;
+	_cuerpo.setFillColor(sf::Color::White);
 	
 }
 void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const 

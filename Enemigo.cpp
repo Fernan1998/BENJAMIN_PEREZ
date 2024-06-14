@@ -1,14 +1,11 @@
 #include "Enemigo.h"
-#include "Personaje.h"
-#include <iostream>
-#include "Funciones.h"
 #include <SFML/Graphics.hpp>
 
 
 Enemigo::Enemigo() : _animacion(&_textura, sf::Vector2u(8,3), 0.1f, 84,63)
 {
 	_salud = 100;
-	_danio = 10;
+	_danio = 25;
 	_textura.loadFromFile("Textura/Babosa/Baboscompleta.png");
 	_cuerpo.setTexture(&_textura);
 	_cuerpo.setSize(sf::Vector2f(63,84));
@@ -126,6 +123,7 @@ void Enemigo::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 void Enemigo::actualizar(float deltaTime)
 {
+	_barraVida.actualizar(_salud, sf::Vector2f(_cuerpo.getPosition().x, _cuerpo.getPosition().y-70));
 	switch(_estado)
 	{
 		case CAYENDO:

@@ -4,19 +4,30 @@
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : cinematicaPersonaje("dia_noche/dia_noche", 251)
 {
 	numeroMapa = 1;
+	
 	_camaraPrincipal = camaraPrincipal;
+	
 	_personaje = new Personaje();
-	_personaje->setPosicion(700.0f, 300.0f);
-	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg");	
-	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg");
+	
+	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg");
 	nivel2 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg");
+	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg");
+	nivel4 = new Nivel("Mapas_txt/mapa_cueva_1/mapa_cueva1.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_plataformas.txt", "Sonido/Folklore.ogg");
+	nivel5 = new Nivel("Mapas_txt/mapa_cueva_2/mapa_cueva2.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_fondo.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_plataformas.txt", "Sonido/Folklore.ogg");
+	nivel6 = new Nivel("Mapas_txt/mapa_cueva_3/mapa_cueva3.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_fondo.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_plataformas.txt", "Sonido/Folklore.ogg");
 	
 	listaNiveles[0] = nivel1;
 	listaNiveles[1] = nivel2;
 	listaNiveles[2] = nivel3;
+	listaNiveles[3] = nivel4;
+	listaNiveles[4] = nivel5;
+	listaNiveles[5] = nivel6;
 	nivel1->reiniciarNivel();
 	nivel2->reiniciarNivel();
 	nivel3->reiniciarNivel();
+	nivel4->reiniciarNivel();
+	nivel5->reiniciarNivel();
+	nivel6->reiniciarNivel();
 	
 	_aux.setPosition(sf::Vector2f(0, 224));
 	_aux.setSize(sf::Vector2f(1024, 768));	
@@ -41,10 +52,18 @@ void Gameplay::actualizar(float deltaTime)
 			nivel2->actualizar(deltaTime);
 			texAux = cinematicaPersonaje.cargarImagenes(i);
 			_aux.setTexture(&texAux);
-			
 			break;
 		case 3:
 			nivel3->actualizar(deltaTime);
+			break;
+		case 4:
+			nivel4->actualizar(deltaTime);
+			break;
+		case 5:
+			nivel5->actualizar(deltaTime);
+			break;
+		case 6:
+			nivel6->actualizar(deltaTime);
 			break;
 		}
 	}
@@ -73,6 +92,11 @@ void Gameplay::cambioEscena()
 			numeroMapa = 3;
 			_personaje->setPosicion(20,_personaje->getPosicion().y);
 		} 
+		if(_personaje->getPosicion().x >= 138 && _personaje->getPosicion().x <= 224 && _personaje->getPosicion().y > 980)
+		{
+			numeroMapa = 4;
+			_personaje->setPosicion(_personaje->getPosicion().x, 0);
+		}
 	}
 	if(numeroMapa == 3)
 	{
@@ -83,12 +107,44 @@ void Gameplay::cambioEscena()
 		}
 		
 	}
+	if(numeroMapa == 4)
+	{
+		if(_personaje->getPosicion().x <= 0)
+		{
+			numeroMapa = 6;
+			_personaje->setPosicion(1900,_personaje->getPosicion().y);
+		}
+		if(_personaje->getPosicion().x >= 1920)
+		{
+			numeroMapa = 5;
+			_personaje->setPosicion(20,_personaje->getPosicion().y);
+		} 
+	}
+	if(numeroMapa == 6)
+	{
+		
+		if(_personaje->getPosicion().x >= 1920)
+		{
+			numeroMapa = 4;
+			_personaje->setPosicion(20,_personaje->getPosicion().y);
+		} 
+	}
+	if(numeroMapa == 5)
+	{
+		if(_personaje->getPosicion().x <= 0)
+		{
+			numeroMapa = 4;
+			_personaje->setPosicion(1900,_personaje->getPosicion().y);
+		}
+		
+	}
 	if(_personaje->getSalud()<=0)
 	{
 		nivel1->reiniciarNivel();
 		nivel2->reiniciarNivel();
 		nivel3->reiniciarNivel();
-		_personaje->reiniciar(sf::Vector2f(200,200));
+		nivel4->reiniciarNivel();
+		_personaje->reiniciar(sf::Vector2f(100,750));
 		numeroMapa = 1;
 	}
 	
@@ -106,6 +162,15 @@ void Gameplay::comando(int c)
 		break;
 	case 3:
 		nivel3->comando(*_personaje);
+		break;
+	case 4:
+		nivel4->comando(*_personaje);
+		break;
+	case 5:
+		nivel5->comando(*_personaje);
+		break;
+	case 6:
+		nivel6->comando(*_personaje);
 		break;
 	}
 	
@@ -232,10 +297,11 @@ sf::Vector2f Gameplay::getPosicionPersonaje()
 
 int Gameplay::draw(sf::RenderWindow& window)
 {
-	//std::cout << getPosicionPersonaje().x << std::endl;
-	//std::cout << getPosicionPersonaje().y << std::endl;
-	if (pausa){
-		switch (numeroMapa){
+	
+	if (pausa)
+	{
+		switch (numeroMapa)
+		{
 		case 1:
 			nivel1->dibujar(window);
 			break;
@@ -245,8 +311,18 @@ int Gameplay::draw(sf::RenderWindow& window)
 		case 3:
 			nivel3->dibujar(window);
 			break;
+		case 4:
+			nivel4->dibujar(window);
+			break;
+		case 5:
+			nivel5->dibujar(window);
+			break;
+		case 6:
+			nivel6->dibujar(window);
+			break;
 		}
-		switch(menu.mostrar(window, getPosicionPersonaje())){
+		switch(menu.mostrar(window, getPosicionPersonaje()))
+		{
 		case 1:
 			pausa = false;
 			return 1;
@@ -259,7 +335,9 @@ int Gameplay::draw(sf::RenderWindow& window)
 			return 3;
 			break;
 		}
-	}else {
+	}
+	else 
+	{
 		switch(numeroMapa)
 		{
 		case 1:
@@ -267,21 +345,34 @@ int Gameplay::draw(sf::RenderWindow& window)
 			break;
 		case 2:
 			nivel2->dibujar(window);
-			if(i<251){
+			if(i<=251)
+			{
 				window.draw(_aux);
+				_personaje->modoPausa();
 			}
 			break;
 		case 3:
 			nivel3->dibujar(window);
 			break;
+		case 4:
+			nivel4->dibujar(window);
+			break;
+		case 5:
+			nivel5->dibujar(window);
+			break;
+		case 6:
+			nivel6->dibujar(window);
+			break;
 		}
 	}
-	
 	window.draw(*_personaje);
+	window.draw(_personaje->getBarraVida());
 }
 
-void Gameplay::ponerPausa(){
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+void Gameplay::ponerPausa()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) 
+	{
 		pausa = true;
 	}
 }

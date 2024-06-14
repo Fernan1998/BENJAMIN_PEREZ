@@ -25,7 +25,7 @@ Nivel::~Nivel()
 }
 void Nivel::reiniciarNivel()
 {
-	_enemigo->reiniciar(sf::Vector2f(1200,200));
+	_enemigo->reiniciar(sf::Vector2f(1200,750));
 }
 void Nivel::actualizar(float deltaTime)
 {
@@ -62,4 +62,5 @@ void Nivel::dibujar(sf::RenderWindow& window)
 	}	
 
 	window.draw(*_enemigo);
+	window.draw(_enemigo->getBarraVida());
 }

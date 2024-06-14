@@ -1,6 +1,7 @@
 #pragma once
 #include "Animacion.h"
 #include "Personaje.h"
+#include "BarraVida.h"
 #include <SFML/Graphics.hpp>
 
 class Enemigo : public sf::Drawable
@@ -26,6 +27,11 @@ class Enemigo : public sf::Drawable
 		void setIzquierda();
 		void setAtacando();
 		void reiniciar(sf::Vector2f position);
+		BarraVida getBarraVida()
+		{
+			return _barraVida;
+		}
+		
 
 	private:
 		enum ESTADOS
@@ -41,7 +47,7 @@ class Enemigo : public sf::Drawable
 		sf::RectangleShape _cuerpo;
 		sf::Texture _textura;
 		sf::RectangleShape _rangoVision;
-		int _salud;
+		float _salud;
 		int _danio;
 		sf::Vector2f _velocidad;
 		bool _vivo;
@@ -55,6 +61,7 @@ class Enemigo : public sf::Drawable
 		int _recibiendoDanio;
 		float _ultimoAtaque;
 		sf::Clock clock;
+		BarraVida _barraVida;
 
 		
 };
