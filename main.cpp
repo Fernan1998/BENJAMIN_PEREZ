@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 	float tiempoJuego = 0;
 	sf::Clock clock;
 	
-	bool jugando = false, enOpciones = false, enOpcionesDesdeJugando = false;//, opcionesJugando = false;
+	bool jugando = false, enOpciones = false, enOpcionesDesdeJugando = false, cargar = false;//, opcionesJugando = false;
 	
 	Menu menu;
 	
@@ -38,6 +38,10 @@ int main(int argc, char *argv[])
 		ventana.clear();
 		
 		if (jugando) {
+			if (cargar) {
+				juego->cargarPartida();
+				cargar = false;
+			}
 			juego->ChequeoColisiones();
 			juego->comando(menu.getControles());
 			juego->actualizar(deltaTime);
@@ -86,12 +90,12 @@ int main(int argc, char *argv[])
 				enOpciones = true;
 				break;
 			case 3:
-//				if (opcionesJugando){
-//					jugando = false;
-//					enOpciones = false;
-//				}else{
-					ventana.close();
-				//}
+				ventana.close();
+				break;
+			case 4:
+				jugando = true;
+				enOpciones = false;
+				cargar = true;
 				break;
 			default:
 				break;

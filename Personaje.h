@@ -100,5 +100,6 @@ class Personaje : public sf::Drawable
 		sf::Keyboard::Key controlSaltar = sf::Keyboard::Numpad1;
 		sf::Keyboard::Key controlSaltarInvertido = sf::Keyboard::S;
 		sf::Keyboard::Key controlAtq = sf::Keyboard::Numpad2;
+		sf::Keyboard::Key controlBoleadora = sf::Keyboard::Numpad3;
 };
 

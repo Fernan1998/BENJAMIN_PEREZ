@@ -19,16 +19,17 @@ void getDatosPoronga(sf::Vector2f posicion, float vida, int nMapa)
 
 void cerrarJuego()
 {
-	FILE *file = fopen("Guardar.bpg", "wb");
+	FILE *file = fopen("data/Guardar.bpg", "wb");
 	if(file)
 	{
 		fwrite(&objetoAuxiliar, sizeof(objetoAuxiliar), 1, file);
 		fclose(file);
 	}
 }
+
 void cargarJuego(Personaje *auxiliar, int &nMapaAux)
 {
-	FILE *file = fopen("Guardar.bpg", "rb");
+	FILE *file = fopen("data/Guardar.bpg", "rb");
 	if(file)
 	{
 		fread(&objetoAuxiliar, sizeof(objetoAuxiliar), 1, file);

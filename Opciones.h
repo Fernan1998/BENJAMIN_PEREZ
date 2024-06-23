@@ -51,6 +51,8 @@ private:
 	sf::Texture _texturaNumpad1;
 	sf::Sprite _spriteNumpad2;
 	sf::Texture _texturaNumpad2;
+	sf::Sprite _spriteNumpad3;
+	sf::Texture _texturaNumpad3;
 	sf::Sprite _spriteFlecha3;
 	sf::Texture _texturaFlecha3;
 	sf::Sprite _spriteFlecha4;
@@ -61,8 +63,12 @@ private:
 	sf::Texture _texturaFlecha6;
 	sf::Sprite _spriteZ;
 	sf::Texture _texturaZ;
+	sf::Sprite _spriteX;
+	sf::Texture _texturaX;
 	sf::Sprite _spriteF;
 	sf::Texture _texturaF;
+	sf::Sprite _spriteE;
+	sf::Texture _texturaE;
 	sf::Sprite _spriteAbajo;
 	sf::Texture _texturaAbajo;
 };

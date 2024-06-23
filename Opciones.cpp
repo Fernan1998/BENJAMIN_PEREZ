@@ -21,12 +21,18 @@ Opciones::Opciones() {
 	inicializarSprite(_texturaD, _spriteD, 650, 200, 0.f, "Textura/Menu/d.png", 2);
 	// Z
 	inicializarSprite(_texturaZ, _spriteZ, 670, 600, 0, "Textura/Menu/z.png", 1);
+	// X
+	inicializarSprite(_texturaX, _spriteX, 750, 600, 0.f, "Textura/Menu/x.png", 2);
 	// F
 	inicializarSprite(_texturaF, _spriteF, 650, 600, 0.f, "Textura/Menu/f.png", 2);
+	// E
+	inicializarSprite(_texturaE, _spriteE, 750, 600, 0.f, "Textura/Menu/e.png", 2);
 	// Numpad 1
 	inicializarSprite(_texturaNumpad1, _spriteNumpad1, 650, 400, 0.f, "Textura/Menu/1.png", 2);
 	// Numpad 2
 	inicializarSprite(_texturaNumpad2, _spriteNumpad2, 650, 600, 0.f, "Textura/Menu/2.png", 2);
+	// Numpad 3
+	inicializarSprite(_texturaNumpad3, _spriteNumpad3, 750, 600, 0.f, "Textura/Menu/3.png", 2);
 	// Volver
 	inicializarSprite(_texturaVolver, _spriteVolver, 650, 700, 0.f, "Textura/Menu/volver.png", 2);
 	// Flechas <Controles>
@@ -60,11 +66,13 @@ bool Opciones::mostrar(sf::RenderWindow &ventana){
 		ventana.draw(_spriteS);
 		ventana.draw(_spriteNumpad1);
 		ventana.draw(_spriteNumpad2);
+		ventana.draw(_spriteNumpad3);
 		break;
 	case 2:
 		ventana.draw(_spriteW);
 		ventana.draw(_spriteS);
 		ventana.draw(_spriteF);
+		ventana.draw(_spriteE);
 		ventana.draw(_spriteA);
 		ventana.draw(_spriteD);
 		break;
@@ -74,6 +82,7 @@ bool Opciones::mostrar(sf::RenderWindow &ventana){
 		ventana.draw(_spriteFlecha5);
 		ventana.draw(_spriteFlecha6);
 		ventana.draw(_spriteZ);
+		ventana.draw(_spriteX);
 		break;
 	case 4:
 		setControles(1);

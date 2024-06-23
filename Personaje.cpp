@@ -143,7 +143,7 @@ void Personaje::comandos(int c)
 			
 			
 		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3) && !_pausa)
+		if(sf::Keyboard::isKeyPressed(controlBoleadora) && !_pausa)
 		{
 			_estado = ESTADOS::BOLEADORA;
 		}
@@ -272,18 +272,21 @@ void Personaje::setControles(int c)
 		controlSaltar = sf::Keyboard::Numpad1;
 		controlSaltarInvertido = sf::Keyboard::S;
 		controlAtq = sf::Keyboard::Numpad2;
+		controlBoleadora = sf::Keyboard::Numpad3;
 	}else if (c == 2) {
 		controlIzq = sf::Keyboard::A;
 		controlDer = sf::Keyboard::D;
 		controlSaltar = sf::Keyboard::W;
 		controlSaltarInvertido = sf::Keyboard::S;
 		controlAtq = sf::Keyboard::F;
+		controlBoleadora = sf::Keyboard::E;
 	}else {
 		controlIzq = sf::Keyboard::Left;
 		controlDer = sf::Keyboard::Right;
 		controlSaltar = sf::Keyboard::Up;
 		controlSaltarInvertido = sf::Keyboard::Down;
 		controlAtq = sf::Keyboard::Z;
+		controlBoleadora = sf::Keyboard::X;
 	}
 }
 

@@ -41,13 +41,16 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	_aux.setSize(sf::Vector2f(1024, 768));	
 	_boleadora.setPosition(_personaje->getPosicion());
 	_boleando = false;
-	
-	cargarJuego(_personaje, numeroMapa);
 }
 Gameplay::~Gameplay()
 {
 	
 }
+
+void Gameplay::cargarPartida(){
+	cargarJuego(_personaje, numeroMapa);
+}
+
 void Gameplay::actualizar(float deltaTime)
 {
 	getDatosPoronga(_personaje->getPosicion(), _personaje->getSalud(), numeroMapa);
@@ -124,9 +127,6 @@ void Gameplay::actualizar(float deltaTime)
 		_boleadora.setPosition(_personaje->getPosicion());
 		_boleadora.setColor(sf::Color::Transparent);
 	}
-
-	
-	
 }
 
 void Gameplay::cambioEscena()

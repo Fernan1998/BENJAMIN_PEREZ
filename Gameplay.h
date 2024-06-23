@@ -24,7 +24,7 @@ class Gameplay
 		sf::Vector2f getPosicionPersonaje();
 		void cambioEscena();
 		void ponerPausa();
-		
+		void cargarPartida();
 	private:
 		CamaraPrincipal _camaraPrincipal;
 		Personaje *_personaje;

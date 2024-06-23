@@ -7,6 +7,11 @@ Menu::Menu() {
 	cargarSprite(_texturaOpcion, "Textura/Menu/opciones.png", _botonOpcion, 512, 512, 0, 4);
 	/// Salir
 	cargarSprite(_texturaSalir, "Textura/Menu/salir.png", _botonSalir, 512, 602, 0, 4);
+	/// Nuevo
+	cargarSprite(_texturaNuevo, "Textura/Menu/nueva partida.png", _botonNuevo, 512, 512, 0, 4);
+	_botonNuevo.setScale(1.2f, 1.2f);
+	/// Continuar
+	cargarSprite(_texturaContinuar, "Textura/Menu/continuar.png", _botonContinuar, 512, 592, 0, 4);
 	/// Fondo
 	cargarSprite(_texturaFondo, "Textura/Menu/fondo.png", _spriteFondo, 512, 384, 0, 4);
 }
@@ -27,26 +32,49 @@ Menu::~Menu() {
 
 int Menu::mostrar(sf::RenderWindow &ventana){
 	ventana.draw(_spriteFondo);
-	ventana.draw(_botonJugar);
-	ventana.draw(_botonOpcion);
-	ventana.draw(_botonSalir);
-	bool click = clickMouse();
-	if (soltarClick && !click) {
-		if (contador < 3) {
-			contador++;
-		}else {
-			contador = 0;
-			clickMouse(contador);
+	if (!jugar) {
+		ventana.draw(_botonJugar);
+		ventana.draw(_botonOpcion);
+		ventana.draw(_botonSalir);
+		bool click = clickMouse();
+		if (soltarClick && !click) {
+			if (contador < 3) {
+				contador++;
+			}else {
+				contador = 0;
+				clickMouse(contador);
+			}
 		}
-	}
-	if(clickEn(ventana, _botonJugar) && soltarClick && !click){
-		return 1;
-	}else if(clickEn(ventana, _botonOpcion) && soltarClick && !click){
-		return 2;
-	}else if(clickEn(ventana, _botonSalir) && soltarClick && !click){
-		return 3;
-	}else{
-		return 0;
+		if(clickEn(ventana, _botonJugar) && soltarClick && !click){
+			jugar = true;
+		}else if(clickEn(ventana, _botonOpcion) && soltarClick && !click){
+			return 2;
+		}else if(clickEn(ventana, _botonSalir) && soltarClick && !click){
+			return 3;
+		}else{
+			return 0;
+		}
+	}else {
+		bool click = clickMouse();
+		if (soltarClick && !click) {
+			if (contador < 3) {
+				contador++;
+			}else {
+				contador = 0;
+				clickMouse(contador);
+			}
+		}
+		if (jugar) {
+			ventana.draw(_botonContinuar);
+			ventana.draw(_botonNuevo);
+			if(clickEn(ventana, _botonNuevo) && soltarClick && !click){
+				return 1;
+			}else if(clickEn(ventana, _botonContinuar) && soltarClick && !click){
+				return 4;
+			}else {
+				return 0;
+			}
+		}
 	}
 }
 
