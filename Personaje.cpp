@@ -46,8 +46,9 @@ void Personaje::saltoInvertido()
 {
 	_saltoInvertido = true;
 }
-void Personaje::recibiendoDanio(int danio)
+void Personaje::recibiendoDanio(int danio, int empuje)
 {
+	_empuje = empuje;
 	_estado = ESTADOS::RDANIO;
 	_salud -= danio;
 }
@@ -221,14 +222,13 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.setTextureRect(animacionAtaque->uvRect);
 			break;
 		case BOLEADORA:
-			
 			_boleadora = true;
 			_cuerpo.setTexture(&_texturaAtaque);
 			animacionAtaque->Update(1, deltaTime, true);
 			_cuerpo.setTextureRect(animacionAtaque->uvRect);
 		break;
 		case RDANIO:
-			_cuerpo.move(-35,-_velocidadSalto);
+			_cuerpo.move(_empuje ,-_velocidadSalto);
 			_estado = ESTADOS::CAYENDO;
 			break;
 		case MUERTO:

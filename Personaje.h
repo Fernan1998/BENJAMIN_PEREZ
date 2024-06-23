@@ -45,7 +45,7 @@ class Personaje : public sf::Drawable
 		sf::RectangleShape getCuerpo();
 		sf::RectangleShape getCajaAtaque();
 		sf::FloatRect getCajaCuerpo();
-		void recibiendoDanio(int danio);
+		void recibiendoDanio(int danio, int empuje);
 		void reiniciar(sf::Vector2f posicion);
 		void modoPausa();
 		BarraVida getBarraVida()
@@ -77,6 +77,7 @@ class Personaje : public sf::Drawable
 		sf::RectangleShape _cuerpo;
 		sf::RectangleShape _cajaAtaque;
 		sf::Vector2f _velocidad;
+		int _empuje;
 		float _salud;
 		float _danio;
 		float _velocidadSalto;

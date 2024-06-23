@@ -10,7 +10,7 @@
 class Nivel
 {
 	public:
-		Nivel(std::string mapa, std::string fondo, std::string plataformas, std::string ruta_musica);
+		Nivel(std::string mapa, std::string fondo, std::string plataformas, std::string ruta_musica, int cantidadEnemigos);
 		~Nivel();
 		void actualizar(float deltaTime);
 		void comando(Personaje &personaje);
@@ -24,11 +24,16 @@ class Nivel
 		} 
 		void reiniciarNivel();
 	private:
+		int _cantidadEnemigos;
 		Mapa _mapa;
 		Mapa _fondo;
 		Mapa _plataformas;
 		Mapa _script;
+		
+		std::vector<Enemigo*> _vectorEnemigo;
+		
 		Enemigo* _enemigo;
+		
 		Sonidos *_sonido;
 
 };

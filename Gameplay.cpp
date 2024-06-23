@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 {
-	numeroMapa = 4;
+	numeroMapa = 1;
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -11,14 +11,14 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	
 	cinematicaPersonaje = new  Cinematica("dia_noche/dia_noche", 251);
 	
-	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg");
-	nivel2 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg");
-	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg");
-	nivel4 = new Nivel("Mapas_txt/mapa_cueva_1/mapa_cueva1.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_plataformas.txt", "Sonido/Folklore.ogg");
-	nivel5 = new Nivel("Mapas_txt/mapa_cueva_2/mapa_cueva2.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_fondo.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_plataformas.txt", "Sonido/Folklore.ogg");
-	nivel6 = new Nivel("Mapas_txt/mapa_cueva_3/mapa_cueva3.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_fondo.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_plataformas.txt", "Sonido/Folklore.ogg");
-	nivel7 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg");
-	nivel8 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg");
+	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg", 1);
+	nivel2 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg", 1);
+	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 1);
+	nivel4 = new Nivel("Mapas_txt/mapa_cueva_1/mapa_cueva1.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_plataformas.txt", "Sonido/Folklore.ogg", 1);
+	nivel5 = new Nivel("Mapas_txt/mapa_cueva_2/mapa_cueva2.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_fondo.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_plataformas.txt", "Sonido/Folklore.ogg", 1);
+	nivel6 = new Nivel("Mapas_txt/mapa_cueva_3/mapa_cueva3.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_fondo.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_plataformas.txt", "Sonido/Folklore.ogg", 1);
+	nivel7 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 1);
+	nivel8 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 1);
 	
 	listaNiveles[0] = nivel1;
 	listaNiveles[1] = nivel2;
@@ -95,37 +95,43 @@ void Gameplay::actualizar(float deltaTime)
 	
 	if(_personaje->getBoleadora() || _boleando)
 	{
-		
-		_boleando = true;
-		if(_personaje->getScale() == 1 && _boleadora.getPosition().x)
+		if(_boleando == false)
 		{
-			if(_boleadora.getPosition().x < _personaje->getPosicion().x +500)
+			escala = _personaje->getScale();
+		}
+		_boleando = true;
+		if(escala == 1)
+		{
+			if(_boleadora.getPosition().x < _personaje->getPosicion().x +1000)
 			{
 				_boleadora.actualizar(1);
 			}
 			else
 			{
-
 				_boleando = false;
+				_boleadora.setPosition(_personaje->getPosicion());
+				_boleadora.setColor(sf::Color::Transparent);
 			}
 		}
-		else if(_personaje->getScale() == -1)
+		else if(escala == -1)
 		{
-			if(_boleadora.getPosition().x > _personaje->getPosicion().x -500)
+			if(_boleadora.getPosition().x > _personaje->getPosicion().x -1000)
 			{
 				_boleadora.actualizar(2);
 			}
 			else
 			{
 				_boleando = false;
+				_boleadora.setPosition(_personaje->getPosicion());
+				_boleadora.setColor(sf::Color::Transparent);
 			}
 			
 		}	
 	}
 	else
 	{
-		_boleadora.setPosition(_personaje->getPosicion());
 		_boleadora.setColor(sf::Color::Transparent);
+		_boleadora.setPosition(_personaje->getPosicion());
 	}
 }
 
@@ -170,7 +176,7 @@ void Gameplay::cambioEscena()
 		}
 		if(_personaje->getPosicion().y >= 980)
 		{
-			_personaje->recibiendoDanio(100);
+			_personaje->recibiendoDanio(100, 0);
 		}
 	}
 	if(numeroMapa == 4)
@@ -187,7 +193,7 @@ void Gameplay::cambioEscena()
 		} 
 		if(_personaje->getPosicion().y >= 980)
 		{
-			_personaje->recibiendoDanio(100);
+			_personaje->recibiendoDanio(100, 0);
 		}
 	}
 	if(numeroMapa == 6)
@@ -208,7 +214,7 @@ void Gameplay::cambioEscena()
 		}
 		if(_personaje->getPosicion().y >= 980)
 		{
-			_personaje->recibiendoDanio(100);
+			_personaje->recibiendoDanio(100, 0);
 		}
 		
 	}
@@ -216,7 +222,7 @@ void Gameplay::cambioEscena()
 	{
 		if(_personaje->getPosicion().y >= 980)
 		{
-			_personaje->recibiendoDanio(100);
+			_personaje->recibiendoDanio(100, 0);
 		}
 		
 	}
@@ -387,7 +393,14 @@ void Gameplay::ChequeoColisiones()
 		if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 1.0f)
 		{
 			enemigo->setAtacando();
-			_personaje->recibiendoDanio(enemigo->getDanio());
+			if(_personaje->getPosicion().x < enemigo->getPosition().x)
+			{
+				_personaje->recibiendoDanio(enemigo->getDanio(), -35);
+			}
+			if(_personaje->getPosicion().x > enemigo->getPosition().x)
+			{
+				_personaje->recibiendoDanio(enemigo->getDanio(), 35);
+			}
 			_ultimoAtaque = clock.getElapsedTime().asSeconds();
 		}
 	}

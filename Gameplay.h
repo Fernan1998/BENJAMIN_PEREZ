@@ -38,6 +38,7 @@ class Gameplay
 		Nivel *nivel8;
 		Nivel *nivelActual;
 		Nivel *listaNiveles[10];
+		int escala;
 		int numeroMapa;
 		bool pausa = false;
 		bool _boleando;
