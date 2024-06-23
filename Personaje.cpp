@@ -5,8 +5,8 @@ Personaje::Personaje()
 	_textura.loadFromFile("Textura/Player/BenjaminPerez.png");
 	_texturaAtaque.loadFromFile("Textura/Player/BPAtaque.png");
 	_cuerpo.setTexture(&_textura);
-	_cuerpo.setPosition(sf::Vector2f(130,150));
-	_cuerpo.setSize(sf::Vector2f(78.0f, 107.0f));
+	_cuerpo.setPosition(sf::Vector2f(100,750));
+	_cuerpo.setSize(sf::Vector2f(73.0f, 107.0f));
 	_velocidad = sf::Vector2f(0,0);
 	_estado = ESTADOS::CAYENDO;
 	_velocidadSalto = 0;
@@ -26,6 +26,7 @@ Personaje::Personaje()
 	_sonido = new Sonidos("Sonido/Salto.ogg","Sonido/Salto.ogg","Sonido/Salto.ogg");
 	_ultimoAtaque = 0;
 	_pausa = false;
+	_barraVida = new BarraVida(sf::Color::Green);
 }
 Personaje::~Personaje()
 {
@@ -39,6 +40,7 @@ void Personaje::modoPausa()
 {
 	_pausa = true;
 	_cuerpo.setFillColor(sf::Color::Transparent);
+	_barraVida->modoPausa(true);
 }
 void Personaje::saltoInvertido()
 {
@@ -136,11 +138,14 @@ void Personaje::comandos(int c)
 	{
 		if(sf::Keyboard::isKeyPressed(controlAtq) && !_pausa)
 		{
-			if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 0.0f) {
-				_estado = ESTADOS::ATACANDO;
-				_ultimoAtaque = clock.getElapsedTime().asSeconds();
-			}
 			
+			_estado = ESTADOS::ATACANDO;
+			
+			
+		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3) && !_pausa)
+		{
+			_estado = ESTADOS::BOLEADORA;
 		}
 	}
 	
@@ -169,7 +174,9 @@ void Personaje::comandos(int c)
 }
 void Personaje::actualizar(float deltaTime)
 {
-	_barraVida.actualizar(_salud, sf::Vector2f(_cuerpo.getPosition().x, _cuerpo.getPosition().y-80));
+	_barraVida->actualizar(_salud, sf::Vector2f(_cuerpo.getPosition().x, _cuerpo.getPosition().y-80));
+	_barraVida->modoPausa(false);
+	_boleadora = false;
 	switch(_estado)
 	{
 		case QUIETO:
@@ -179,7 +186,7 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.setTextureRect(animacion->uvRect);
 			break;
 		case CAMINANDO_ADELANTE:
-			_cuerpo.setScale(1,1);
+			_cuerpo.setScale(1.0f,1.0f);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
 			_estado= ESTADOS::CAYENDO;
 			_cuerpo.setTexture(&_textura);
@@ -187,7 +194,7 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.setTextureRect(animacion->uvRect);
 			break;
 		case CAMINANDO_ATRAS:
-			_cuerpo.setScale(-1,1);
+			_cuerpo.setScale(-1.0f,1.0f);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
 			_estado= ESTADOS::CAYENDO;
 			_cuerpo.setTexture(&_textura);
@@ -203,11 +210,23 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.move(0, -_velocidadSalto);
 			break;
 		case ATACANDO:
+			if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 0.5f)
+			{
+				_ultimoAtaque = clock.getElapsedTime().asSeconds();
+				_atacando = true;
+				
+			}
 			_cuerpo.setTexture(&_texturaAtaque);
 			animacionAtaque->Update(0, deltaTime, true);
 			_cuerpo.setTextureRect(animacionAtaque->uvRect);
-			_atacando = true;
 			break;
+		case BOLEADORA:
+			
+			_boleadora = true;
+			_cuerpo.setTexture(&_texturaAtaque);
+			animacionAtaque->Update(1, deltaTime, true);
+			_cuerpo.setTextureRect(animacionAtaque->uvRect);
+		break;
 		case RDANIO:
 			_cuerpo.move(-35,-_velocidadSalto);
 			_estado = ESTADOS::CAYENDO;
@@ -218,12 +237,17 @@ void Personaje::actualizar(float deltaTime)
 			break;
 			
 		}
+	//std::cout << _cuerpo.getScale().x <<std::endl;
 	_velocidadSalto-=0.5;
 	_velocidad=sf::Vector2f(0,0);
 	_cajaAtaque.setPosition(_cuerpo.getPosition());
 	_pausa = false;
 	_cuerpo.setFillColor(sf::Color::White);
 	
+}
+float Personaje::getScale()
+{
+	return _cuerpo.getScale().x;
 }
 void Personaje::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 {

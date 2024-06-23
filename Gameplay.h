@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include "Personaje.h"
 #include "CamaraPrincipal.h"
 #include "Mapa.h"
@@ -6,7 +7,8 @@
 #include "Cinematica.h"
 #include "Nivel.h"
 #include "Menu.h"
-#include <SFML/Graphics.hpp>
+#include "Proyectil.h"
+#include "Funciones.h"
 #include <string>
 
 class Gameplay 
@@ -32,16 +34,20 @@ class Gameplay
 		Nivel *nivel4;
 		Nivel *nivel5;
 		Nivel *nivel6;
+		Nivel *nivel7;
+		Nivel *nivel8;
 		Nivel *nivelActual;
 		Nivel *listaNiveles[10];
 		int numeroMapa;
 		bool pausa = false;
+		bool _boleando;
 		Menu menu = new Menu(true);
-		Cinematica cinematicaPersonaje;
+		Cinematica *cinematicaPersonaje;
 		sf::RectangleShape _aux;
 		sf::Texture texAux;
 		int i=0;
 		float _ultimoAtaque;
 		sf::Clock clock;
+		Proyectil _boleadora;
 };
 

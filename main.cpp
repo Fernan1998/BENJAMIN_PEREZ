@@ -1,11 +1,8 @@
 #include <SFML/Graphics.hpp>
-#include "Mapa.h"
-#include "Personaje.h"
 #include "Gameplay.h"
 #include "CamaraPrincipal.h"
 #include "Menu.h"
 #include "Funciones.h"
-#include "Menu.h"
 #include <iostream>
 
 int main(int argc, char *argv[])
@@ -32,7 +29,10 @@ int main(int argc, char *argv[])
 		while(ventana.pollEvent(e))
 		{
 			if(e.type == sf::Event::Closed)
-				ventana.close();	
+			{
+				cerrarJuego();
+				ventana.close();
+			}
 		}
 		
 		ventana.clear();

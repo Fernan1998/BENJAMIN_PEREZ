@@ -22,6 +22,14 @@ class Personaje : public sf::Drawable
 		void setIzquierda();
 		void setControles(int c);
 		void setPosicion(float a, float b);
+		void setBoleadora(bool other)
+		{
+			_boleadora = other;
+		}
+		void setSalud(float vida)
+		{
+			_salud = vida;
+		}
 		
 		/// Getters
 		sf::Keyboard::Key getControlIzq();
@@ -42,8 +50,14 @@ class Personaje : public sf::Drawable
 		void modoPausa();
 		BarraVida getBarraVida()
 		{
-			return _barraVida;
+			return *_barraVida;
 		}
+		bool getBoleadora()
+		{
+			return _boleadora;
+		}
+		float getScale();
+
 
 	private:
 		enum ESTADOS{
@@ -51,8 +65,9 @@ class Personaje : public sf::Drawable
 			CAMINANDO_ADELANTE,
 			CAMINANDO_ATRAS,
 			SALTANDO,
-			ATACANDO,
 			CAYENDO,
+			ATACANDO,
+			BOLEADORA,
 			RDANIO,
 			MUERTO
 		};
@@ -71,12 +86,13 @@ class Personaje : public sf::Drawable
 		bool _colisionandoDer;		
 		bool _atacando;
 		bool _pausa;
+		bool _boleadora;
 		float _ultimoAtaque;
 		sf::Clock clock;
 		Animacion *animacion;
 		Animacion *animacionAtaque;
 		Sonidos *_sonido;
-		BarraVida _barraVida;
+		BarraVida *_barraVida;
 		
 		// Controles
 		sf::Keyboard::Key controlIzq = sf::Keyboard::A;

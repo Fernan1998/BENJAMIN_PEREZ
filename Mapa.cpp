@@ -92,7 +92,7 @@ Mapa::Mapa()
 			_textura[i].loadFromFile("Textura/Mapa/grass1.png");
 			break;
 		case 26:
-			_textura[i].loadFromFile("Textura/Mapa/new piskel.png");
+			_textura[i].loadFromFile("Textura/Mapa/grass1.png");
 			break;
 		case 27:
 			_textura[i].loadFromFile("Textura/Mapa/Nubecita.png");

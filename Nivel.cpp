@@ -14,7 +14,7 @@ Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas, std::
 	file_plataformas.open(plataformas);
 	_plataformas.CreadorMapa(file_plataformas);
 
-	_enemigo = new Enemigo();
+	_enemigo = new Enemigo(1000, 25, "Textura/Diablo/Diablo.png",246,327,84,800,1,4);
 	_sonido = new Sonidos(ruta_musica);
 	_sonido->PlayMusic();
 
@@ -25,7 +25,7 @@ Nivel::~Nivel()
 }
 void Nivel::reiniciarNivel()
 {
-	_enemigo->reiniciar(sf::Vector2f(1200,750));
+	_enemigo->reiniciar(sf::Vector2f(1200,550), 100);
 }
 void Nivel::actualizar(float deltaTime)
 {
