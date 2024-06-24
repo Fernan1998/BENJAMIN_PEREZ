@@ -20,12 +20,23 @@ Enemigo::Enemigo(float salud, float danio, std::string textura, float alto, floa
 	_recibiendoDanio = 0;
 	_atacando = false;
 	_animacion = new Animacion(&_textura, sf::Vector2u(columnaAnimacion,filaAnimacion), 0.1f, alto,ancho);
+	_tiempoEspera = 5.0f;
 }
 Enemigo::~Enemigo()
 {
 }
-Enemigo::getDanio()
+//entiendo este metodo como para determinar si el enemigo puede o no infligir daño
+//verificamos si el estado es atacando y si el tiempo que paso desde el ultimo ataque es menor al de espera
+//el clock dentro del if, devuelve los segundos desde el ultimo restart()
+//si este tiempo es menor que _tiempoEspera, significa que el enemigo todavía esta en su fase de ataque y
+//esta "esperando" o antes de poder atacar de nuevo.
+
+//si la condicion se cumple quiere decir que el enemigo esta esperando asi que no retorna 0 (no ataca)
+int Enemigo::getDanio()
 {
+	if (_estado == ESTADOS::ATACANDO && clock.getElapsedTime().asSeconds() < _tiempoEspera) {
+		return 0;
+	}
 	return _danio;
 }
 void Enemigo::quieto()
@@ -61,6 +72,13 @@ sf::FloatRect Enemigo::getHitBox()
 }
 void Enemigo::comando(float puntoA, float puntoB, Personaje personaje)
 {
+	//ejecutamos este if para que el enemigo luego de haber golpeado se quede quieto
+	//ponemos un return para que no se ejecute nada mas de comando y simpelmente se quede parado
+	if (_estado == ESTADOS::ATACANDO && clock.getElapsedTime().asSeconds() < _tiempoEspera)
+	{
+		std::cout << "ESTOY ATACANDO" << std::endl;
+		return;
+	}
 	if(_recibiendoDanio==1)
 	{
 		_estado = ESTADOS::RDANIO;
@@ -109,6 +127,7 @@ void Enemigo::comando(float puntoA, float puntoB, Personaje personaje)
 	if(_atacando && !_recibiendoDanio)
 	{
 		_estado = ESTADOS::ATACANDO;
+		clock.restart();
 	}
 	if(_salud < 0)
 	{
@@ -137,6 +156,7 @@ void Enemigo::actualizar(float deltaTime)
 			_cuerpo.move(_velocidad);
 			break;
 		case ATACANDO:
+			_velocidad = sf::Vector2f(0, 0);
 			_animacion->Update(0, deltaTime);
 			_cuerpo.setTextureRect(_animacion->uvRect);
 			break;

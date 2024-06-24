@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
-current_source=Gameplay.cpp
+current_source=Enemigo.cpp
 path_char=\
 [source]
 path=main.cpp
@@ -39,7 +39,8 @@ path=Animacion.cpp
 cursor=50:1
 [source]
 path=Enemigo.cpp
-cursor=160:1
+cursor=150:28
+open=true
 [source]
 path=Nivel.cpp
 cursor=47:37
@@ -78,7 +79,6 @@ cursor=21:18
 [header]
 path=Gameplay.h
 cursor=40:6
-open=true
 [header]
 path=CamaraPrincipal.h
 cursor=23:2
@@ -93,11 +93,11 @@ path=Animacion.h
 cursor=10:45
 [header]
 path=Enemigo.h
-cursor=24:33
+cursor=73:22
+open=true
 [header]
 path=Nivel.h
 cursor=28:22
-open=true
 [header]
 path=menu.h
 cursor=18:62
