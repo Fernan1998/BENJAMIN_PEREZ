@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 {
-	numeroMapa = 1;
+	numeroMapa = 3;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -13,9 +13,9 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	
 	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg", 1);
 	nivel2 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg", 1);
-	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 1);
-	nivel4 = new Nivel("Mapas_txt/mapa_cueva_1/mapa_cueva1.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_plataformas.txt", "Sonido/Folklore.ogg", 1);
-	nivel5 = new Nivel("Mapas_txt/mapa_cueva_2/mapa_cueva2.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_fondo.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_plataformas.txt", "Sonido/Folklore.ogg", 1);
+	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 3);
+	nivel4 = new Nivel("Mapas_txt/mapa_cueva_1/mapa_cueva1.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_plataformas.txt", "Sonido/Folklore.ogg", 2);
+	nivel5 = new Nivel("Mapas_txt/mapa_cueva_2/mapa_cueva2.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_fondo.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_plataformas.txt", "Sonido/Folklore.ogg", 2);
 	nivel6 = new Nivel("Mapas_txt/mapa_cueva_3/mapa_cueva3.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_fondo.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_plataformas.txt", "Sonido/Folklore.ogg", 1);
 	nivel7 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 1);
 	nivel8 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 1);
@@ -28,14 +28,17 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	listaNiveles[5] = nivel6;
 	listaNiveles[6] = nivel7;
 	listaNiveles[7] = nivel8;
-	nivel1->reiniciarNivel();
-	nivel2->reiniciarNivel();
-	nivel3->reiniciarNivel();
-	nivel4->reiniciarNivel();
-	nivel5->reiniciarNivel();
-	nivel6->reiniciarNivel();
-	nivel7->reiniciarNivel();
-	nivel8->reiniciarNivel();
+	
+	nivel1->reiniciarNivel(sf::Vector2f(600,300), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+	nivel2->reiniciarNivel(sf::Vector2f(600,300), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+	nivel3->reiniciarNivel(sf::Vector2f(600,300), sf::Vector2f(850,350), sf::Vector2f(1000,650), sf::Vector2f(1200,650));
+	nivel4->reiniciarNivel(sf::Vector2f(800,400), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+	nivel5->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+	nivel6->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+	nivel7->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+	nivel8->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+	
+	
 	
 	_aux.setPosition(sf::Vector2f(0, 224));
 	_aux.setSize(sf::Vector2f(1024, 768));	
@@ -230,14 +233,14 @@ void Gameplay::cambioEscena()
 	{
 		if(numeroMapa != 8)
 		{
-			nivel1->reiniciarNivel();
-			nivel2->reiniciarNivel();
-			nivel3->reiniciarNivel();
-			nivel4->reiniciarNivel();
-			nivel5->reiniciarNivel();
-			nivel6->reiniciarNivel();
-			nivel7->reiniciarNivel();
-			nivel8->reiniciarNivel();
+			nivel1->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+			nivel2->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+			nivel3->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+			nivel4->reiniciarNivel(sf::Vector2f(800,400), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+			nivel5->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+			nivel6->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+			nivel7->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+			nivel8->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
 			
 			_personaje->reiniciar(sf::Vector2f(100,750));
 			numeroMapa = 2;
@@ -299,9 +302,7 @@ void Gameplay::ChequeoColisiones()
 	
 	Nivel *nivelActual = listaNiveles[numeroMapa-1];
 	
-	Enemigo *enemigo = nivelActual->getEnemigo();
-	
-	sf::FloatRect hitBoxEnemigo = enemigo->getHitBox();
+	std::vector<Enemigo*> _vectorEnemigo = nivelActual->getEnemigo();
 	
 	for(int i=0; i<31; i++)
 	{
@@ -352,62 +353,69 @@ void Gameplay::ChequeoColisiones()
 				_personaje->cayendo();
 			}
 			//Colision enemigo mapa
-			if (hitBoxEnemigo.intersects(hitBoxMap))
+			for(int a=0; a<nivelActual->getCantidadEnemigos(); a++)
 			{
-				if (hitBoxEnemigo.top - hitBoxEnemigo.height < hitBoxMap.top)
-				{
-					enemigo->quieto();
-				} 
-			}
-			//Colision enemigo derecha
-			if (hitBoxEnemigo.left + hitBoxEnemigo.width <= hitBoxMap.left &&
-				hitBoxEnemigo.intersects(hitBoxMapIzq))
-			{
-				enemigo->setDerecha();
-			}
-			//Colision enemigo Izquierda
-			if (hitBoxEnemigo.left > hitBoxMap.left + hitBoxMap.width &&
-				hitBoxEnemigo.intersects(hitBoxMapDer))
-			{ 
+				sf::FloatRect hitBoxEnemigo = _vectorEnemigo[a]->getHitBox();
 				
-				enemigo->setIzquierda();
-			}
-		    
+				if (hitBoxEnemigo.intersects(hitBoxMap))
+				{
+					if (hitBoxEnemigo.top - hitBoxEnemigo.height < hitBoxMap.top)
+					{
+						_vectorEnemigo[a]->quieto();
+					} 
+				}
+				//Colision enemigo derecha
+				if (hitBoxEnemigo.left + hitBoxEnemigo.width <= hitBoxMap.left &&
+					hitBoxEnemigo.intersects(hitBoxMapIzq))
+				{
+					_vectorEnemigo[a]->setDerecha();
+				}
+				//Colision enemigo Izquierda
+				if (hitBoxEnemigo.left > hitBoxMap.left + hitBoxMap.width &&
+					hitBoxEnemigo.intersects(hitBoxMapDer))
+				{ 
+					
+					_vectorEnemigo[a]->setIzquierda();
+				}
+		    }
 		}
 	}
-	//Ataque Personaje >> Enemigo
-	if(_personaje->getAtacando() == true && _personaje->getCajaAtaque().getGlobalBounds().intersects(enemigo->getHitBox()) && enemigo->getSalud() >0)
+	for(int i=0; i<nivelActual->getCantidadEnemigos(); i++)
 	{
-		enemigo->setSalud(_personaje->getDanio());
-		if(_personaje->getPosicion().x < enemigo->getPosition().x)
+		//Ataque Personaje >> Enemigo
+		if(_personaje->getAtacando() == true && _personaje->getCajaAtaque().getGlobalBounds().intersects(_vectorEnemigo[i]->getHitBox()) && _vectorEnemigo[i]->getSalud() >0)
 		{
-			enemigo->recibiendoDanio(1);
-		}
-		else
-		{
-			enemigo->recibiendoDanio(2);
-		}
-	}
-	if(enemigo->getHitBox().intersects(playerGlobalBounds)&&enemigo->getSalud() >0)
-	{
-		if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 1.0f)
-		{
-			enemigo->setAtacando();
-			if(_personaje->getPosicion().x < enemigo->getPosition().x)
+			_vectorEnemigo[i]->setSalud(_personaje->getDanio());
+			if(_personaje->getPosicion().x < _vectorEnemigo[i]->getPosition().x)
 			{
-				_personaje->recibiendoDanio(enemigo->getDanio(), -35);
+				_vectorEnemigo[i]->recibiendoDanio(1);
 			}
-			if(_personaje->getPosicion().x > enemigo->getPosition().x)
+			else
 			{
-				_personaje->recibiendoDanio(enemigo->getDanio(), 35);
+				_vectorEnemigo[i]->recibiendoDanio(2);
 			}
-			_ultimoAtaque = clock.getElapsedTime().asSeconds();
 		}
-	}
-	if(_boleadora.getCuerpo().intersects(enemigo->getHitBox()))
-	{
-		enemigo->setVelocidadCaminata(0.5f);
-		
+		if(_vectorEnemigo[i]->getHitBox().intersects(playerGlobalBounds)&&_vectorEnemigo[i]->getSalud() >0)
+		{
+			if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 1.0f)
+			{
+				_vectorEnemigo[i]->setAtacando();
+				if(_personaje->getPosicion().x < _vectorEnemigo[i]->getPosition().x)
+				{
+					_personaje->recibiendoDanio(_vectorEnemigo[i]->getDanio(), -35);
+				}
+				if(_personaje->getPosicion().x > _vectorEnemigo[i]->getPosition().x)
+				{
+					_personaje->recibiendoDanio(_vectorEnemigo[i]->getDanio(), 35);
+				}
+				_ultimoAtaque = clock.getElapsedTime().asSeconds();
+			}
+		}
+		if(_boleadora.getCuerpo().intersects(_vectorEnemigo[i]->getHitBox()))
+		{
+			_vectorEnemigo[i]->setVelocidadCaminata(0.5f);
+			
+		}
 	}
 }
 

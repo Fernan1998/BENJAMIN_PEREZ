@@ -13,15 +13,12 @@ Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas, std::
 	std::ifstream file_plataformas;
 	file_plataformas.open(plataformas);
 	_plataformas.CreadorMapa(file_plataformas);
-
-	_enemigo = new Enemigo(1000, 25, "Textura/Diablo/Diablo.png",246,327,84,800,1,4);
-	
 	
 	_cantidadEnemigos = cantidadEnemigos;
 	
-	for(int i = 0; i<cantidadEnemigos; i++)
+	for(int i = 0; i<_cantidadEnemigos; i++)
 	{
-		_vectorEnemigo.push_back(_enemigo);
+		_vectorEnemigo.push_back(new Enemigo(1000, 25, "Textura/Diablo/Diablo.png", 246, 327, 84, 800, 1, 4));
 	}
 	
 	_sonido = new Sonidos(ruta_musica);
@@ -32,17 +29,44 @@ Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas, std::
 Nivel::~Nivel()
 {
 }
-void Nivel::reiniciarNivel()
+void Nivel::reiniciarNivel(sf::Vector2f pos1, sf::Vector2f pos2, sf::Vector2f pos3, sf::Vector2f pos4 )
 {
-	_vectorEnemigo[0]->reiniciar(sf::Vector2f(1200,550), 100);
+	for(int i=0; i<_cantidadEnemigos; i++)
+	{
+		switch(i)
+		{
+			case 0:
+				_vectorEnemigo[0]->reiniciar(pos1, 100);
+				break;
+			case 1:
+				_vectorEnemigo[1]->reiniciar(pos2, 100);
+				break;
+			case 2:
+				_vectorEnemigo[2]->reiniciar(pos3, 100);
+				break;
+			case 3:
+				_vectorEnemigo[2]->reiniciar(pos4, 100);
+				break;
+		}
+		
+	}
+	
 }
 void Nivel::actualizar(float deltaTime)
 {
-	_vectorEnemigo[0]->actualizar(deltaTime);
+	for(int i=0; i<_cantidadEnemigos; i++)
+	{
+		_vectorEnemigo[i]->actualizar(deltaTime);
+	}
+	
 }
 void Nivel::comando(Personaje &personaje)
 {
-	_vectorEnemigo[0]->comando(1008.0f ,1920.0f, personaje);
+	for(int i=0; i<_cantidadEnemigos; i++)
+	{
+		_vectorEnemigo[i]->comando(1008.0f ,1920.0f, personaje);
+	}
+
 }
 sf::FloatRect Nivel::getMapa(float a, float b)
 {
@@ -58,17 +82,21 @@ sf::FloatRect Nivel::getPlataforma(float a, float b)
 }
 void Nivel::dibujar(sf::RenderWindow& window)
 {
+	
 	for(int i=0; i<31; i++)
 	{
 		for(int j=0; j<60; j++)
 		{	
-			
 			window.draw(_fondo.getSprite(i,j));
 			window.draw(_mapa.getSprite(i,j));
 			window.draw(_plataformas.getSprite(i,j));
 			
 		}
 	}	
-
-	window.draw(_vectorEnemigo[0]->getBarraVida());
+	for(int i=0; i<_cantidadEnemigos; i++)
+	{
+		window.draw(*_vectorEnemigo[i]);
+		window.draw(_vectorEnemigo[i]->getBarraVida());
+	}
+	
 }

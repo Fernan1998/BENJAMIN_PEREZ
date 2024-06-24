@@ -18,11 +18,15 @@ class Nivel
 		sf::FloatRect getFondo(float a, float b);
 		sf::FloatRect getPlataforma(float a, float b);
 		void dibujar(sf::RenderWindow& window);
-		Enemigo *getEnemigo()
+		std::vector<Enemigo*> getEnemigo()
 		{
-			return _enemigo;
+			return  _vectorEnemigo;
 		} 
-		void reiniciarNivel();
+		int getCantidadEnemigos()
+		{
+			return _cantidadEnemigos;
+		}
+		void reiniciarNivel(sf::Vector2f pos1, sf::Vector2f pos2, sf::Vector2f pos3, sf::Vector2f pos4 );
 	private:
 		int _cantidadEnemigos;
 		Mapa _mapa;
@@ -31,8 +35,6 @@ class Nivel
 		Mapa _script;
 		
 		std::vector<Enemigo*> _vectorEnemigo;
-		
-		Enemigo* _enemigo;
 		
 		Sonidos *_sonido;
 
