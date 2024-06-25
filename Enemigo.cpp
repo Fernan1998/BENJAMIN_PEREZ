@@ -20,7 +20,7 @@ Enemigo::Enemigo(float salud, float danio, std::string textura, float alto, floa
 	_recibiendoDanio = 0;
 	_atacando = false;
 	_animacion = new Animacion(&_textura, sf::Vector2u(columnaAnimacion,filaAnimacion), 0.1f, alto,ancho);
-	_tiempoEspera = 5.0f;
+	_tiempoEspera = 0;
 }
 Enemigo::~Enemigo()
 {

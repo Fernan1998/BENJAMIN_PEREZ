@@ -253,6 +253,7 @@ void Gameplay::cambioEscena()
 			nivel6->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
 			nivel7->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
 			nivel8->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+			nivel9->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
 			
 			_personaje->reiniciar(sf::Vector2f(100,750));
 			numeroMapa = 2;
