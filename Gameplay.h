@@ -36,6 +36,7 @@ class Gameplay
 		Nivel *nivel6;
 		Nivel *nivel7;
 		Nivel *nivel8;
+		Nivel *nivel9;
 		Nivel *nivelActual;
 		Nivel *listaNiveles[10];
 		int escala;

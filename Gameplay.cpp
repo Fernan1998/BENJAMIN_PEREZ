@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 {
-	numeroMapa = 3;	
+	numeroMapa = 8;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -18,7 +18,8 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	nivel5 = new Nivel("Mapas_txt/mapa_cueva_2/mapa_cueva2.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_fondo.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_plataformas.txt", "Sonido/Folklore.ogg", 2);
 	nivel6 = new Nivel("Mapas_txt/mapa_cueva_3/mapa_cueva3.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_fondo.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_plataformas.txt", "Sonido/Folklore.ogg", 1);
 	nivel7 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 1);
-	nivel8 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 1);
+	nivel8 = new Nivel("Mapas_txt/mapa_montania/noche_piso_montania.txt", "Mapas_txt/mapa_montania/noche_fondo_montania.txt", "Mapas_txt/mapa_montania/noche_relleno_montania.txt", "Sonido/Folklore.ogg", 1);
+	nivel9 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 1);
 	
 	listaNiveles[0] = nivel1;
 	listaNiveles[1] = nivel2;
@@ -28,6 +29,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	listaNiveles[5] = nivel6;
 	listaNiveles[6] = nivel7;
 	listaNiveles[7] = nivel8;
+	listaNiveles[8] = nivel9;
 	
 	nivel1->reiniciarNivel(sf::Vector2f(600,300), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
 	nivel2->reiniciarNivel(sf::Vector2f(600,300), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
@@ -37,6 +39,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	nivel6->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
 	nivel7->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
 	nivel8->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+	nivel9->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
 	
 	
 	
@@ -91,6 +94,9 @@ void Gameplay::actualizar(float deltaTime)
 				break;
 			case 8:
 				nivel8->actualizar(deltaTime);
+				break;
+			case 9:
+				nivel9->actualizar(deltaTime);
 				break;
 		}
 	}
@@ -223,12 +229,18 @@ void Gameplay::cambioEscena()
 	}
 	if(numeroMapa == 8)
 	{
+		if(_personaje->getPosicion().x <= 0)
+		{
+			numeroMapa = 3;
+			_personaje->setPosicion(1900,_personaje->getPosicion().y);
+		}
 		if(_personaje->getPosicion().y >= 980)
 		{
 			_personaje->recibiendoDanio(100, 0);
 		}
 		
 	}
+	
 	if(_personaje->getSalud()<=0)
 	{
 		if(numeroMapa != 8)
@@ -283,6 +295,9 @@ void Gameplay::comando(int c)
 			break;
 		case 8:
 			nivel8->comando(*_personaje);
+			break;
+		case 9:
+			nivel9->comando(*_personaje);
 			break;
 	}
 	
@@ -455,6 +470,9 @@ int Gameplay::draw(sf::RenderWindow& window)
 			case 8:
 				nivel8->dibujar(window);
 				break;
+			case 9:
+				nivel9->dibujar(window);
+				break;
 		}
 		switch(menu.mostrar(window, getPosicionPersonaje()))
 		{
@@ -503,6 +521,9 @@ int Gameplay::draw(sf::RenderWindow& window)
 				break;
 			case 8:
 				nivel8->dibujar(window);
+				break;
+			case 9:
+				nivel9->dibujar(window);
 				break;
 		}
 	}

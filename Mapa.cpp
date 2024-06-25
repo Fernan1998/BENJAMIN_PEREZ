@@ -10,7 +10,7 @@ Mapa::Mapa()
 		_bloque[i].resize(nColumnas);
 	}
 	
-	for (int i = 0; i < 61; i++)
+	for (int i = 0; i < 66; i++)
 	{
 		switch (i)
 		{
@@ -189,6 +189,9 @@ Mapa::Mapa()
 			break;
 		case 61:
 			_textura[i].loadFromFile("Textura/Mapa/plataforma_barro_izquierdo.png");
+			break;
+		case 65:
+			_textura[i].loadFromFile("Textura/Mapa/montanita.png");
 			break;
 		}
 	}
@@ -400,6 +403,9 @@ void Mapa::CreadorMapa(std::ifstream& file)
 				break;
 			case 61:
 				_bloque[i][j].setTexture(_textura[61]);
+				break;
+			case 62:
+				_bloque[i][j].setTexture(_textura[65]);
 				break;
 			}
 			_bloque[i][j].setPosition(j * 32, i * 32);
