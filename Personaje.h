@@ -92,6 +92,7 @@ class Personaje : public sf::Drawable
 		sf::Clock clock;
 		Animacion *animacion;
 		Animacion *animacionAtaque;
+		bool terminoAnimacion = true;
 		Sonidos *_sonido;
 		BarraVida *_barraVida;
 		

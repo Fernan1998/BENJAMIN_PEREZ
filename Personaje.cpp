@@ -175,6 +175,7 @@ void Personaje::comandos(int c)
 }
 void Personaje::actualizar(float deltaTime)
 {
+	terminoAnimacion=animacionAtaque->getFinAnimacion();
 	_barraVida->actualizar(_salud, sf::Vector2f(_cuerpo.getPosition().x, _cuerpo.getPosition().y-80));
 	_barraVida->modoPausa(false);
 	_boleadora = false;
@@ -182,25 +183,41 @@ void Personaje::actualizar(float deltaTime)
 	{
 		case QUIETO:
 			_velocidadSalto=0;
+			if(terminoAnimacion){
 			_cuerpo.setTexture(&_textura);
 			animacion->Update(2, deltaTime);
 			_cuerpo.setTextureRect(animacion->uvRect);
+			}else{
+				_cuerpo.setTexture(&_texturaAtaque);
+				animacionAtaque->Update(0, deltaTime);
+				_cuerpo.setTextureRect(animacionAtaque->uvRect);
+			}
 			break;
 		case CAMINANDO_ADELANTE:
 			_cuerpo.setScale(1.0f,1.0f);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
 			_estado= ESTADOS::CAYENDO;
+			if(terminoAnimacion){
 			_cuerpo.setTexture(&_textura);
 			animacion->Update(0, deltaTime);
-			_cuerpo.setTextureRect(animacion->uvRect);
+			_cuerpo.setTextureRect(animacion->uvRect);}else{
+			_cuerpo.setTexture(&_texturaAtaque);
+			animacionAtaque->Update(0, deltaTime);
+			_cuerpo.setTextureRect(animacionAtaque->uvRect);
+	}
 			break;
 		case CAMINANDO_ATRAS:
 			_cuerpo.setScale(-1.0f,1.0f);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
 			_estado= ESTADOS::CAYENDO;
+			if(terminoAnimacion){
 			_cuerpo.setTexture(&_textura);
 			animacion->Update(0, deltaTime);
-			_cuerpo.setTextureRect(animacion->uvRect);
+			_cuerpo.setTextureRect(animacion->uvRect);}else{
+				_cuerpo.setTexture(&_texturaAtaque);
+				animacionAtaque->Update(0, deltaTime);
+				_cuerpo.setTextureRect(animacionAtaque->uvRect);
+			}
 			break;
 		case SALTANDO:
 			_sonido->reproducirSonidos(0);
@@ -215,16 +232,15 @@ void Personaje::actualizar(float deltaTime)
 			{
 				_ultimoAtaque = clock.getElapsedTime().asSeconds();
 				_atacando = true;
-				
 			}
 			_cuerpo.setTexture(&_texturaAtaque);
-			animacionAtaque->Update(0, deltaTime, true);
+			animacionAtaque->Update(0, deltaTime);
 			_cuerpo.setTextureRect(animacionAtaque->uvRect);
 			break;
 		case BOLEADORA:
 			_boleadora = true;
 			_cuerpo.setTexture(&_texturaAtaque);
-			animacionAtaque->Update(1, deltaTime, true);
+			animacionAtaque->Update(1, deltaTime);
 			_cuerpo.setTextureRect(animacionAtaque->uvRect);
 		break;
 		case RDANIO:

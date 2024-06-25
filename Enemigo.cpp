@@ -151,7 +151,7 @@ void Enemigo::actualizar(float deltaTime)
 			_cuerpo.move(_velocidad);
 			break;
 		case SIGUIENDO:
-			_animacion->Update(1, deltaTime, true);
+			_animacion->Update(1, deltaTime);
 			_cuerpo.setTextureRect(_animacion->uvRect);
 			_cuerpo.move(_velocidad);
 			break;
@@ -167,7 +167,7 @@ void Enemigo::actualizar(float deltaTime)
 			break;
 		case MUERTO:
 			_cuerpo.move(0,0);
-			_animacion->Update(2, deltaTime, true);
+			_animacion->Update(2, deltaTime);
 			_cuerpo.setTextureRect(_animacion->uvRect);
 			break;
 		
