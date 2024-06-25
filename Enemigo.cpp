@@ -143,16 +143,26 @@ void Enemigo::actualizar(float deltaTime)
 	_barraVida->actualizar(_salud, sf::Vector2f(_cuerpo.getPosition().x, _cuerpo.getPosition().y-_cuerpo.getGlobalBounds().height/2 - 20));
 	switch(_estado)
 	{
+		terminoAnimacion=_animacion->getFinAnimacion();
 		case CAYENDO:
 			_cuerpo.move(0, _velocidad.y);
 		case PATRULLANDO:
+			if(terminoAnimacion){
 			_animacion->Update(0, deltaTime);
 			_cuerpo.setTextureRect(_animacion->uvRect);
-			_cuerpo.move(_velocidad);
+			_cuerpo.move(_velocidad);}else{
+				_animacion->Update(1, deltaTime);
+				_cuerpo.setTextureRect(_animacion->uvRect);
+			}
 			break;
 		case SIGUIENDO:
+			if(terminoAnimacion){
 			_animacion->Update(1, deltaTime);
-			_cuerpo.setTextureRect(_animacion->uvRect);
+			_cuerpo.setTextureRect(_animacion->uvRect);}
+			else{
+				_animacion->Update(1, deltaTime);
+				_cuerpo.setTextureRect(_animacion->uvRect);
+			}
 			_cuerpo.move(_velocidad);
 			break;
 		case ATACANDO:

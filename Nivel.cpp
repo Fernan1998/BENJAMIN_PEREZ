@@ -18,7 +18,7 @@ Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas, std::
 	
 	for(int i = 0; i<_cantidadEnemigos; i++)
 	{
-		_vectorEnemigo.push_back(new Enemigo(1000, 25, "Textura/Diablo/Diablo.png", 246, 327, 84, 800, 1, 4));
+		_vectorEnemigo.push_back(new Enemigo(1000, 25, "Textura/Diablo/diablo2a.png", 245, 327, 84, 800, 2, 8));
 	}
 	
 	_sonido = new Sonidos(ruta_musica);

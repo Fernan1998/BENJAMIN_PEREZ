@@ -72,6 +72,7 @@ class Enemigo : public sf::Drawable
 		bool _siguiendoPersonaje;
 		bool _atacando;
 		float _tiempoEspera;
+		bool terminoAnimacion = true;
 		
 		Animacion *_animacion;
 		BarraVida *_barraVida;
