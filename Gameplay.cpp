@@ -380,13 +380,13 @@ void Gameplay::ChequeoColisiones()
 				_personaje->saltoInvertido();
 			}
 			//Colision lado derecho   
-			if(playerGlobalBounds.left + playerGlobalBounds.width <= nivelActual->getMapa(i,j).left +5
+			if(playerGlobalBounds.left + playerGlobalBounds.width <= nivelActual->getMapa(i,j).left +10
 			   && playerGlobalBounds.intersects(hitBoxMapIzq))
 			{
 				_personaje->setDerecha();
 			}
 			//Colision lado izquierdo   
-		    if(playerGlobalBounds.left > nivelActual->getMapa(i,j).left + nivelActual->getMapa(i,j).width -5
+		    if(playerGlobalBounds.left > nivelActual->getMapa(i,j).left + nivelActual->getMapa(i,j).width -10
 			  && playerGlobalBounds.intersects(hitBoxMapDer))
 		    {
 			   _personaje->setIzquierda();
