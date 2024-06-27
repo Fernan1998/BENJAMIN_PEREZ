@@ -10,7 +10,11 @@ class Enemigo : public sf::Drawable
 		Enemigo(float salud, float danio, std::string textura, float alto, float ancho, float altoRangoVision, float anchoRangoVision, int filaAnimacion, int columnaAnimacion);
 		~Enemigo();
 		virtual void actualizar(float deltaTime);
-		virtual void comando(float puntoA, float puntoB, Personaje personaje);
+		virtual void comando(Personaje personaje);
+		virtual bool soyEnemigo()
+		{
+			return true;
+		}
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		
 		float getSalud();

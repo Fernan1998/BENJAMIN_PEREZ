@@ -22,7 +22,7 @@ path=main.cpp
 cursor=58:10
 [source]
 path=Gameplay.cpp
-cursor=13:170
+cursor=417:53
 open=true
 [source]
 path=CamaraPrincipal.cpp
@@ -39,7 +39,7 @@ path=Animacion.cpp
 cursor=1:0
 [source]
 path=Enemigo.cpp
-cursor=15:70
+cursor=77:2
 open=true
 [source]
 path=Nivel.cpp

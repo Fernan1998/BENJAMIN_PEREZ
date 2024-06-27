@@ -10,6 +10,7 @@
 #include "Proyectil.h"
 #include "Funciones.h"
 #include <string>
+#include "Objetos.h"
 
 class Gameplay 
 {
@@ -39,6 +40,8 @@ class Gameplay
 		Nivel *nivel9;
 		Nivel *nivelActual;
 		Nivel *listaNiveles[10];
+		Objetos *_objetoOjo;
+		Objetos *_objetoLobizon;
 		int escala;
 		int numeroMapa;
 		bool pausa = false;

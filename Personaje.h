@@ -16,6 +16,15 @@ class Personaje : public sf::Drawable
 		void estadoQuieto();
 		void cayendo();
 		void saltoInvertido();
+		void setObjetos(int numeroObjeto)
+		{
+			_objetos[numeroObjeto] = true;
+		}
+		bool getObjetos(int numeroObjeto)
+		{
+			return _objetos[numeroObjeto];
+		}
+		
 		
 		/// Setters
 		void setDerecha();
@@ -88,6 +97,7 @@ class Personaje : public sf::Drawable
 		bool _atacando;
 		bool _pausa;
 		bool _boleadora;
+		bool _objetos[4] = {false};
 		float _ultimoAtaque;
 		sf::Clock clock;
 		Animacion *animacion;

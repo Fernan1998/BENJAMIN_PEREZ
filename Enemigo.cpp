@@ -25,18 +25,9 @@ Enemigo::Enemigo(float salud, float danio, std::string textura, float alto, floa
 Enemigo::~Enemigo()
 {
 }
-//entiendo este metodo como para determinar si el enemigo puede o no infligir daño
-//verificamos si el estado es atacando y si el tiempo que paso desde el ultimo ataque es menor al de espera
-//el clock dentro del if, devuelve los segundos desde el ultimo restart()
-//si este tiempo es menor que _tiempoEspera, significa que el enemigo todavía esta en su fase de ataque y
-//esta "esperando" o antes de poder atacar de nuevo.
 
-//si la condicion se cumple quiere decir que el enemigo esta esperando asi que no retorna 0 (no ataca)
 int Enemigo::getDanio()
 {
-	if (_estado == ESTADOS::ATACANDO && clock.getElapsedTime().asSeconds() < _tiempoEspera) {
-		return 0;
-	}
 	return _danio;
 }
 void Enemigo::quieto()
@@ -59,8 +50,11 @@ void Enemigo::reiniciar(sf::Vector2f position, float salud)
 {
 	_cuerpo.setPosition(position);
 	_salud = salud;
-	_estado = ESTADOS::PATRULLANDO;
+	_estado = ESTADOS::CAYENDO;
 	_siguiendoPersonaje = false;
+	_barraVida->modoPausa(false);
+	_cuerpo.setFillColor(sf::Color::White);
+	_recibiendoDanio = false;
 }
 void Enemigo::recibiendoDanio(int lado)
 {
@@ -70,24 +64,17 @@ sf::FloatRect Enemigo::getHitBox()
 {
 	return _cuerpo.getGlobalBounds();
 }
-void Enemigo::comando(float puntoA, float puntoB, Personaje personaje)
+void Enemigo::comando(Personaje personaje)
 {
-	//ejecutamos este if para que el enemigo luego de haber golpeado se quede quieto
-	//ponemos un return para que no se ejecute nada mas de comando y simpelmente se quede parado
-	if (_estado == ESTADOS::ATACANDO && clock.getElapsedTime().asSeconds() < _tiempoEspera)
-	{
-		std::cout << "ESTOY ATACANDO" << std::endl;
-		return;
-	}
 	if(_recibiendoDanio==1)
 	{
 		_estado = ESTADOS::RDANIO;
-		_velocidad.x = 35;
+		_velocidad.x = 50;
 	}
 	if(_recibiendoDanio==2)
 	{
 		_estado = ESTADOS::RDANIO;
-		_velocidad.x = -35;
+		_velocidad.x = -50;
 	}
 	
 	if(_salud <= 0)
@@ -147,11 +134,12 @@ void Enemigo::actualizar(float deltaTime)
 		case CAYENDO:
 			_cuerpo.move(0, _velocidad.y);
 		case PATRULLANDO:
-			if(terminoAnimacion){
+			if(terminoAnimacion)
+			{
 			_animacion->Update(0, deltaTime);
 			_cuerpo.setTextureRect(_animacion->uvRect);
 			_cuerpo.move(_velocidad);}else{
-				_animacion->Update(1, deltaTime);
+				_animacion->Update(0, deltaTime);
 				_cuerpo.setTextureRect(_animacion->uvRect);
 			}
 			break;
@@ -167,8 +155,13 @@ void Enemigo::actualizar(float deltaTime)
 			break;
 		case ATACANDO:
 			_velocidad = sf::Vector2f(0, 0);
-			_animacion->Update(0, deltaTime);
-			_cuerpo.setTextureRect(_animacion->uvRect);
+			if(terminoAnimacion){
+				_animacion->Update(2, deltaTime);
+				_cuerpo.setTextureRect(_animacion->uvRect);}
+			else{
+				_animacion->Update(2, deltaTime);
+				_cuerpo.setTextureRect(_animacion->uvRect);
+			}
 			break;
 		case RDANIO:
 			_cuerpo.move(_velocidad.x, _velocidad.y);
@@ -177,8 +170,8 @@ void Enemigo::actualizar(float deltaTime)
 			break;
 		case MUERTO:
 			_cuerpo.move(0,0);
-			_animacion->Update(2, deltaTime);
-			_cuerpo.setTextureRect(_animacion->uvRect);
+			_cuerpo.setFillColor(sf::Color::Transparent);
+			_barraVida->modoPausa(true);
 			break;
 		
 	}

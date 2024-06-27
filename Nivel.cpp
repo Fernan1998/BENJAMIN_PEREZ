@@ -15,10 +15,30 @@ Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas, std::
 	_plataformas.CreadorMapa(file_plataformas);
 	
 	_cantidadEnemigos = cantidadEnemigos;
+
+	_sonido = new Sonidos(ruta_musica);
+	_sonido->PlayMusic();
+	
+}
+Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas, std::string ruta_musica, int cantidadEnemigos, bool hayJefe)
+{
+	std::ifstream file_mapa;
+	file_mapa.open(mapa);
+	_mapa.CreadorMapa(file_mapa);
+	
+	std::ifstream file_fondo;
+	file_fondo.open(fondo);
+	_fondo.CreadorMapa(file_fondo);
+	
+	std::ifstream file_plataformas;
+	file_plataformas.open(plataformas);
+	_plataformas.CreadorMapa(file_plataformas);
+	
+	_cantidadEnemigos = cantidadEnemigos;
 	
 	for(int i = 0; i<_cantidadEnemigos; i++)
 	{
-		_vectorEnemigo.push_back(new Enemigo(1000, 25, "Textura/Diablo/diablo2a.png", 245, 327, 84, 800, 2, 8));
+		_vectorEnemigo.push_back(new Enemigo(1000, 25, "Textura/Diablo/Diablo.png", 245, 327, 84, 800, 3, 8));
 	}
 	
 	_sonido = new Sonidos(ruta_musica);
@@ -64,7 +84,7 @@ void Nivel::comando(Personaje &personaje)
 {
 	for(int i=0; i<_cantidadEnemigos; i++)
 	{
-		_vectorEnemigo[i]->comando(1008.0f ,1920.0f, personaje);
+		_vectorEnemigo[i]->comando(personaje);
 	}
 
 }

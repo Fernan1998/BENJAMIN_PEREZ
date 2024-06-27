@@ -9,17 +9,24 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	
 	_personaje = new Personaje();
 	
+	_objetoOjo = new Objetos(34,22, "Textura/Objetos/ojoBabosa.png");
+	_objetoLobizon = new Objetos(56,48, "Textura/Objetos/objetoLobizon.png");
+	
 	cinematicaPersonaje = new  Cinematica("dia_noche/dia_noche", 251);
 	
 	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_plataforma.txt", "Sonido/Folklore.ogg", 1);
-	nivel2 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg", 1);
-	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 3);
+	nivel1->creadorDeEnemigos(100, 25, "Textura/Babosa/Baboscompleta.png", 63, 84, 84, 800, 3, 8);
+	nivel2 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg", 1, false);
+	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 0, false);
 	nivel4 = new Nivel("Mapas_txt/mapa_cueva_1/mapa_cueva1.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_plataformas.txt", "Sonido/Folklore.ogg", 2);
+	nivel4->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
 	nivel5 = new Nivel("Mapas_txt/mapa_cueva_2/mapa_cueva2.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_fondo.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_plataformas.txt", "Sonido/Folklore.ogg", 2);
+	nivel5->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
 	nivel6 = new Nivel("Mapas_txt/mapa_cueva_3/mapa_cueva3.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_fondo.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_plataformas.txt", "Sonido/Folklore.ogg", 1);
-	nivel7 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 1);
-	nivel8 = new Nivel("Mapas_txt/mapa_montania/noche_piso_montania.txt", "Mapas_txt/mapa_montania/noche_fondo_montania.txt", "Mapas_txt/mapa_montania/noche_relleno_montania.txt", "Sonido/Folklore.ogg", 1);
-	nivel9 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 1);
+	nivel6->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
+	nivel7 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 0, false);
+	nivel8 = new Nivel("Mapas_txt/mapa_montania/noche_piso_montania.txt", "Mapas_txt/mapa_montania/noche_fondo_montania.txt", "Mapas_txt/mapa_montania/noche_relleno_montania.txt", "Sonido/Folklore.ogg", 0, false);
+	nivel9 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 0, false);
 	
 	listaNiveles[0] = nivel1;
 	listaNiveles[1] = nivel2;
@@ -31,15 +38,15 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	listaNiveles[7] = nivel8;
 	listaNiveles[8] = nivel9;
 	
-	nivel1->reiniciarNivel(sf::Vector2f(600,300), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
-	nivel2->reiniciarNivel(sf::Vector2f(600,300), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
-	nivel3->reiniciarNivel(sf::Vector2f(600,300), sf::Vector2f(850,350), sf::Vector2f(1000,650), sf::Vector2f(1200,650));
-	nivel4->reiniciarNivel(sf::Vector2f(800,400), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
-	nivel5->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
-	nivel6->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
-	nivel7->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
-	nivel8->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
-	nivel9->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+	nivel1->reiniciarNivel(sf::Vector2f(1735,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+	nivel2->reiniciarNivel(sf::Vector2f(941,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+	nivel3->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+	nivel4->reiniciarNivel(sf::Vector2f(1500,260), sf::Vector2f(1341,700), sf::Vector2f(0,0), sf::Vector2f(0,0));
+	nivel5->reiniciarNivel(sf::Vector2f(650,700), sf::Vector2f(1680,260), sf::Vector2f(0,0), sf::Vector2f(0,0));
+	nivel6->reiniciarNivel(sf::Vector2f(360,790), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+	nivel7->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+	nivel8->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+	nivel9->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
 	
 	
 	
@@ -59,6 +66,10 @@ void Gameplay::cargarPartida(){
 
 void Gameplay::actualizar(float deltaTime)
 {
+	std::cout << "OBJETO OJO: " << _personaje->getObjetos(0) << std::endl;
+	std::cout << "OBJETO LOBIZON: " << _personaje->getObjetos(1) << std::endl;
+//	std::cout << "POS X; " << _personaje->getPosicion().x << std::endl;
+//	std::cout << "POS Y; " << _personaje->getPosicion().y << std::endl;
 	getDatosPoronga(_personaje->getPosicion(), _personaje->getSalud(), numeroMapa);
 	
 	_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
@@ -153,6 +164,14 @@ void Gameplay::cambioEscena()
 			numeroMapa = 2;
 			_personaje->setPosicion(20,_personaje->getPosicion().y);
 		}
+		if(_personaje->getPosicion().x <= 0)
+		{
+			_personaje->setPosicion(0,_personaje->getPosicion().y);
+		}
+		if(_personaje->getPosicion().y >= 980)
+		{
+			_personaje->recibiendoDanio(100, 0);
+		}
 	}
 	if(numeroMapa == 2)
 	{
@@ -243,26 +262,35 @@ void Gameplay::cambioEscena()
 	
 	if(_personaje->getSalud()<=0)
 	{
-		if(numeroMapa != 8)
+		if(numeroMapa != 8 && numeroMapa != 1)
 		{
-			nivel1->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
-			nivel2->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
-			nivel3->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
-			nivel4->reiniciarNivel(sf::Vector2f(800,400), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
-			nivel5->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
-			nivel6->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
-			nivel7->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
-			nivel8->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
-			nivel9->reiniciarNivel(sf::Vector2f(800,650), sf::Vector2f(1000,650), sf::Vector2f(1200,650), sf::Vector2f(1400,650));
+
+			nivel2->reiniciarNivel(sf::Vector2f(941,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+			nivel3->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+			nivel4->reiniciarNivel(sf::Vector2f(1500,260), sf::Vector2f(1341,700), sf::Vector2f(0,0), sf::Vector2f(0,0));
+			nivel5->reiniciarNivel(sf::Vector2f(650,700), sf::Vector2f(1680,260), sf::Vector2f(0,0), sf::Vector2f(0,0));
+			nivel6->reiniciarNivel(sf::Vector2f(360,790), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+			nivel7->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+			nivel9->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+	
+			nivel9->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
 			
 			_personaje->reiniciar(sf::Vector2f(100,750));
 			numeroMapa = 2;
 		}
 		else if(numeroMapa == 8)
 		{
+			nivel8->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
 			_personaje->reiniciar(sf::Vector2f(100,750));
 			numeroMapa = 8;
 		}
+		else if(numeroMapa == 1)
+		{
+			nivel1->reiniciarNivel(sf::Vector2f(1735,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+			_personaje->reiniciar(sf::Vector2f(100,750));
+			numeroMapa = 1;
+		}
+		
 	
 		
 	}
@@ -396,6 +424,16 @@ void Gameplay::ChequeoColisiones()
 		    }
 		}
 	}
+	if(_personaje->getCajaCuerpo().intersects(_objetoOjo->getCuerpo()))
+	{
+		_objetoOjo->setPause();
+		_personaje->setObjetos(0);
+	}
+	if(_personaje->getCajaCuerpo().intersects(_objetoLobizon->getCuerpo()))
+	{
+		_objetoLobizon->setPause();
+		_personaje->setObjetos(1);
+	}
 	for(int i=0; i<nivelActual->getCantidadEnemigos(); i++)
 	{
 		//Ataque Personaje >> Enemigo
@@ -442,7 +480,6 @@ sf::Vector2f Gameplay::getPosicionPersonaje()
 
 int Gameplay::draw(sf::RenderWindow& window)
 {
-	
 	if (pausa)
 	{
 		switch (numeroMapa)
@@ -496,6 +533,11 @@ int Gameplay::draw(sf::RenderWindow& window)
 		{
 			case 1:
 				nivel1->dibujar(window);
+				if(nivel1->getEnemigo()[0]->getSalud() <= 0)
+				{
+					_objetoOjo->setPosition(nivel1->getEnemigo()[0]->getPosition());
+					window.draw(*_objetoOjo);
+				}
 				break;
 			case 2:
 				nivel2->dibujar(window);
@@ -516,6 +558,11 @@ int Gameplay::draw(sf::RenderWindow& window)
 				break;
 			case 6:
 				nivel6->dibujar(window);
+				if(nivel6->getEnemigo()[0]->getSalud() <= 0)
+				{
+					_objetoLobizon->setPosition(nivel6->getEnemigo()[0]->getPosition());
+					window.draw(*_objetoLobizon);
+				}
 				break;
 			case 7:
 				nivel7->dibujar(window);
