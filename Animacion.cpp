@@ -22,9 +22,17 @@ void Animacion::Update(int columna, float deltaTime)
 		imagenActual.x++;
 		if(imagenActual.x >= imageCount.x)
 		{
-			imagenActual.x = 0;
+			
 			finAnimacion=true;
-		}else {finAnimacion=false;}
+			imagenActual.x = 0;
+			
+		}
+		else
+		{
+			
+			finAnimacion=false;
+			
+		}
 	}
 	uvRect.left = imagenActual.x * uvRect.width;
 	uvRect.top = imagenActual.y * uvRect.height;

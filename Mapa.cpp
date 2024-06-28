@@ -10,7 +10,7 @@ Mapa::Mapa()
 		_bloque[i].resize(nColumnas);
 	}
 	
-	for (int i = 0; i < 66; i++)
+	for (int i = 0; i < 75; i++)
 	{
 		switch (i)
 		{
@@ -187,11 +187,42 @@ Mapa::Mapa()
 		case 60:
 			_textura[i].loadFromFile("Textura/Mapa/plataforma_barro_izquierdo.png");
 			break;
+
 		case 61:
 			_textura[i].loadFromFile("Textura/Mapa/plataforma_barro_izquierdo.png");
 			break;
 		case 65:
 			_textura[i].loadFromFile("Textura/Mapa/montanita.png");
+			break;
+		case 66:
+			_textura[i].loadFromFile("Textura/Mapa/luna_infernal.png");
+			break;
+		case 67:
+			_textura[i].loadFromFile("Textura/Mapa/sombreado_luna_infernal.png");
+			break;
+		case 68:
+			_textura[i].loadFromFile("Textura/Mapa/sombreado_luna_infernal2.png");
+			break;
+		case 69:
+			_textura[i].loadFromFile("Textura/Mapa/infernal1.png");
+			break;
+		case 70:
+			_textura[i].loadFromFile("Textura/Mapa/infernal2.png");
+			break;
+		case 71:
+			_textura[i].loadFromFile("Textura/Mapa/infernal3.png");
+			break;
+		case 72:
+			_textura[i].loadFromFile("Textura/Mapa/infernal4.png");
+			break;
+		case 73:
+			_textura[i].loadFromFile("Textura/Mapa/infernal5.png");
+			break;
+		case 74:
+			_textura[i].loadFromFile("Textura/Mapa/infernal6.png");
+			break;
+		case 75:
+			_textura[i].loadFromFile("Textura/Mapa/infernal7.png");
 			break;
 		}
 	}
@@ -405,8 +436,39 @@ void Mapa::CreadorMapa(std::ifstream& file)
 				_bloque[i][j].setTexture(_textura[61]);
 				break;
 			case 62:
-				_bloque[i][j].setTexture(_textura[65]);
+				_bloque[i][j].setTexture(_textura[64]);
 				break;
+			case 63:
+				_bloque[i][j].setTexture(_textura[66]);
+				break;
+			case 64:
+				_bloque[i][j].setTexture(_textura[68]);
+				break;
+			case 65:
+				_bloque[i][j].setTexture(_textura[68]);
+				break;
+			case 66:
+				_bloque[i][j].setTexture(_textura[67]);
+				break;
+			case 67:
+				_bloque[i][j].setTexture(_textura[69]);
+				break;
+			case 68:
+				_bloque[i][j].setTexture(_textura[71]);
+				break;
+			case 69:
+				_bloque[i][j].setTexture(_textura[72]);
+				break;
+			case 70:
+				_bloque[i][j].setTexture(_textura[73]);
+				break;
+			case 71:
+				_bloque[i][j].setTexture(_textura[74]);
+				break;
+			case 72:
+				_bloque[i][j].setTexture(_textura[75]);
+				break;
+				
 			}
 			_bloque[i][j].setPosition(j * 32, i * 32);
 			switch(spriteType)

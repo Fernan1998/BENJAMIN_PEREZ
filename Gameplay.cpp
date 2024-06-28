@@ -24,7 +24,8 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	nivel5->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
 	nivel6 = new Nivel("Mapas_txt/mapa_cueva_3/mapa_cueva3.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_fondo.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_plataformas.txt", "Sonido/Folklore.ogg", 1);
 	nivel6->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
-	nivel7 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 0, false);
+	nivel7 = new Nivel("Mapas_txt/mapa_infierno/infernal_piso.txt", "Mapas_txt/mapa_infierno/infernal_fondo.txt", "Mapas_txt/mapa_infierno/infernal_relleno.txt", "Sonido/Folklore.ogg", 1);
+	nivel7->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
 	nivel8 = new Nivel("Mapas_txt/mapa_montania/noche_piso_montania.txt", "Mapas_txt/mapa_montania/noche_fondo_montania.txt", "Mapas_txt/mapa_montania/noche_relleno_montania.txt", "Sonido/Folklore.ogg", 0, false);
 	nivel9 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 0, false);
 	
@@ -66,10 +67,6 @@ void Gameplay::cargarPartida(){
 
 void Gameplay::actualizar(float deltaTime)
 {
-	std::cout << "OBJETO OJO: " << _personaje->getObjetos(0) << std::endl;
-	std::cout << "OBJETO LOBIZON: " << _personaje->getObjetos(1) << std::endl;
-//	std::cout << "POS X; " << _personaje->getPosicion().x << std::endl;
-//	std::cout << "POS Y; " << _personaje->getPosicion().y << std::endl;
 	getDatosPoronga(_personaje->getPosicion(), _personaje->getSalud(), numeroMapa);
 	
 	_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
@@ -195,13 +192,14 @@ void Gameplay::cambioEscena()
 		if(_personaje->getPosicion().x <= 0)
 		{
 			numeroMapa = 2;
-			_personaje->setPosicion(1920,_personaje->getPosicion().y);
+			_personaje->setPosicion(1900,_personaje->getPosicion().y);
 		}
-		if(_personaje->getPosicion().x >= 1900)
+		if(_personaje->getPosicion().x >= 1920)
 		{
 			numeroMapa = 8;
 			_personaje->setPosicion(20,_personaje->getPosicion().y);
 		}
+		
 		if(_personaje->getPosicion().y >= 980)
 		{
 			_personaje->recibiendoDanio(100, 0);
@@ -253,16 +251,29 @@ void Gameplay::cambioEscena()
 			numeroMapa = 3;
 			_personaje->setPosicion(1900,_personaje->getPosicion().y);
 		}
+		if(_personaje->getPosicion().x >= 1920)
+		{
+			numeroMapa = 9;
+			_personaje->setPosicion(20,_personaje->getPosicion().y);
+		}
+		
 		if(_personaje->getPosicion().y >= 980)
 		{
 			_personaje->recibiendoDanio(100, 0);
 		}
 		
 	}
+	if(numeroMapa == 9)
+	{
+		if(_personaje->getPosicion().y >= 980)
+		{
+			_personaje->recibiendoDanio(100, 0);
+		}
+	}
 	
 	if(_personaje->getSalud()<=0)
 	{
-		if(numeroMapa != 8 && numeroMapa != 1)
+		if(numeroMapa != 9 && numeroMapa != 1)
 		{
 
 			nivel2->reiniciarNivel(sf::Vector2f(941,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
@@ -271,18 +282,16 @@ void Gameplay::cambioEscena()
 			nivel5->reiniciarNivel(sf::Vector2f(650,700), sf::Vector2f(1680,260), sf::Vector2f(0,0), sf::Vector2f(0,0));
 			nivel6->reiniciarNivel(sf::Vector2f(360,790), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
 			nivel7->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
-			nivel9->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
-	
-			nivel9->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+			nivel8->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
 			
 			_personaje->reiniciar(sf::Vector2f(100,750));
 			numeroMapa = 2;
 		}
-		else if(numeroMapa == 8)
+		else if(numeroMapa == 9)
 		{
-			nivel8->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+			nivel9->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
 			_personaje->reiniciar(sf::Vector2f(100,750));
-			numeroMapa = 8;
+			numeroMapa = 9;
 		}
 		else if(numeroMapa == 1)
 		{
@@ -290,9 +299,6 @@ void Gameplay::cambioEscena()
 			_personaje->reiniciar(sf::Vector2f(100,750));
 			numeroMapa = 1;
 		}
-		
-	
-		
 	}
 	
 }
@@ -571,7 +577,20 @@ int Gameplay::draw(sf::RenderWindow& window)
 				nivel8->dibujar(window);
 				break;
 			case 9:
+				if (_personaje->getPosicion().x > 1400) 
+				{
+					camaraBloqueada = true;
+				}
+				else if (_personaje->getPosicion().x < 200)
+				{
+					camaraBloqueada = false;
+				}
+				if (camaraBloqueada)
+				{
+					_camaraPrincipal.setCamera(1488, _personaje->getPosicion().y);
+				}
 				nivel9->dibujar(window);
+				
 				break;
 		}
 	}

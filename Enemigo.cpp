@@ -102,7 +102,7 @@ void Enemigo::comando(Personaje personaje)
 				_velocidad.x = -_velocidadCaminata;
 				_cuerpo.setScale(1,1);
 			}
-			if(personaje.getPosicion().x>_cuerpo.getPosition().x && !_colisionandoDer)
+			else if(personaje.getPosicion().x>_cuerpo.getPosition().x && !_colisionandoDer)
 			{
 				_velocidad.x = _velocidadCaminata;
 				_cuerpo.setScale(-1,1);
@@ -136,32 +136,34 @@ void Enemigo::actualizar(float deltaTime)
 		case PATRULLANDO:
 			if(terminoAnimacion)
 			{
-			_animacion->Update(0, deltaTime);
-			_cuerpo.setTextureRect(_animacion->uvRect);
-			_cuerpo.move(_velocidad);}else{
 				_animacion->Update(0, deltaTime);
+				_cuerpo.setTextureRect(_animacion->uvRect);
+				_cuerpo.move(_velocidad);
+			}
+			else
+			{
+				_animacion->Update(2, deltaTime);
 				_cuerpo.setTextureRect(_animacion->uvRect);
 			}
 			break;
 		case SIGUIENDO:
-			if(terminoAnimacion){
-			_animacion->Update(1, deltaTime);
-			_cuerpo.setTextureRect(_animacion->uvRect);}
-			else{
+			if(terminoAnimacion)
+			{
 				_animacion->Update(1, deltaTime);
+				_cuerpo.setTextureRect(_animacion->uvRect);
+			}
+			else
+			{
+				_animacion->Update(2, deltaTime);
 				_cuerpo.setTextureRect(_animacion->uvRect);
 			}
 			_cuerpo.move(_velocidad);
 			break;
 		case ATACANDO:
 			_velocidad = sf::Vector2f(0, 0);
-			if(terminoAnimacion){
-				_animacion->Update(2, deltaTime);
-				_cuerpo.setTextureRect(_animacion->uvRect);}
-			else{
-				_animacion->Update(2, deltaTime);
-				_cuerpo.setTextureRect(_animacion->uvRect);
-			}
+			_cuerpo.setTexture(&_textura);
+			_animacion->Update(2, deltaTime);
+			_cuerpo.setTextureRect(_animacion->uvRect);
 			break;
 		case RDANIO:
 			_cuerpo.move(_velocidad.x, _velocidad.y);

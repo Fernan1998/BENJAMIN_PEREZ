@@ -45,6 +45,7 @@ class Gameplay
 		int escala;
 		int numeroMapa;
 		bool pausa = false;
+		bool camaraBloqueada = false;
 		bool _boleando;
 		Menu menu = new Menu(true);
 		Cinematica *cinematicaPersonaje;

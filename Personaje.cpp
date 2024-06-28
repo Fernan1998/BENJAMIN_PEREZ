@@ -18,7 +18,7 @@ Personaje::Personaje()
 	_colisionandoDer = false;
 	_colisionandoIzq = false;
 	_atacando = false;
-	_danio = 35;
+	_danio = 20;
 	_salud = 100;
 	_saltoInvertido = false;
 	animacion = new Animacion(&_textura, sf::Vector2u(16,2), 0.05f, 108,73);
@@ -183,11 +183,14 @@ void Personaje::actualizar(float deltaTime)
 	{
 		case QUIETO:
 			_velocidadSalto=0;
-			if(terminoAnimacion){
-			_cuerpo.setTexture(&_textura);
-			animacion->Update(2, deltaTime);
-			_cuerpo.setTextureRect(animacion->uvRect);
-			}else{
+			if(terminoAnimacion)
+			{
+				_cuerpo.setTexture(&_textura);
+				animacion->Update(2, deltaTime);
+				_cuerpo.setTextureRect(animacion->uvRect);
+			}
+			else
+			{
 				_cuerpo.setTexture(&_texturaAtaque);
 				animacionAtaque->Update(0, deltaTime);
 				_cuerpo.setTextureRect(animacionAtaque->uvRect);
@@ -197,23 +200,31 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.setScale(1.0f,1.0f);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
 			_estado= ESTADOS::CAYENDO;
-			if(terminoAnimacion){
-			_cuerpo.setTexture(&_textura);
-			animacion->Update(0, deltaTime);
-			_cuerpo.setTextureRect(animacion->uvRect);}else{
-			_cuerpo.setTexture(&_texturaAtaque);
-			animacionAtaque->Update(0, deltaTime);
-			_cuerpo.setTextureRect(animacionAtaque->uvRect);
-	}
+			if(terminoAnimacion)
+			{
+				_cuerpo.setTexture(&_textura);
+				animacion->Update(0, deltaTime);
+				_cuerpo.setTextureRect(animacion->uvRect);
+			}
+			else
+			{
+				_cuerpo.setTexture(&_texturaAtaque);
+				animacionAtaque->Update(0, deltaTime);
+				_cuerpo.setTextureRect(animacionAtaque->uvRect);
+			}
 			break;
 		case CAMINANDO_ATRAS:
 			_cuerpo.setScale(-1.0f,1.0f);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
 			_estado= ESTADOS::CAYENDO;
-			if(terminoAnimacion){
+			if(terminoAnimacion)
+			{
 			_cuerpo.setTexture(&_textura);
 			animacion->Update(0, deltaTime);
-			_cuerpo.setTextureRect(animacion->uvRect);}else{
+			_cuerpo.setTextureRect(animacion->uvRect);
+			}
+			else
+			{
 				_cuerpo.setTexture(&_texturaAtaque);
 				animacionAtaque->Update(0, deltaTime);
 				_cuerpo.setTextureRect(animacionAtaque->uvRect);
@@ -228,7 +239,7 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.move(0, -_velocidadSalto);
 			break;
 		case ATACANDO:
-			if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 0.5f)
+			if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 1.0f)
 			{
 				_ultimoAtaque = clock.getElapsedTime().asSeconds();
 				_atacando = true;
@@ -252,8 +263,7 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.setFillColor(sf::Color::Red);
 			break;
 			
-		}
-	//std::cout << _cuerpo.getScale().x <<std::endl;
+	}
 	_velocidadSalto-=0.5;
 	_velocidad=sf::Vector2f(0,0);
 	_cajaAtaque.setPosition(_cuerpo.getPosition());

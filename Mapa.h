@@ -19,6 +19,6 @@ class Mapa
 		int nColumnas;
 		int _script[31][60] = {0,0};
 		std::vector<std::vector <sf::Sprite>> _bloque;
-		sf::Texture *_textura = new sf::Texture [66];
+		sf::Texture *_textura = new sf::Texture [75];
 };
 
