@@ -5,6 +5,7 @@
 #include <fstream>
 #include "Mapa.h"
 #include "Enemigo.h"
+#include "Jefe.h"
 #include <Vector>
 
 class Nivel
@@ -20,6 +21,13 @@ class Nivel
 			for(int i = 0; i<_cantidadEnemigos; i++)
 			{
 				_vectorEnemigo.push_back(new Enemigo(salud, danio, textura, ancho, alto, altoRangoVision, anchoRangoVision, filaAnimacion, columnaAnimacion));
+			}
+		}
+		void creadorDeJefes(float salud, float danio, std::string textura, float alto, float ancho, float altoRangoVision, float anchoRangoVision, int filaAnimacion, int columnaAnimacion)
+		{
+			for(int i = 0; i<_cantidadEnemigos; i++)
+			{
+				_vectorEnemigo.push_back(new Jefe(salud, danio, textura, ancho, alto, altoRangoVision, anchoRangoVision, filaAnimacion, columnaAnimacion));
 			}
 		}
 		sf::FloatRect getMapa(float a, float b);

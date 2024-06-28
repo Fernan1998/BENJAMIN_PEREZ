@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 {
-	numeroMapa = 1;	
+	numeroMapa = 7;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -16,7 +16,8 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	
 	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_plataforma.txt", "Sonido/Folklore.ogg", 1);
 	nivel1->creadorDeEnemigos(100, 25, "Textura/Babosa/Baboscompleta.png", 63, 84, 84, 800, 3, 8);
-	nivel2 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg", 1, false);
+	nivel2 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche2.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg", 2);
+	nivel2->creadorDeJefes(100, 25, "Textura/Babosa/Baboscompleta.png", 63, 84, 84, 800, 3, 8);
 	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 0, false);
 	nivel4 = new Nivel("Mapas_txt/mapa_cueva_1/mapa_cueva1.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_plataformas.txt", "Sonido/Folklore.ogg", 2);
 	nivel4->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
@@ -40,7 +41,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	listaNiveles[8] = nivel9;
 	
 	nivel1->reiniciarNivel(sf::Vector2f(1735,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
-	nivel2->reiniciarNivel(sf::Vector2f(941,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+	nivel2->reiniciarNivel(sf::Vector2f(941,700), sf::Vector2f(1300,700), sf::Vector2f(0,0), sf::Vector2f(0,0));
 	nivel3->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
 	nivel4->reiniciarNivel(sf::Vector2f(1500,260), sf::Vector2f(1341,700), sf::Vector2f(0,0), sf::Vector2f(0,0));
 	nivel5->reiniciarNivel(sf::Vector2f(650,700), sf::Vector2f(1680,260), sf::Vector2f(0,0), sf::Vector2f(0,0));
@@ -70,7 +71,12 @@ void Gameplay::actualizar(float deltaTime)
 	getDatosPoronga(_personaje->getPosicion(), _personaje->getSalud(), numeroMapa);
 	
 	_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
+	
 	ponerPausa();
+	
+	if(_personaje->getObjetos(1))
+	{
+	}
 	if (!pausa)
 	{
 		_personaje->actualizar(deltaTime);
@@ -230,6 +236,11 @@ void Gameplay::cambioEscena()
 			numeroMapa = 4;
 			_personaje->setPosicion(20,_personaje->getPosicion().y);
 		} 
+		if(_personaje->getObjetos(1))
+		{
+			numeroMapa = 2;
+			_personaje->setPosicion(20,_personaje->getPosicion().y);
+		}
 	}
 	if(numeroMapa == 5)
 	{
@@ -265,9 +276,17 @@ void Gameplay::cambioEscena()
 	}
 	if(numeroMapa == 9)
 	{
+		if(_personaje->getPosicion().x <= 0)
+		{
+			_personaje->setPosicion(0,_personaje->getPosicion().y);
+		}
 		if(_personaje->getPosicion().y >= 980)
 		{
 			_personaje->recibiendoDanio(100, 0);
+		}
+		if(_personaje->getPosicion().x >= 1920)
+		{
+			_personaje->setPosicion(1920,_personaje->getPosicion().y);
 		}
 	}
 	

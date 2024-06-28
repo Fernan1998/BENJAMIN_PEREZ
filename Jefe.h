@@ -4,10 +4,10 @@
 class Jefe : public Enemigo
 {
 	public:
-		Jefe(std::string textura);
+		Jefe(float salud, float danio, std::string textura, float alto, float ancho, float altoRangoVision, float anchoRangoVision, int filaAnimacion, int columnaAnimacion);
 		~Jefe();
-		void actualizar(float deltaTime) override;
-		void comando(Personaje personaje) override;
+
 		bool soyEnemigo() override;
 	private:
+
 };

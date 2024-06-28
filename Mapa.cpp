@@ -436,38 +436,48 @@ void Mapa::CreadorMapa(std::ifstream& file)
 				_bloque[i][j].setTexture(_textura[61]);
 				break;
 			case 62:
-				_bloque[i][j].setTexture(_textura[64]);
+				_bloque[i][j].setTexture(_textura[65]);
 				break;
 			case 63:
 				_bloque[i][j].setTexture(_textura[66]);
 				break;
 			case 64:
-				_bloque[i][j].setTexture(_textura[68]);
+				_bloque[i][j].setTexture(_textura[67]);
 				break;
 			case 65:
 				_bloque[i][j].setTexture(_textura[68]);
 				break;
 			case 66:
-				_bloque[i][j].setTexture(_textura[67]);
+				_bloque[i][j].setTexture(_textura[66]);
 				break;
 			case 67:
-				_bloque[i][j].setTexture(_textura[69]);
+				_bloque[i][j].setTexture(_textura[67]);
 				break;
 			case 68:
-				_bloque[i][j].setTexture(_textura[71]);
+				_bloque[i][j].setTexture(_textura[68]);
 				break;
 			case 69:
-				_bloque[i][j].setTexture(_textura[72]);
+				_bloque[i][j].setTexture(_textura[69]);
 				break;
 			case 70:
-				_bloque[i][j].setTexture(_textura[73]);
+				_bloque[i][j].setTexture(_textura[70]);
 				break;
 			case 71:
-				_bloque[i][j].setTexture(_textura[74]);
+				_bloque[i][j].setTexture(_textura[71]);
 				break;
 			case 72:
+				_bloque[i][j].setTexture(_textura[72]);
+				break;
+			case 73:
+				_bloque[i][j].setTexture(_textura[73]);
+				break;
+			case 74:
+				_bloque[i][j].setTexture(_textura[74]);
+				break;
+			case 75:
 				_bloque[i][j].setTexture(_textura[75]);
 				break;
+				
 				
 			}
 			_bloque[i][j].setPosition(j * 32, i * 32);
