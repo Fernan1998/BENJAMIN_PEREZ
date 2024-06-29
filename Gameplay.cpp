@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 {
-	numeroMapa = 7;	
+	numeroMapa = 1;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -26,7 +26,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	nivel4->creadorDeEnemigos(100, 10, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
 	nivel5 = new Nivel("Mapas_txt/mapa_cueva_2/mapa_cueva2.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_fondo.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_plataformas.txt", "Sonido/Folklore.ogg", 2);
 	nivel5->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
-	nivel6 = new Nivel("Mapas_txt/mapa_cueva_3/mapa_cueva3.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_fondo.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_plataformas.txt", "Sonido/Folklore.ogg", 1);
+	nivel6 = new Nivel("Mapas_txt/mapa_cueva_3/mapa_cueva3.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_fondo.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_plataformas.txt", "Sonido/Folklore.ogg", 3);
 	nivel6->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
 	nivel7 = new Nivel("Mapas_txt/mapa_infierno/infernal_piso.txt", "Mapas_txt/mapa_infierno/infernal_fondo.txt", "Mapas_txt/mapa_infierno/infernal_relleno.txt", "Sonido/Folklore.ogg", 1);
 	nivel7->creadorDeEnemigos(100, 25, "Textura/Diablo/Diablo2.png", 89, 128, 84, 800, 2, 7);
@@ -53,7 +53,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal)
 	nivel3->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
 	nivel4->reiniciarNivel(sf::Vector2f(1500,260), sf::Vector2f(1341,700), sf::Vector2f(0,0), sf::Vector2f(0,0));
 	nivel5->reiniciarNivel(sf::Vector2f(650,700), sf::Vector2f(1680,260), sf::Vector2f(0,0), sf::Vector2f(0,0));
-	nivel6->reiniciarNivel(sf::Vector2f(360,790), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
+	nivel6->reiniciarNivel(sf::Vector2f(250,240), sf::Vector2f(800,800), sf::Vector2f(1000,500), sf::Vector2f(0,0));
 	nivel7->reiniciarNivel(sf::Vector2f(950,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
 	nivel8->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
 	nivel9->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0));
@@ -538,7 +538,7 @@ void Gameplay::ChequeoColisiones()
 	{
 		_objetoLobizon->setPause();
 		_personaje->setObjetos(1);
-		_personaje->setPosicion(100,750);
+		_personaje->setPosicion(100, 780);
 		numeroMapa = 10;
 	}
 	if(_personaje->getCajaCuerpo().intersects(_cabezaDiablo->getCuerpo()) && !_cabezaDiablo->getPause())

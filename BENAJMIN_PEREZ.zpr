@@ -22,14 +22,14 @@ path=main.cpp
 cursor=58:10
 [source]
 path=Gameplay.cpp
-cursor=150:101
+cursor=5:15
 open=true
 [source]
 path=CamaraPrincipal.cpp
 cursor=41:26
 [source]
 path=Personaje.cpp
-cursor=259:64
+cursor=20:12
 open=true
 [source]
 path=Mapa.cpp
