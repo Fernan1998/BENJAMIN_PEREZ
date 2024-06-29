@@ -13,6 +13,7 @@ Animacion::Animacion(sf::Texture* textura, sf::Vector2u imageCount, float switch
 
 void Animacion::Update(int columna, float deltaTime)
 {
+	
 	imagenActual.y = columna;
 	totalTime += deltaTime;
 	
@@ -22,39 +23,14 @@ void Animacion::Update(int columna, float deltaTime)
 		imagenActual.x++;
 		if(imagenActual.x >= imageCount.x)
 		{
-			
 			finAnimacion=true;
 			imagenActual.x = 0;
-			
 		}
 		else
 		{
-			
 			finAnimacion=false;
-			
 		}
 	}
 	uvRect.left = imagenActual.x * uvRect.width;
 	uvRect.top = imagenActual.y * uvRect.height;
-	
 }
-//void Animacion::Update(int columna, float deltaTime, bool atk)
-//{
-//	imagenActual.y = columna;
-//	totalTime += deltaTime;
-//	
-//	if(totalTime>=switchTime)
-//	{
-//		totalTime -= switchTime;
-//		imagenActual.x++;
-//		if(imagenActual.x >= imageCount.x)
-//		{
-//			imagenActual.x = 0;
-//			finAnimacion = true;
-//		}else{finAnimacion=false;}
-//	}
-//	
-//	uvRect.left = imagenActual.x * uvRect.width;
-//	uvRect.top = imagenActual.y * uvRect.height;
-//	
-//}

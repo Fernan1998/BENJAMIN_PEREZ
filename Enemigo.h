@@ -79,6 +79,7 @@ class Enemigo : public sf::Drawable
 		bool terminoAnimacion = true;
 		
 		Animacion *_animacion;
+		Animacion *_animacionDanio;
 		BarraVida *_barraVida;
 
 		

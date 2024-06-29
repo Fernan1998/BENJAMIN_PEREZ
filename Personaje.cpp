@@ -22,7 +22,7 @@ Personaje::Personaje()
 	_salud = 100;
 	_saltoInvertido = false;
 	animacion = new Animacion(&_textura, sf::Vector2u(16,2), 0.05f, 108,73);
-	animacionAtaque = new Animacion(&_texturaAtaque, sf::Vector2u(8,1), 0.065f, 108,91);
+	animacionAtaque = new Animacion(&_texturaAtaque, sf::Vector2u(8,2), 0.065f, 108,91);
 	_sonido = new Sonidos("Sonido/Salto.ogg","Sonido/Salto.ogg","Sonido/Salto.ogg");
 	_ultimoAtaque = 0;
 	_pausa = false;
@@ -189,10 +189,16 @@ void Personaje::actualizar(float deltaTime)
 				animacion->Update(2, deltaTime);
 				_cuerpo.setTextureRect(animacion->uvRect);
 			}
-			else
+			else if(animacionAtaque->getColumna() == 0)
 			{
 				_cuerpo.setTexture(&_texturaAtaque);
 				animacionAtaque->Update(0, deltaTime);
+				_cuerpo.setTextureRect(animacionAtaque->uvRect);
+			}
+			else
+			{
+				_cuerpo.setTexture(&_texturaAtaque);
+				animacionAtaque->Update(1, deltaTime);
 				_cuerpo.setTextureRect(animacionAtaque->uvRect);
 			}
 			break;
@@ -206,10 +212,16 @@ void Personaje::actualizar(float deltaTime)
 				animacion->Update(0, deltaTime);
 				_cuerpo.setTextureRect(animacion->uvRect);
 			}
-			else
+			else if(animacionAtaque->getColumna() == 0)
 			{
 				_cuerpo.setTexture(&_texturaAtaque);
 				animacionAtaque->Update(0, deltaTime);
+				_cuerpo.setTextureRect(animacionAtaque->uvRect);
+			}
+			else
+			{
+				_cuerpo.setTexture(&_texturaAtaque);
+				animacionAtaque->Update(1, deltaTime);
 				_cuerpo.setTextureRect(animacionAtaque->uvRect);
 			}
 			break;
@@ -223,10 +235,16 @@ void Personaje::actualizar(float deltaTime)
 			animacion->Update(0, deltaTime);
 			_cuerpo.setTextureRect(animacion->uvRect);
 			}
-			else
+			else if(animacionAtaque->getColumna() == 0)
 			{
 				_cuerpo.setTexture(&_texturaAtaque);
 				animacionAtaque->Update(0, deltaTime);
+				_cuerpo.setTextureRect(animacionAtaque->uvRect);
+			}
+			else
+			{
+				_cuerpo.setTexture(&_texturaAtaque);
+				animacionAtaque->Update(1, deltaTime);
 				_cuerpo.setTextureRect(animacionAtaque->uvRect);
 			}
 			break;
@@ -239,7 +257,7 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.move(0, -_velocidadSalto);
 			break;
 		case ATACANDO:
-			if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 1.0f)
+			if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 0.5f)
 			{
 				_ultimoAtaque = clock.getElapsedTime().asSeconds();
 				_atacando = true;

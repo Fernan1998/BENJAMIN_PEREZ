@@ -20,6 +20,7 @@ Enemigo::Enemigo(float salud, float danio, std::string textura, float alto, floa
 	_recibiendoDanio = 0;
 	_atacando = false;
 	_animacion = new Animacion(&_textura, sf::Vector2u(columnaAnimacion,filaAnimacion), 0.1f, alto,ancho);
+	_animacionDanio = new Animacion(&_textura, sf::Vector2u(columnaAnimacion,filaAnimacion), 0.1f, alto,ancho);
 	_tiempoEspera = 2.0f;
 }
 Enemigo::~Enemigo()
@@ -76,19 +77,16 @@ void Enemigo::comando(Personaje personaje)
 		_estado = ESTADOS::RDANIO;
 		_velocidad.x = -50;
 	}
-	
 	if(_salud <= 0)
 	{
 		
 		_estado = ESTADOS::MUERTO;
 		
 	}
-	
 	if(_velocidad.y != 0)
 	{
 		_estado = ESTADOS::CAYENDO;
 	}
-	
 	if(_estado != ESTADOS::MUERTO  && _recibiendoDanio == 0)
 	{
 		if(!_siguiendoPersonaje)
@@ -114,7 +112,6 @@ void Enemigo::comando(Personaje personaje)
 	if(_atacando && !_recibiendoDanio)
 	{
 		_estado = ESTADOS::ATACANDO;
-		clock.restart();
 	}
 	if(_salud < 0)
 	{
@@ -127,6 +124,7 @@ void Enemigo::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 void Enemigo::actualizar(float deltaTime)
 {
+	
 	_barraVida->actualizar(_salud, sf::Vector2f(_cuerpo.getPosition().x, _cuerpo.getPosition().y-_cuerpo.getGlobalBounds().height/2 - 20));
 	switch(_estado)
 	{
@@ -134,36 +132,20 @@ void Enemigo::actualizar(float deltaTime)
 		case CAYENDO:
 			_cuerpo.move(0, _velocidad.y);
 		case PATRULLANDO:
-			if(terminoAnimacion)
-			{
-				_animacion->Update(0, deltaTime);
-				_cuerpo.setTextureRect(_animacion->uvRect);
-				_cuerpo.move(_velocidad);
-			}
-			else
-			{
-				_animacion->Update(2, deltaTime);
-				_cuerpo.setTextureRect(_animacion->uvRect);
-			}
+			_animacion->Update(0, deltaTime);
+			_cuerpo.setTextureRect(_animacion->uvRect);
+			_cuerpo.move(_velocidad);
 			break;
 		case SIGUIENDO:
-			if(terminoAnimacion)
-			{
-				_animacion->Update(1, deltaTime);
-				_cuerpo.setTextureRect(_animacion->uvRect);
-			}
-			else
-			{
-				_animacion->Update(2, deltaTime);
-				_cuerpo.setTextureRect(_animacion->uvRect);
-			}
+			_animacion->Update(1, deltaTime);
+			_cuerpo.setTextureRect(_animacion->uvRect);
 			_cuerpo.move(_velocidad);
 			break;
 		case ATACANDO:
 			_velocidad = sf::Vector2f(0, 0);
 			_cuerpo.setTexture(&_textura);
-			_animacion->Update(2, deltaTime);
-			_cuerpo.setTextureRect(_animacion->uvRect);
+			_animacionDanio->Update(2, deltaTime);
+			_cuerpo.setTextureRect(_animacionDanio->uvRect);
 			break;
 		case RDANIO:
 			_cuerpo.move(_velocidad.x, _velocidad.y);
@@ -178,12 +160,18 @@ void Enemigo::actualizar(float deltaTime)
 		
 	}
 	_rangoVision.setPosition(_cuerpo.getPosition());
-	_velocidad.y = 2;
+	_velocidad.y = 4;
 	_colisionandoDer = false;
 	_colisionandoIzq = false;
+	if( _animacionDanio->getColumna() == 2 && _animacionDanio->getFila() >= (_animacionDanio->getCantidadFila()-1))
+	{
+		_atacando = false;
+		_animacionDanio->reiniciarFila();
+	}
+
 	_velocidad.x = 0;
-	_atacando = false;
 	_velocidadCaminata = 2;
+	
 	
 }
 void Enemigo::setSalud(float danio)
