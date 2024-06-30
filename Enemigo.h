@@ -35,6 +35,14 @@ class Enemigo : public sf::Drawable
 		{
 			return _estado;
 		}
+		
+		bool getMuerto(){
+			if (_estado == ESTADOS::MUERTO) {
+				return true;
+			}
+			return false;
+		}
+		
 		virtual sf::FloatRect devolver()
 		{
 			return _cuerpo.getGlobalBounds();

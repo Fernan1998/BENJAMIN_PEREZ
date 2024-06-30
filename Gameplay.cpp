@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 1;	
+	numeroMapa = 9;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -23,7 +23,8 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nivel10 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche2.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg", 2);
 	nivel10->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
 	
-	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 0);
+	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 1);
+	nivel3->creadorDeEnemigos(1000000, 100, "Textura/Luz Mala/luzmala.png", 98, 98, 1000, 1000, 3, 8);
 	
 	nivel4 = new Nivel("Mapas_txt/mapa_cueva_1/mapa_cueva1.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_plataformas.txt", "Sonido/Folklore.ogg", 2);
 	nivel4->creadorDeEnemigos(100, 10, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
@@ -59,7 +60,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	
 	nivel1->reiniciarNivel(sf::Vector2f(1735,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel2->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
-	nivel3->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
+	nivel3->reiniciarNivel(sf::Vector2f(-300,772), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel4->reiniciarNivel(sf::Vector2f(1500,260), sf::Vector2f(1341,700), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel5->reiniciarNivel(sf::Vector2f(650,700), sf::Vector2f(1680,260), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel6->reiniciarNivel(sf::Vector2f(250,240), sf::Vector2f(800,800), sf::Vector2f(1000,500), sf::Vector2f(0,0), 100);
@@ -68,9 +69,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nivel9->reiniciarNivel(sf::Vector2f(1800, 100), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 60);
 	nivel10->reiniciarNivel(sf::Vector2f(1735,700), sf::Vector2f(1100,700), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel11->reiniciarNivel(sf::Vector2f(1800,450), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
-	
-	
-	
+		
 	_aux.setPosition(sf::Vector2f(0, 224));
 	_aux.setSize(sf::Vector2f(1024, 768));	
 	_boleadora.setPosition(_personaje->getPosicion());
@@ -617,6 +616,12 @@ void Gameplay::ChequeoColisiones()
 			
 		}
 	}
+	if (numeroMapa == 3 && _vectorEnemigo[0]->getPosition().y > 772) {
+		_vectorEnemigo[0]->setPosition(sf::Vector2f(_vectorEnemigo[0]->getPosition().x, 772));
+	}
+	if (numeroMapa == 3) {
+		_vectorEnemigo[0]->setVelocidadCaminata(4.3);
+	}
 }
 
 sf::Vector2f Gameplay::getPosicionPersonaje()
@@ -729,7 +734,7 @@ int Gameplay::draw(sf::RenderWindow& window)
 				nivel8->dibujar(window);
 				break;
 			case 9:
-				if (_personaje->getPosicion().x > 1400) 
+				if (_personaje->getPosicion().x > 900) 
 				{
 					camaraBloqueada = true;
 				}
@@ -740,6 +745,9 @@ int Gameplay::draw(sf::RenderWindow& window)
 				if (camaraBloqueada)
 				{
 					_camaraPrincipal.setCamera(1488, _personaje->getPosicion().y);
+					if (_personaje->getPosicion().x < 916) {
+						_personaje->setPosicion(916, _personaje->getPosicion().y);
+					}
 				}
 				nivel9->dibujar(window);
 				break;
