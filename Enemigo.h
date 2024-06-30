@@ -83,6 +83,7 @@ class Enemigo : public sf::Drawable
 		Animacion *_animacionDanio;
 		BarraVida *_barraVida;
 		sf::Texture _textura;
+		
 	private:
 		
 		sf::Clock clock;

@@ -45,6 +45,8 @@ class Gameplay
 		Objetos *_objetoOjo;
 		Objetos *_objetoLobizon;
 		Objetos *_cabezaDiablo;
+		Objetos *_cabezaPombero;
+		Objetos *_objetoLuz;
 		int escala;
 		int numeroMapa;
 		bool pausa = false;

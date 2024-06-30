@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 9;	
+	numeroMapa = 3;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -12,6 +12,8 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	_objetoOjo = new Objetos(34,22, "Textura/Objetos/ojoBabosa.png");
 	_objetoLobizon = new Objetos(56,48, "Textura/Objetos/objetoLobizon.png");
 	_cabezaDiablo = new Objetos(72,48, "Textura/Objetos/objetoDiablo.png");
+	_cabezaPombero = new Objetos(65,53, "Textura/Objetos/objetoPombero.png");
+	_objetoLuz = new Objetos(45,52,"Textura/Objetos/objetoLuz.png");
 	
 	cinematicaPersonaje = new  Cinematica("dia_noche/dia_noche", 251);
 	
@@ -44,7 +46,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nivel8 = new Nivel("Mapas_txt/mapa_montania/noche_piso_montania.txt", "Mapas_txt/mapa_montania/noche_fondo_montania.txt", "Mapas_txt/mapa_montania/noche_relleno_montania.txt", "Sonido/Folklore.ogg", 0);
 	
 	nivel9 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 1);
-	nivel9->creadorDeJefes(60, 25, "Textura/Pombero/Pombero.png", 98, 98, 50, 2000, 3, 4);
+	nivel9->creadorDeJefes(60, 25, "Textura/Pombero/Pombero2.png", 98, 98, 50, 2000, 1, 6);
 	
 	listaNiveles[0] = nivel1;
 	listaNiveles[1] = nivel2;
@@ -86,17 +88,17 @@ void Gameplay::cargarPartida(){
 
 void Gameplay::actualizar(float deltaTime)
 {
-	std::cout << _personaje->getPosicion().x << std::endl;
-	std::cout << _personaje->getPosicion().y << std::endl;
 	getDatosPoronga(_personaje->getPosicion(), _personaje->getSalud(), numeroMapa);
 	nivel6->getEnemigo()[0]->setColor(sf::Color::Red);
 	_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
-	
 	ponerPausa();
-	
-	if(_personaje->getObjetos(1))
+	for(int i=0; i<3; i++)
 	{
+		std::cout<<_personaje->getObjetos(i)<<std::endl;
+	
 	}
+
+
 	if (!pausa)
 	{
 		_personaje->actualizar(deltaTime);
@@ -312,16 +314,16 @@ void Gameplay::cambioEscena()
 			numeroMapa = 3;
 			_personaje->setPosicion(1900,_personaje->getPosicion().y);
 		}
-		if(_personaje->getPosicion().x >= 1920)
+		if(_personaje->getPosicion().x >= 1920 && !_personaje->getObjetos(2))
 		{
 			numeroMapa = 9;
 			_personaje->setPosicion(20,_personaje->getPosicion().y);
 		}
-		
-		if(_personaje->getPosicion().y >= 980)
+		else if(_personaje->getPosicion().x >= 1920 && _personaje->getObjetos(2))
 		{
-			_personaje->recibiendoDanio(100, 0);
+			_personaje->setPosicion(1920,_personaje->getPosicion().y);
 		}
+		
 		
 	}
 	if(numeroMapa == 9)
@@ -360,7 +362,7 @@ void Gameplay::cambioEscena()
 
 			
 			nivel2->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
-			nivel3->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
+			nivel3->reiniciarNivel(sf::Vector2f(-300,772), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);			
 			nivel4->reiniciarNivel(sf::Vector2f(1500,260), sf::Vector2f(1341,700), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 			nivel5->reiniciarNivel(sf::Vector2f(650,700), sf::Vector2f(1680,260), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 			nivel6->reiniciarNivel(sf::Vector2f(250,240), sf::Vector2f(800,800), sf::Vector2f(1000,500), sf::Vector2f(0,0), 100);
@@ -576,8 +578,16 @@ void Gameplay::ChequeoColisiones()
 	if(_personaje->getCajaCuerpo().intersects(_cabezaDiablo->getCuerpo()) && !_cabezaDiablo->getPause())
 	{
 		_cabezaDiablo->setPause();
-		_personaje->setObjetos(2);
+		_personaje->setObjetos(3);
 		numeroMapa = 11;
+	}
+	if(_personaje->getCajaCuerpo().intersects(_cabezaPombero->getCuerpo()) && !_cabezaPombero->getPause())
+	{
+		_cabezaPombero->setPause();
+		_personaje->setObjetos(2);
+		_personaje->setPosicion(1850, 780);
+		numeroMapa = 8;
+		
 	}
 	for(int i=0; i<nivelActual->getCantidadEnemigos(); i++)
 	{
@@ -750,6 +760,11 @@ int Gameplay::draw(sf::RenderWindow& window)
 					}
 				}
 				nivel9->dibujar(window);
+				if(nivel9->getEnemigo()[0]->getSalud() <= 0)
+				{
+					_cabezaPombero->setPosition(nivel9->getEnemigo()[0]->getPosition());
+					window.draw(*_cabezaPombero);
+				}
 				break;
 			case 10:
 				nivel10->dibujar(window);

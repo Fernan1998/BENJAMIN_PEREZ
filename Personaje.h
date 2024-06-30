@@ -97,7 +97,7 @@ class Personaje : public sf::Drawable
 		bool _atacando;
 		bool _pausa;
 		bool _boleadora;
-		bool _objetos[4] = {false};
+		bool _objetos[5] = {false};
 		float _ultimoAtaque;
 		sf::Clock clock;
 		Animacion *animacion;

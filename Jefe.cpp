@@ -86,24 +86,22 @@ void Jefe::actualizar(float deltaTime)
 			_cuerpo.move(0, _velocidad.y);
 		case PATRULLANDO:
 			_cuerpo.move(_velocidad);
-			_animacion->Update(0, deltaTime);
+			_animacion->Update(1, deltaTime);
 			_cuerpo.setTextureRect(_animacion->uvRect);
-			_piedra->setPosition(_cuerpo.getPosition());
-			std::cout << "ESTOY PATRULLANDO" << std::endl;
+			_piedra->setPosition(sf::Vector2f(_cuerpo.getPosition().x-25,_cuerpo.getPosition().y+10));
 			break;
 		case SIGUIENDO:
 			_cuerpo.move(_velocidad);
-			_animacion->Update(1, deltaTime);
+			_animacion->Update(0, deltaTime);
 			_cuerpo.setTextureRect(_animacion->uvRect);
 			break;
 		case ATACANDO:
 			_cuerpo.move(0, _velocidad.y);
 			_cuerpo.setTexture(&_textura);
-			_animacionDanio->Update(2, deltaTime);
+			_animacionDanio->Update(0, deltaTime);
 			_cuerpo.setTextureRect(_animacionDanio->uvRect);
 			break;
 		case RDANIO:
-			_cuerpo.setFillColor(sf::Color::Red);
 			_recibiendoDanio = 0;
 			break;
 		case MUERTO:

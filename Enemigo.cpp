@@ -168,7 +168,6 @@ void Enemigo::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 void Enemigo::actualizar(float deltaTime)
 {
-	
 	_barraVida->actualizar(_salud, sf::Vector2f(_cuerpo.getPosition().x, _cuerpo.getPosition().y-_cuerpo.getGlobalBounds().height/2 - 20));
 	_rangoVision.setPosition(_cuerpo.getPosition());
 	
