@@ -1,12 +1,14 @@
 #pragma once
+#include <cmath>
 #include <SFML/Graphics.hpp>
 
 
 class Proyectil : public sf::Drawable
 {
 	public:
-		Proyectil();
+		Proyectil (std::string textura);
 		void actualizar(int other);
+		void actualizar(sf::Vector2f posicion);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		void setPosition(sf::Vector2f aux)
 		{
@@ -15,6 +17,10 @@ class Proyectil : public sf::Drawable
 		sf::FloatRect getCuerpo()
 		{
 			return _cuerpo.getGlobalBounds();
+		}
+		sf::RectangleShape getSprite()
+		{
+			return _cuerpo;
 		}
 		void setColor(sf::Color aux)
 		{
@@ -25,9 +31,10 @@ class Proyectil : public sf::Drawable
 			return _cuerpo.getPosition();
 		}
 		
-		
-		
 	private:
-		sf::Texture textura;
+		sf::Texture _textura;
 		sf::RectangleShape _cuerpo;
+		sf::Vector2f _direction;
+		sf::Clock clock;
 };
+

@@ -1,9 +1,9 @@
 #include "Proyectil.h"
 
-Proyectil::Proyectil()
+Proyectil::Proyectil(std::string textura)
 {
-	textura.loadFromFile("boleadora.png");
-	_cuerpo.setTexture(&textura);
+	_textura.loadFromFile(textura);
+	_cuerpo.setTexture(&_textura);
 	_cuerpo.setSize(sf::Vector2f(38.0f, 34.0f));
 	_cuerpo.setOrigin(_cuerpo.getGlobalBounds().width/2,_cuerpo.getGlobalBounds().height/2); 
 }
@@ -22,6 +22,13 @@ void Proyectil::actualizar(int other)
 		_cuerpo.rotate(5.0f);
 	}
 
+}
+void Proyectil::actualizar(sf::Vector2f Posicion)
+{
+	if(_cuerpo.getPosition().x> Posicion.x)
+	{
+		_cuerpo.move(-7,0);
+	}
 }
 void Proyectil::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 {

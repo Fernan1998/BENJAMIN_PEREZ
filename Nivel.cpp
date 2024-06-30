@@ -49,23 +49,23 @@ Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas, std::
 Nivel::~Nivel()
 {
 }
-void Nivel::reiniciarNivel(sf::Vector2f pos1, sf::Vector2f pos2, sf::Vector2f pos3, sf::Vector2f pos4 )
+void Nivel::reiniciarNivel(sf::Vector2f pos1, sf::Vector2f pos2, sf::Vector2f pos3, sf::Vector2f pos4, float vida)
 {
 	for(int i=0; i<_cantidadEnemigos; i++)
 	{
 		switch(i)
 		{
 			case 0:
-				_vectorEnemigo[0]->reiniciar(pos1, 100);
+				_vectorEnemigo[0]->reiniciar(pos1, vida);
 				break;
 			case 1:
-				_vectorEnemigo[1]->reiniciar(pos2, 100);
+				_vectorEnemigo[1]->reiniciar(pos2, vida);
 				break;
 			case 2:
-				_vectorEnemigo[2]->reiniciar(pos3, 100);
+				_vectorEnemigo[2]->reiniciar(pos3, vida);
 				break;
 			case 3:
-				_vectorEnemigo[2]->reiniciar(pos4, 100);
+				_vectorEnemigo[2]->reiniciar(pos4, vida);
 				break;
 		}
 		

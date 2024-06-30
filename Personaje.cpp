@@ -257,7 +257,7 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.move(0, -_velocidadSalto);
 			break;
 		case ATACANDO:
-			if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 0.5f)
+			if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 0.75f)
 			{
 				_ultimoAtaque = clock.getElapsedTime().asSeconds();
 				_atacando = true;
