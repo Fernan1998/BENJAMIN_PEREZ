@@ -3,16 +3,16 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 3;	
+	numeroMapa = 1;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
 	_personaje = new Personaje();
 	
-	_objetoOjo = new Objetos(34,22, "Textura/Objetos/ojoBabosa.png");
-	_objetoLobizon = new Objetos(56,48, "Textura/Objetos/objetoLobizon.png");
-	_cabezaDiablo = new Objetos(72,48, "Textura/Objetos/objetoDiablo.png");
-	_cabezaPombero = new Objetos(65,53, "Textura/Objetos/objetoPombero.png");
+	_objetoOjo = new Objetos(51,25, "Textura/Objetos/ojoBabosa.png");
+	_objetoLobizon = new Objetos(68,48, "Textura/Objetos/objetoLobizon.png");
+	_cabezaDiablo = new Objetos(51,40, "Textura/Objetos/objetoDiablo.png");
+	_cabezaPombero = new Objetos(69,53, "Textura/Objetos/objetoPombero1.png");
 	_objetoLuz = new Objetos(45,52,"Textura/Objetos/objetoLuz.png");
 	
 	cinematicaPersonaje = new  Cinematica("dia_noche/dia_noche", 251);
@@ -41,7 +41,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nivel7->creadorDeEnemigos(100, 25, "Textura/Diablo/Diablo2.png", 89, 128, 84, 800, 2, 7);
 	
 	nivel11 = new Nivel("Mapas_txt/mapa_infierno/infernal_piso.txt", "Mapas_txt/mapa_infierno/infernal_fondo.txt", "Mapas_txt/mapa_infierno/infernal_relleno.txt", "Sonido/Folklore.ogg", 1);
-	nivel11->creadorDeJefes(100, 25, "Textura/Diablo/Diablo.png", 327, 245, 84, 800, 3, 8);
+	nivel11->creadorDeEnemigos(100, 25, "Textura/Diablo/Diablo.png", 327, 245, 84, 800, 3, 8);
 	
 	nivel8 = new Nivel("Mapas_txt/mapa_montania/noche_piso_montania.txt", "Mapas_txt/mapa_montania/noche_fondo_montania.txt", "Mapas_txt/mapa_montania/noche_relleno_montania.txt", "Sonido/Folklore.ogg", 0);
 	
@@ -107,6 +107,7 @@ void Gameplay::actualizar(float deltaTime)
 		{
 			case 1:
 				nivel1->actualizar(deltaTime);
+				_objetoOjo->actualizar(deltaTime);
 				break;
 			case 2:
 				nivel2->actualizar(deltaTime);
@@ -124,15 +125,19 @@ void Gameplay::actualizar(float deltaTime)
 				break;
 			case 6:
 				nivel6->actualizar(deltaTime);
+				_objetoLobizon->actualizar(deltaTime);
 				break;
 			case 7:
 				nivel7->actualizar(deltaTime);
+				_cabezaDiablo->actualizar(deltaTime);
+				
 				break;
 			case 8:
 				nivel8->actualizar(deltaTime);
 				break;
 			case 9:
 				nivel9->actualizar(deltaTime);
+				_cabezaPombero->actualizar(deltaTime);
 				break;
 			case 10:
 				nivel10->actualizar(deltaTime);

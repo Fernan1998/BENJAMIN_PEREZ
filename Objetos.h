@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "Animacion.h"
 #include <SFML/Graphics.hpp>
 
 class Objetos : public sf::Drawable
@@ -26,9 +27,11 @@ class Objetos : public sf::Drawable
 			return _pausa;
 		}
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		void actualizar(float deltaTime);
 	private:
 		sf::RectangleShape _cuerpo;
 		sf::Texture _textura;
 		bool _pausa = false;
+		Animacion *_animacion;
 };
 
