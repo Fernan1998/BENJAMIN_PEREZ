@@ -10,7 +10,7 @@ Mapa::Mapa()
 		_bloque[i].resize(nColumnas);
 	}
 	
-	for (int i = 0; i < 77; i++)
+	for (int i = 0; i < 78; i++)
 	{
 		switch (i)
 		{
@@ -225,6 +225,9 @@ Mapa::Mapa()
 			break;
 		case 76:
 			_textura[i].loadFromFile("Textura/Mapa/agua_grande1.png");
+			break;
+		case 77:
+			_textura[i].loadFromFile("Textura/Mapa/agua_dia.png");
 			break;
 		}
 	}
@@ -481,6 +484,9 @@ void Mapa::CreadorMapa(std::ifstream& file)
 				break;
 			case 76:
 				_bloque[i][j].setTexture(_textura[76]);
+				break;
+			case 77:
+				_bloque[i][j].setTexture(_textura[77]);
 				break;
 				
 			}

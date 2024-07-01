@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 1;	
+	numeroMapa = 12;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -13,7 +13,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	_objetoLobizon = new Objetos(68,48, "Textura/Objetos/objetoLobizon.png");
 	_cabezaDiablo = new Objetos(51,40, "Textura/Objetos/objetoDiablo.png");
 	_cabezaPombero = new Objetos(69,53, "Textura/Objetos/objetoPombero1.png");
-	_objetoLuz = new Objetos(45,52,"Textura/Objetos/objetoLuz.png");
+	_objetoLuz = new Objetos(56,52,"Textura/Objetos/objetoLuz.png");
 	
 	cinematicaPersonaje = new  Cinematica("dia_noche/dia_noche", 251);
 	
@@ -26,7 +26,9 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nivel10->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
 	
 	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 1);
-	nivel3->creadorDeEnemigos(1000000, 100, "Textura/Luz Mala/luzmala.png", 98, 98, 1000, 1000, 3, 8);
+	nivel3->creadorDeEnemigos(100, 100, "Textura/Luz Mala/luzmala.png", 98, 98, 1000, 1000, 3, 8);
+	
+	nivel12 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_dia.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 0);
 	
 	nivel4 = new Nivel("Mapas_txt/mapa_cueva_1/mapa_cueva1.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_plataformas.txt", "Sonido/Folklore.ogg", 2);
 	nivel4->creadorDeEnemigos(100, 10, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
@@ -59,6 +61,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	listaNiveles[8] = nivel9;
 	listaNiveles[9] = nivel10;
 	listaNiveles[10] = nivel11;
+	listaNiveles[11] = nivel12;
 	
 	nivel1->reiniciarNivel(sf::Vector2f(1735,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel2->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
@@ -71,6 +74,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nivel9->reiniciarNivel(sf::Vector2f(1800, 100), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 60);
 	nivel10->reiniciarNivel(sf::Vector2f(1735,700), sf::Vector2f(1100,700), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel11->reiniciarNivel(sf::Vector2f(1800,450), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
+	nivel12->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 		
 	_aux.setPosition(sf::Vector2f(0, 224));
 	_aux.setSize(sf::Vector2f(1024, 768));	
@@ -130,7 +134,6 @@ void Gameplay::actualizar(float deltaTime)
 			case 7:
 				nivel7->actualizar(deltaTime);
 				_cabezaDiablo->actualizar(deltaTime);
-				
 				break;
 			case 8:
 				nivel8->actualizar(deltaTime);
@@ -144,6 +147,10 @@ void Gameplay::actualizar(float deltaTime)
 				break;
 			case 11:
 				nivel11->actualizar(deltaTime);
+				break;
+			case 12:
+				nivel12->actualizar(deltaTime);
+				_objetoLuz->actualizar(deltaTime);
 				break;
 		}
 	}
@@ -312,11 +319,34 @@ void Gameplay::cambioEscena()
 		}
 		
 	}
-	if(numeroMapa == 8)
+	if(numeroMapa == 12)
 	{
 		if(_personaje->getPosicion().x <= 0)
 		{
+			numeroMapa = 10;
+			_personaje->setPosicion(1900,_personaje->getPosicion().y);
+		}
+		if(_personaje->getPosicion().x == 1920)
+		{
+			numeroMapa = 8;
+			_personaje->setPosicion(20,_personaje->getPosicion().y);
+		}
+		if(_personaje->getPosicion().y >= 980)
+		{
+			_personaje->recibiendoDanio(100, 0);
+		}
+		
+	}
+	if(numeroMapa == 8)
+	{
+		if(_personaje->getPosicion().x <= 0 && !_personaje->getObjetos(2))
+		{
 			numeroMapa = 3;
+			_personaje->setPosicion(1900,_personaje->getPosicion().y);
+		}
+		else if(_personaje->getPosicion().x <= 0 && _personaje->getObjetos(2))
+		{
+			numeroMapa = 12;
 			_personaje->setPosicion(1900,_personaje->getPosicion().y);
 		}
 		if(_personaje->getPosicion().x >= 1920 && !_personaje->getObjetos(2))
@@ -455,6 +485,9 @@ void Gameplay::comando(int c)
 			break;
 		case 11:
 			   nivel11->comando(*_personaje);
+			break;
+		case 12:
+			nivel12->comando(*_personaje);
 			break;
 	}
 }
@@ -683,6 +716,9 @@ int Gameplay::draw(sf::RenderWindow& window)
 			case 11:
 				nivel11->dibujar(window);
 				break;
+			case 12:
+				nivel12->dibujar(window);
+				break;
 		}
 		switch(menu.mostrar(window, getPosicionPersonaje()))
 		{
@@ -777,6 +813,10 @@ int Gameplay::draw(sf::RenderWindow& window)
 			case 11:
 				nivel11->dibujar(window);
 				break;
+			case 12:
+				nivel12->dibujar(window);
+				_objetoLuz->setPosition(sf::Vector2f(1800.0f,800.0f));
+				window.draw(*_objetoLuz);
 		}
 	}
 	window.draw(*_personaje);
