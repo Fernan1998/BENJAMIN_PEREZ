@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 12;	
+	numeroMapa = 7;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -40,7 +40,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nivel6->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
 	
 	nivel7 = new Nivel("Mapas_txt/mapa_infierno/infernal_piso.txt", "Mapas_txt/mapa_infierno/infernal_fondo.txt", "Mapas_txt/mapa_infierno/infernal_relleno.txt", "Sonido/Folklore.ogg", 1);
-	nivel7->creadorDeEnemigos(100, 25, "Textura/Diablo/Diablo2.png", 89, 128, 84, 800, 2, 7);
+	nivel7->creadorDeEnemigos(100, 25, "Textura/Diablo/Diablo2b.png", 89, 128, 84, 800, 3, 7);
 	
 	nivel11 = new Nivel("Mapas_txt/mapa_infierno/infernal_piso.txt", "Mapas_txt/mapa_infierno/infernal_fondo.txt", "Mapas_txt/mapa_infierno/infernal_relleno.txt", "Sonido/Folklore.ogg", 1);
 	nivel11->creadorDeEnemigos(100, 25, "Textura/Diablo/Diablo.png", 327, 245, 84, 800, 3, 8);
@@ -80,6 +80,11 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	_aux.setSize(sf::Vector2f(1024, 768));	
 	_boleadora.setPosition(_personaje->getPosicion());
 	_boleando = false;
+	
+	texTutorial.loadFromFile("Textura/Tutorial/tutorial.png");
+	_tutorial.setTexture(&texTutorial);
+	_tutorial.setSize(sf::Vector2f(3072, 768));
+	_tutorial.setPosition(sf::Vector2f(25, 170));
 }
 Gameplay::~Gameplay()
 {
@@ -746,6 +751,7 @@ int Gameplay::draw(sf::RenderWindow& window)
 					_objetoOjo->setPosition(nivel1->getEnemigo()[0]->getPosition());
 					window.draw(*_objetoOjo);
 				}
+				window.draw(_tutorial);
 				break;
 			case 2:
 				nivel2->dibujar(window);

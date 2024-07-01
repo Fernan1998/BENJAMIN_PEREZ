@@ -57,6 +57,10 @@ class Gameplay
 		Cinematica *cinematicaPersonaje;
 		sf::RectangleShape _aux;
 		sf::Texture texAux;
+		
+		sf::RectangleShape _tutorial;
+		sf::Texture texTutorial;
+		
 		int i=0;
 		float _ultimoAtaque;
 		sf::Clock clock;
