@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
 		{
 			if(e.type == sf::Event::Closed)
 			{
+				delete(juego);
 				cerrarJuego();
 				ventana.close();
 			}

@@ -70,6 +70,10 @@ class Enemigo : public sf::Drawable
 		void setPosition(sf::Vector2f aux);
 		void setVelocidadCaminata(float aux);
 		void setEstado(ESTADOS estado);
+		void setSize(sf::Vector2f aux)
+		{
+			_cuerpo.setSize(aux);
+		}
 		
 	protected:
 		ESTADOS _estado;
