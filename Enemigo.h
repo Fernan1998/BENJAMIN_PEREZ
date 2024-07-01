@@ -48,6 +48,14 @@ class Enemigo : public sf::Drawable
 			return _cuerpo.getGlobalBounds();
 		}
 		
+		float getArmadura()
+		{
+			return _armadura;
+		}
+		void setArmadura(float armadura)
+		{
+			_armadura = armadura;
+		}
 		
 		void recibiendoDanio(int lado);
 		void quieto();
@@ -72,6 +80,7 @@ class Enemigo : public sf::Drawable
 		float _ultimoAtaque;
 		float _velocidadCaminata;
 		float _danio;
+		float _armadura = 2;
 		bool _vivo;
 		bool _colisionandoDer;
 		bool _colisionandoIzq;

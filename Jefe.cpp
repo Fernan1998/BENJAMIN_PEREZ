@@ -51,6 +51,7 @@ void Jefe::comando(Personaje personaje)
 			{
 				_piedra->actualizar(2);
 			}
+
 		}
  
 		if(_recibiendoDanio!=0)
@@ -73,6 +74,11 @@ void Jefe::comando(Personaje personaje)
 			_siguiendoPersonaje = false;
 			_estado == ESTADOS::PATRULLANDO;
 		}
+	}
+	if(_piedra->getPosition().x< _cuerpo.getPosition().x-2500)
+	{
+		_estado = ESTADOS::PATRULLANDO;
+		_siguiendoPersonaje = false;
 	}
 }
 void Jefe::actualizar(float deltaTime) 

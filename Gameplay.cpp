@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 7;	
+	numeroMapa = 6;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -38,6 +38,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	
 	nivel6 = new Nivel("Mapas_txt/mapa_cueva_3/mapa_cueva3.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_fondo.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_plataformas.txt", "Sonido/Folklore.ogg", 3);
 	nivel6->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
+	nivel6->getEnemigo()[0]->setArmadura(2.5);
 	
 	nivel7 = new Nivel("Mapas_txt/mapa_infierno/infernal_piso.txt", "Mapas_txt/mapa_infierno/infernal_fondo.txt", "Mapas_txt/mapa_infierno/infernal_relleno.txt", "Sonido/Folklore.ogg", 1);
 	nivel7->creadorDeEnemigos(100, 25, "Textura/Diablo/Diablo2b.png", 89, 128, 84, 800, 3, 7);
@@ -48,7 +49,8 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nivel8 = new Nivel("Mapas_txt/mapa_montania/noche_piso_montania.txt", "Mapas_txt/mapa_montania/noche_fondo_montania.txt", "Mapas_txt/mapa_montania/noche_relleno_montania.txt", "Sonido/Folklore.ogg", 0);
 	
 	nivel9 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 1);
-	nivel9->creadorDeJefes(60, 25, "Textura/Pombero/Pombero2.png", 98, 98, 50, 2000, 1, 6);
+	nivel9->creadorDeJefes(100, 25, "Textura/Pombero/Pombero2.png", 98, 98, 50, 2000, 1, 6);
+	nivel9->getEnemigo()[0]->setArmadura(1);
 	
 	listaNiveles[0] = nivel1;
 	listaNiveles[1] = nivel2;
@@ -71,7 +73,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nivel6->reiniciarNivel(sf::Vector2f(250,240), sf::Vector2f(800,800), sf::Vector2f(1000,500), sf::Vector2f(0,0), 100);
 	nivel7->reiniciarNivel(sf::Vector2f(950,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel8->reiniciarNivel(sf::Vector2f(1200,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
-	nivel9->reiniciarNivel(sf::Vector2f(1800, 100), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 60);
+	nivel9->reiniciarNivel(sf::Vector2f(1800, 100), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel10->reiniciarNivel(sf::Vector2f(1735,700), sf::Vector2f(1100,700), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel11->reiniciarNivel(sf::Vector2f(1800,450), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel12->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
@@ -637,7 +639,7 @@ void Gameplay::ChequeoColisiones()
 		//Ataque Personaje >> Enemigo
 		if(_personaje->getAtacando() == true && _personaje->getCajaAtaque().getGlobalBounds().intersects(_vectorEnemigo[i]->getHitBox()) && _vectorEnemigo[i]->getSalud() >0)
 		{
-			_vectorEnemigo[i]->setSalud(_personaje->getDanio());
+			_vectorEnemigo[i]->setSalud(_personaje->getDanio()/_vectorEnemigo[i]->getArmadura());
 			if(_personaje->getPosicion().x < _vectorEnemigo[i]->getPosition().x)
 			{
 				_vectorEnemigo[i]->recibiendoDanio(1);
