@@ -23,14 +23,14 @@ cursor=35:0
 open=true
 [source]
 path=Gameplay.cpp
-cursor=46:35
+cursor=5:15
 open=true
 [source]
 path=CamaraPrincipal.cpp
 cursor=41:26
 [source]
 path=Personaje.cpp
-cursor=20:12
+cursor=234:48
 open=true
 [source]
 path=Mapa.cpp
