@@ -197,12 +197,13 @@ void Enemigo::actualizar(float deltaTime)
 			break;
 		case MUERTO:
 			_cuerpo.move(0,0);
-			_cuerpo.setFillColor(sf::Color::Transparent);
+			_cuerpo.setTexture(&_textura);
+			_animacion->Update(3, deltaTime, true);
+			_cuerpo.setTextureRect(_animacion->uvRect);
 			_barraVida->modoPausa(true);
 			break;
 	}
-	
-	
+
 	_velocidad = sf::Vector2f(0,4);
 	_velocidadCaminata = 2;
 	_colisionandoDer = false;

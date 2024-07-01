@@ -26,11 +26,27 @@ void Animacion::Update(int columna, float deltaTime)
 			finAnimacion=true;
 			imagenActual.x = 0;
 		}
-		else
+
+	}
+	uvRect.left = imagenActual.x * uvRect.width;
+	uvRect.top = imagenActual.y * uvRect.height;
+}
+void Animacion::Update(int columna, float deltaTime, bool atk)
+{
+	imagenActual.y = columna;
+	totalTime += deltaTime;
+	
+	if (totalTime >= switchTime)
+	{
+		totalTime -= switchTime;
+		imagenActual.x++;
+		if (imagenActual.x >= imageCount.x)
 		{
-			finAnimacion=false;
+			finAnimacion = true;
+			imagenActual.x = imageCount.x - 1;
 		}
 	}
+	
 	uvRect.left = imagenActual.x * uvRect.width;
 	uvRect.top = imagenActual.y * uvRect.height;
 }

@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 6;	
+	numeroMapa = 11;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -23,7 +23,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nivel2 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg", 0);
 	
 	nivel10 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche2.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg", 2);
-	nivel10->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
+	nivel10->creadorDeEnemigos(100, 25, "Textura/Wolf/idle.png", 170, 160, 84, 800, 3, 10);
 	
 	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 1);
 	nivel3->creadorDeEnemigos(100, 100, "Textura/Luz Mala/luzmala.png", 98, 98, 1000, 1000, 3, 8);
@@ -31,20 +31,21 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nivel12 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_dia.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 0);
 	
 	nivel4 = new Nivel("Mapas_txt/mapa_cueva_1/mapa_cueva1.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_plataformas.txt", "Sonido/Folklore.ogg", 2);
-	nivel4->creadorDeEnemigos(100, 10, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
+	nivel4->creadorDeEnemigos(100, 10, "Textura/Wolf/idle.png", 170, 160, 84, 800, 3, 10);
 	
 	nivel5 = new Nivel("Mapas_txt/mapa_cueva_2/mapa_cueva2.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_fondo.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_plataformas.txt", "Sonido/Folklore.ogg", 2);
-	nivel5->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
+	nivel5->creadorDeEnemigos(100, 25, "Textura/Wolf/idle.png", 170, 160, 84, 800, 4, 10);
 	
 	nivel6 = new Nivel("Mapas_txt/mapa_cueva_3/mapa_cueva3.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_fondo.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_plataformas.txt", "Sonido/Folklore.ogg", 3);
-	nivel6->creadorDeEnemigos(100, 25, "Textura/Wolf/idle1.png", 170, 160, 84, 800, 3, 10);
+	nivel6->creadorDeEnemigos(100, 25, "Textura/Wolf/idle.png", 170, 160, 84, 800, 3, 10);
 	nivel6->getEnemigo()[0]->setArmadura(2.5);
 	
 	nivel7 = new Nivel("Mapas_txt/mapa_infierno/infernal_piso.txt", "Mapas_txt/mapa_infierno/infernal_fondo.txt", "Mapas_txt/mapa_infierno/infernal_relleno.txt", "Sonido/Folklore.ogg", 1);
 	nivel7->creadorDeEnemigos(100, 25, "Textura/Diablo/Diablo2b.png", 89, 128, 84, 800, 3, 7);
 	
 	nivel11 = new Nivel("Mapas_txt/mapa_infierno/infernal_piso.txt", "Mapas_txt/mapa_infierno/infernal_fondo.txt", "Mapas_txt/mapa_infierno/infernal_relleno.txt", "Sonido/Folklore.ogg", 1);
-	nivel11->creadorDeEnemigos(100, 25, "Textura/Diablo/Diablo.png", 327, 245, 84, 800, 3, 8);
+	nivel11->creadorDeEnemigos(100, 50, "Textura/Diablo/Diablo.png", 327, 245, 84, 800, 3, 8);
+	nivel11->getEnemigo()[0]->setArmadura(3);
 	
 	nivel8 = new Nivel("Mapas_txt/mapa_montania/noche_piso_montania.txt", "Mapas_txt/mapa_montania/noche_fondo_montania.txt", "Mapas_txt/mapa_montania/noche_relleno_montania.txt", "Sonido/Folklore.ogg", 0);
 	
@@ -69,7 +70,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nivel2->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel3->reiniciarNivel(sf::Vector2f(-300,772), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel4->reiniciarNivel(sf::Vector2f(1500,260), sf::Vector2f(1341,700), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
-	nivel5->reiniciarNivel(sf::Vector2f(650,700), sf::Vector2f(1680,260), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
+	nivel5->reiniciarNivel(sf::Vector2f(650,750), sf::Vector2f(1680,260), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel6->reiniciarNivel(sf::Vector2f(250,240), sf::Vector2f(800,800), sf::Vector2f(1000,500), sf::Vector2f(0,0), 100);
 	nivel7->reiniciarNivel(sf::Vector2f(950,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 	nivel8->reiniciarNivel(sf::Vector2f(1200,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
