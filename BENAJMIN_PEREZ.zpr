@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
-current_source=Gameplay.cpp
+current_source=Personaje.cpp
 path_char=\
 [source]
 path=main.cpp
@@ -30,7 +30,7 @@ path=CamaraPrincipal.cpp
 cursor=41:26
 [source]
 path=Personaje.cpp
-cursor=234:48
+cursor=299:23
 open=true
 [source]
 path=Mapa.cpp

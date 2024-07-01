@@ -206,70 +206,78 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.setScale(1.0f,1.0f);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
 			_estado= ESTADOS::CAYENDO;
-			if(_velocidadSalto!=0){
-				_cuerpo.setTexture(&_textura);
-				animacion->Update(3, deltaTime);
-				_cuerpo.setTextureRect(animacion->uvRect);
-			}else{
-			if(terminoAnimacion)
+			if(_velocidadSalto!=0)
 			{
 				_cuerpo.setTexture(&_textura);
-				animacion->Update(0, deltaTime);
+				animacion->Update(3, deltaTime, true);
 				_cuerpo.setTextureRect(animacion->uvRect);
-			}
-			else if(animacionAtaque->getColumna() == 0)
-			{
-				_cuerpo.setTexture(&_texturaAtaque);
-				animacionAtaque->Update(0, deltaTime);
-				_cuerpo.setTextureRect(animacionAtaque->uvRect);
 			}
 			else
 			{
-				_cuerpo.setTexture(&_texturaAtaque);
-				animacionAtaque->Update(1, deltaTime);
-				_cuerpo.setTextureRect(animacionAtaque->uvRect);
-			}}
+				if(terminoAnimacion)
+				{
+					_cuerpo.setTexture(&_textura);
+					animacion->Update(0, deltaTime);
+					_cuerpo.setTextureRect(animacion->uvRect);
+				}
+				else if(animacionAtaque->getColumna() == 0)
+				{
+					_cuerpo.setTexture(&_texturaAtaque);
+					animacionAtaque->Update(0, deltaTime);
+					_cuerpo.setTextureRect(animacionAtaque->uvRect);
+				}
+				else
+				{
+					_cuerpo.setTexture(&_texturaAtaque);
+					animacionAtaque->Update(1, deltaTime);
+					_cuerpo.setTextureRect(animacionAtaque->uvRect);
+				}
+			}
 			break;
 		case CAMINANDO_ATRAS:
 			_cuerpo.setScale(-1.0f,1.0f);
 			_cuerpo.move(_velocidad.x, -_velocidadSalto);
-			if(_velocidadSalto!=0){
+			if(_velocidadSalto!=0)
+			{
 				_cuerpo.setTexture(&_textura);
-				animacion->Update(3, deltaTime);
+				animacion->Update(3, deltaTime, true);
 				_cuerpo.setTextureRect(animacion->uvRect);
-			}else{
-			if(terminoAnimacion)
-			{
-			_cuerpo.setTexture(&_textura);
-			animacion->Update(0, deltaTime);
-			_cuerpo.setTextureRect(animacion->uvRect);
-			}
-			else if(animacionAtaque->getColumna() == 0)
-			{
-				_cuerpo.setTexture(&_texturaAtaque);
-				animacionAtaque->Update(0, deltaTime);
-				_cuerpo.setTextureRect(animacionAtaque->uvRect);
 			}
 			else
 			{
-				_cuerpo.setTexture(&_texturaAtaque);
-				animacionAtaque->Update(1, deltaTime);
-				_cuerpo.setTextureRect(animacionAtaque->uvRect);
-			}}
+				if(terminoAnimacion)
+				{
+				_cuerpo.setTexture(&_textura);
+				animacion->Update(0, deltaTime);
+				_cuerpo.setTextureRect(animacion->uvRect);
+				}
+				else if(animacionAtaque->getColumna() == 0)
+				{
+					_cuerpo.setTexture(&_texturaAtaque);
+					animacionAtaque->Update(0, deltaTime);
+					_cuerpo.setTextureRect(animacionAtaque->uvRect);
+				}
+				else
+				{
+					_cuerpo.setTexture(&_texturaAtaque);
+					animacionAtaque->Update(1, deltaTime);
+					_cuerpo.setTextureRect(animacionAtaque->uvRect);
+				}
+			}
 			_estado= ESTADOS::CAYENDO;
 			break;
 		case SALTANDO:
 			_sonido->reproducirSonidos(0);
 			_cuerpo.move(0, -_velocidadSalto);
 			_cuerpo.setTexture(&_textura);
-			animacion->Update(3, deltaTime);
+			animacion->Update(3, deltaTime, true);
 			_cuerpo.setTextureRect(animacion->uvRect);
 			_estado= ESTADOS::CAYENDO;
 			break;
 		case CAYENDO:
 			_cuerpo.move(0, -_velocidadSalto);
 			_cuerpo.setTexture(&_textura);
-			animacion->Update(3, deltaTime);
+			animacion->Update(3, deltaTime, true);
 			_cuerpo.setTextureRect(animacion->uvRect);
 			break;
 		case ATACANDO:
