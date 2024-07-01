@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 6;	
+	numeroMapa = 1;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -16,6 +16,8 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	_objetoLuz = new Objetos(56,52,"Textura/Objetos/objetoLuz.png");
 	
 	cinematicaPersonaje = new  Cinematica("dia_noche/dia_noche", 251);
+	nocheADia = new  Cinematica("noche_dia/noche_dia", 125);
+	introJuego = new  Cinematica("intro/intro", 360);
 	
 	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_plataforma.txt", "Sonido/Folklore.ogg", 1);
 	nivel1->creadorDeEnemigos(100, 10, "Textura/Babosa/Baboscompleta.png", 63, 84, 84, 800, 3, 8);
@@ -119,6 +121,8 @@ void Gameplay::actualizar(float deltaTime)
 		{
 			case 1:
 				nivel1->actualizar(deltaTime);
+				texAux = introJuego->cargarImagenes(i);
+				_aux.setTexture(&texAux);
 				_objetoOjo->actualizar(deltaTime);
 				break;
 			case 2:
@@ -158,6 +162,8 @@ void Gameplay::actualizar(float deltaTime)
 				break;
 			case 12:
 				nivel12->actualizar(deltaTime);
+				texAux = nocheADia->cargarImagenes(i);
+				_aux.setTexture(&texAux);
 				_objetoLuz->actualizar(deltaTime);
 				break;
 		}
@@ -754,7 +760,12 @@ int Gameplay::draw(sf::RenderWindow& window)
 					_objetoOjo->setPosition(nivel1->getEnemigo()[0]->getPosition());
 					window.draw(*_objetoOjo);
 				}
-				window.draw(_tutorial);
+				
+				if(i<=360)
+				{
+					window.draw(_aux);
+					_personaje->modoPausa();
+				}else{window.draw(_tutorial);}
 				break;
 			case 2:
 				nivel2->dibujar(window);
@@ -828,6 +839,11 @@ int Gameplay::draw(sf::RenderWindow& window)
 				break;
 			case 12:
 				nivel12->dibujar(window);
+				if(i<=125)
+				{
+					window.draw(_aux);
+					_personaje->modoPausa();
+				}
 				_objetoLuz->setPosition(sf::Vector2f(1800.0f,800.0f));
 				window.draw(*_objetoLuz);
 		}

@@ -55,6 +55,8 @@ class Gameplay
 		bool _boleando;
 		Menu menu = new Menu(true);
 		Cinematica *cinematicaPersonaje;
+		Cinematica *nocheADia;
+		Cinematica *introJuego;
 		sf::RectangleShape _aux;
 		sf::Texture texAux;
 		
