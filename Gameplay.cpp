@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 1;	
+	numeroMapa = 11;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -28,7 +28,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 1);
 	nivel3->creadorDeEnemigos(100, 100, "Textura/Luz Mala/luzmala.png", 98, 98, 1000, 1000, 3, 8);
 	
-	nivel12 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_dia.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 0);
+	nivel12 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_dia.txt", "Mapas_txt/mapa_luz_mala/fondo_dia.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_plataformas.txt", "Sonido/Folklore.ogg", 0);
 	
 	nivel4 = new Nivel("Mapas_txt/mapa_cueva_1/mapa_cueva1.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_plataformas.txt", "Sonido/Folklore.ogg", 2);
 	nivel4->creadorDeEnemigos(100, 10, "Textura/Wolf/idle.png", 170, 160, 84, 800, 3, 10);
@@ -431,7 +431,7 @@ void Gameplay::cambioEscena()
 		}
 		else if(numeroMapa == 9)
 		{
-			nivel9->reiniciarNivel(sf::Vector2f(1800, 100), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 60);
+			nivel9->reiniciarNivel(sf::Vector2f(1800, 100), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);;
 			_personaje->reiniciar(sf::Vector2f(100,750));
 			numeroMapa = 9;
 		}
@@ -821,6 +821,10 @@ int Gameplay::draw(sf::RenderWindow& window)
 				break;
 			case 11:
 				nivel11->dibujar(window);
+				if(nivel11->getEnemigo()[0]->getSalud() <= 50)
+				{
+					nivel11->getEnemigo()[0]->setColor(sf::Color::Red);
+				}
 				break;
 			case 12:
 				nivel12->dibujar(window);
