@@ -57,11 +57,13 @@ class Gameplay
 		Cinematica *cinematicaPersonaje;
 		Cinematica *nocheADia;
 		Cinematica *introJuego;
+		Cinematica *cinematicaDesaparece;
 		sf::RectangleShape _aux;
 		sf::Texture texAux;
 		
 		sf::RectangleShape _tutorial;
 		sf::Texture texTutorial;
+
 		
 		int i=0;
 		float _ultimoAtaque;

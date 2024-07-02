@@ -18,6 +18,8 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	cinematicaPersonaje = new  Cinematica("dia_noche/dia_noche", 251);
 	nocheADia = new  Cinematica("noche_dia/noche_dia", 125);
 	introJuego = new  Cinematica("intro/intro", 360);
+	cinematicaDesaparece = new Cinematica("desaparece/desaparece", 75);
+	/*teletransporte = new Cinematica("desaparece/desaparece", 75);*/
 	
 	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_plataforma.txt", "Sonido/Folklore.ogg", 1);
 	nivel1->creadorDeEnemigos(100, 10, "Textura/Babosa/Baboscompleta.png", 63, 84, 84, 800, 3, 8);
@@ -128,6 +130,7 @@ void Gameplay::actualizar(float deltaTime)
 			case 2:
 				nivel2->actualizar(deltaTime);
 				texAux = cinematicaPersonaje->cargarImagenes(i);
+				_aux.setSize(sf::Vector2f(1024,768));
 				_aux.setTexture(&texAux);
 				break;
 			case 3:
@@ -219,6 +222,7 @@ void Gameplay::cambioEscena()
 		if(_personaje->getPosicion().x >= 1920)
 		{
 			numeroMapa = 2;
+			i=0;
 			_personaje->setPosicion(20,_personaje->getPosicion().y);
 		}
 		if(_personaje->getPosicion().x <= 0)
@@ -638,8 +642,7 @@ void Gameplay::ChequeoColisiones()
 		_cabezaPombero->setPause();
 		_personaje->setObjetos(2);
 		_personaje->setPosicion(1850, 780);
-		numeroMapa = 8;
-		
+		numeroMapa = 8;		
 	}
 	for(int i=0; i<nivelActual->getCantidadEnemigos(); i++)
 	{
@@ -848,6 +851,7 @@ int Gameplay::draw(sf::RenderWindow& window)
 				window.draw(*_objetoLuz);
 		}
 	}
+
 	window.draw(*_personaje);
 	window.draw(_personaje->getBarraVida());
 	window.draw(_boleadora);
