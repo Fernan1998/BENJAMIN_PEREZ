@@ -20,7 +20,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	introJuego = new  Cinematica("intro/intro", 360);
 	cinematicaDesaparece = new Cinematica("desaparece/desaparece", 75);
 	cinematicaDerrumbe = new Cinematica("derrumbe/aaa",167);
-	
+	cinematicaMuerte = new Cinematica("muerte/muerte",125);
 	
 	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_plataforma.txt", "Sonido/Folklore.ogg", 1);
 	nivel1->creadorDeEnemigos(100, 10, "Textura/Babosa/Baboscompleta.png", 63, 84, 84, 800, 3, 8);

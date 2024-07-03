@@ -59,12 +59,14 @@ class Gameplay
 		Cinematica *introJuego;
 		Cinematica *cinematicaDesaparece;
 		Cinematica *cinematicaDerrumbe;
+		Cinematica *cinematicaMuerte;
 		sf::RectangleShape _aux;
 		sf::Texture texAux;
 		
 		sf::RectangleShape _tutorial;
 		sf::Texture texTutorial;
-
+		
+		bool muerto = false;
 		
 		int i=0;
 		float _ultimoAtaque;
