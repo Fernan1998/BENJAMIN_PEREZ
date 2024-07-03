@@ -65,7 +65,25 @@ class Personaje : public sf::Drawable
 		{
 			return _boleadora;
 		}
+		void limpiarObjetos()
+		{
+			_objetos[0] = false;
+			_objetos[1] = false;
+			_objetos[2] = false;
+			_objetos[3] = false;
+		}
+		bool* getObjeto()
+		{
+			return _objetos;
+		}
 		float getScale();
+		void setOBjeto(bool *objetos)
+		{
+			for(bool objeto : _objetos)
+			{
+				_objetos[objeto] = objetos[objeto];
+			}
+		}
 
 
 	private:

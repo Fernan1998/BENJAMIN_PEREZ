@@ -19,7 +19,7 @@ Personaje::Personaje()
 	_colisionandoIzq = false;
 	_atacando = false;
 	_danio = 40;
-	_salud = 20;
+	_salud = 100;
 	_saltoInvertido = false;
 	animacion = new Animacion(&_textura, sf::Vector2u(16,2), 0.05f, 108,73);
 	animacionAtaque = new Animacion(&_texturaAtaque, sf::Vector2u(8,2), 0.065f, 108,91);

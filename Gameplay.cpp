@@ -8,7 +8,8 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	_camaraPrincipal = camaraPrincipal;
 	
 	_personaje = new Personaje();
-	
+	_personaje->setObjetos(1);
+	_personaje->setObjetos(2);
 	_objetoOjo = new Objetos(51,25, "Textura/Objetos/ojoBabosa.png");
 	_objetoLobizon = new Objetos(68,48, "Textura/Objetos/objetoLobizon.png");
 	_cabezaDiablo = new Objetos(51,40, "Textura/Objetos/objetoDiablo.png");
@@ -108,6 +109,18 @@ void Gameplay::cargarPartida(){
 
 void Gameplay::actualizar(float deltaTime)
 {
+	getDatos(_personaje->getPosicion(), _personaje->getSalud(), numeroMapa, _personaje->getObjeto());
+	nivel6->getEnemigo()[0]->setColor(sf::Color::Red);
+	_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
+	ponerPausa();
+	std::cout << _personaje->getObjetos(0) << std::endl;
+	if(_personaje->getObjetos(1) && _personaje->getObjetos(2) && _personaje->getObjetos(3))
+	{
+		numeroMapa = 7;
+		_personaje->setPosicion(100,750);
+		_personaje->limpiarObjetos();
+	};
+	
 	if(_personaje->getSalud()<=0 && !muerto)
 	{
 		muerto=true;
@@ -118,17 +131,6 @@ void Gameplay::actualizar(float deltaTime)
 		texAuxMuerte = cinematicaMuerte->cargarImagenes(a);
 		_auxMuerte.setTexture(&texAuxMuerte);
 	}
-	getDatosPoronga(_personaje->getPosicion(), _personaje->getSalud(), numeroMapa);
-	nivel6->getEnemigo()[0]->setColor(sf::Color::Red);
-	_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
-	ponerPausa();
-	for(int i=0; i<3; i++)
-	{
-		std::cout<<_personaje->getObjetos(i)<<std::endl;
-	
-	}
-
-
 	if (!pausa)
 	{
 		_personaje->actualizar(deltaTime);
@@ -233,216 +235,207 @@ void Gameplay::actualizar(float deltaTime)
 
 void Gameplay::cambioEscena()
 {
-	if(numeroMapa == 1)
+	switch (numeroMapa) 
 	{
-		if(_personaje->getPosicion().x >= 1920)
-		{
-			numeroMapa = 2;
-			i=0;
-			_personaje->setPosicion(20,_personaje->getPosicion().y);
-		}
-		if(_personaje->getPosicion().x <= 0)
-		{
-			_personaje->setPosicion(0,_personaje->getPosicion().y);
-		}
-		if(_personaje->getPosicion().y >= 980)
-		{
-			_personaje->recibiendoDanio(100, 0);
-		}
-	}
-	if(numeroMapa == 2)
-	{
-		if(_personaje->getPosicion().x <= 0)
-		{
-			_personaje->setPosicion(0,_personaje->getPosicion().y);
-		}
-		if(_personaje->getPosicion().x >= 1920)
-		{
-			numeroMapa = 3;
-			_personaje->setPosicion(20,_personaje->getPosicion().y);
-		} 
-		if(_personaje->getPosicion().x >= 138 && _personaje->getPosicion().x <= 224 && _personaje->getPosicion().y > 980)
-		{
-			numeroMapa = 4;
-			_personaje->setPosicion(_personaje->getPosicion().x, 0);
-		}
-	}
-	if(numeroMapa == 10)
-	{
-		if(_personaje->getPosicion().x <= 0)
-		{
-			_personaje->setPosicion(0,_personaje->getPosicion().y);
-		}
-		if(_personaje->getPosicion().x >= 1920)
-		{
-			numeroMapa = 3;
-			_personaje->setPosicion(20,_personaje->getPosicion().y);
-		} 
-
-	}
-	if(numeroMapa == 3)
-	{
-		if(!_personaje->getObjetos(1))
-		{
-			if(_personaje->getPosicion().x <= 0)
+		case 1:
+			if (_personaje->getPosicion().x >= 1920) 
 			{
 				numeroMapa = 2;
-				_personaje->setPosicion(1900,_personaje->getPosicion().y);
-			}
-		}
-		else
-		{
-			if(_personaje->getPosicion().x <= 0)
+				i = 0;
+				_personaje->setPosicion(20, _personaje->getPosicion().y);
+			} 
+			else if (_personaje->getPosicion().x <= 0) 
 			{
-				numeroMapa = 10;
-				_personaje->setPosicion(1900,_personaje->getPosicion().y);
+				_personaje->setPosicion(0, _personaje->getPosicion().y);
+			} 
+			else if (_personaje->getPosicion().y >= 980) 
+			{
+				_personaje->recibiendoDanio(100, 0);
 			}
-		}
-		if(_personaje->getPosicion().x >= 1920)
-		{
-			numeroMapa = 8;
-			_personaje->setPosicion(20,_personaje->getPosicion().y);
-		}
-		
-		if(_personaje->getPosicion().y >= 980)
-		{
-			_personaje->recibiendoDanio(100, 0);
-		}
+			break;
+			
+		case 2:
+			if (_personaje->getPosicion().x <= 0) 
+			{
+				_personaje->setPosicion(0, _personaje->getPosicion().y);
+			} 
+			else if (_personaje->getPosicion().x >= 1920) 
+			{
+				numeroMapa = 3;
+				_personaje->setPosicion(20, _personaje->getPosicion().y);
+			} 
+			else if (_personaje->getPosicion().x >= 138 && _personaje->getPosicion().x <= 224 && _personaje->getPosicion().y > 980) 
+			{
+				numeroMapa = 4;
+				_personaje->setPosicion(_personaje->getPosicion().x, 0);
+			}
+			break;
+			
+		case 10:
+			if (_personaje->getPosicion().x <= 0) 
+			{
+				_personaje->setPosicion(0, _personaje->getPosicion().y);
+			} 
+			else if (_personaje->getPosicion().x >= 1920) 
+			{
+				numeroMapa = 3;
+				_personaje->setPosicion(20, _personaje->getPosicion().y);
+			}
+			break;
+			
+		case 3:
+			if (!_personaje->getObjetos(1)) 
+			{
+				if (_personaje->getPosicion().x <= 0) 
+				{
+					numeroMapa = 2;
+					_personaje->setPosicion(1900, _personaje->getPosicion().y);
+				}
+			} 
+			else 
+			{
+				if (_personaje->getPosicion().x <= 0) 
+				{
+					numeroMapa = 10;
+					_personaje->setPosicion(1900, _personaje->getPosicion().y);
+				}
+			}
+			if (_personaje->getPosicion().x >= 1920) 
+			{
+				numeroMapa = 8;
+				_personaje->setPosicion(20, _personaje->getPosicion().y);
+			} 
+			else if (_personaje->getPosicion().y >= 980) 
+			{
+				_personaje->recibiendoDanio(100, 0);
+			}
+			break;
+			
+		case 4:
+			if (_personaje->getPosicion().x <= 0) 
+			{
+				numeroMapa = 6;
+				i = 0;
+				_personaje->setPosicion(1900, _personaje->getPosicion().y);
+			} 
+			else if (_personaje->getPosicion().x >= 1920) 
+			{
+				numeroMapa = 5;
+				_personaje->setPosicion(20, _personaje->getPosicion().y);
+			} 
+			else if (_personaje->getPosicion().y >= 980) 
+			{
+				_personaje->recibiendoDanio(100, 0);
+			}
+			break;
+			
+		case 6:
+			if (_personaje->getPosicion().x >= 1920) 
+			{
+				numeroMapa = 4;
+				_personaje->setPosicion(20, _personaje->getPosicion().y);
+			}
+			break;
+			
+		case 5:
+			if (_personaje->getPosicion().x <= 0) 
+			{
+				numeroMapa = 4;
+				_personaje->setPosicion(1900, _personaje->getPosicion().y);
+			} 
+			else if (_personaje->getPosicion().y >= 980) 
+			{
+				_personaje->recibiendoDanio(100, 0);
+			}
+			break;
+			
+		case 12:
+			if (_personaje->getPosicion().x <= 0) 
+			{
+				_personaje->setPosicion(0, _personaje->getPosicion().y);
+			} 
+			if (_personaje->getPosicion().x >= 1920) 
+			{
+				_personaje->setPosicion(1920, _personaje->getPosicion().y);
+			} 
+			else if (_personaje->getPosicion().y >= 980) 
+			{
+				_personaje->recibiendoDanio(100, 0);
+			}
+			break;
+			
+		case 8:
+			if (_personaje->getPosicion().x <= 0) 
+			{
+				if (_personaje->getObjetos(2) && _personaje->getObjetos(1)) 
+				{
+					i = 0;
+					numeroMapa = 12;
+					_personaje->setPosicion(1900, _personaje->getPosicion().y);
+					_aux.setPosition(896,224);
+				}
+				else
+				{
+					numeroMapa = 3;
+					_personaje->setPosicion(1900, _personaje->getPosicion().y);
+				} 
+			} 
+			else if (_personaje->getPosicion().x >= 1920) 
+			{
+				if (!_personaje->getObjetos(2)) 
+				{
+					numeroMapa = 9;
+					_personaje->setPosicion(20, _personaje->getPosicion().y);
+				} 
+				else 
+				{
+					_personaje->setPosicion(1920, _personaje->getPosicion().y);
+				}
+			}
+			break;
+			
+		case 9:
+			if (_personaje->getPosicion().x <= 0) 
+			{
+				_personaje->setPosicion(0, _personaje->getPosicion().y);
+			} 
+			else if (_personaje->getPosicion().x >= 1920) 
+			{
+				_personaje->setPosicion(1920, _personaje->getPosicion().y);
+			} 
+			else if (_personaje->getPosicion().y >= 980) 
+			{
+				_personaje->recibiendoDanio(100, 0);
+			}
+			break;
+			
+		case 11:
+			if (_personaje->getPosicion().x <= 0) 
+			{
+				_personaje->setPosicion(0, _personaje->getPosicion().y);
+			}
+			break;
+			
+		case 7:
+			if (_personaje->getPosicion().x <= 0) 
+			{
+				_personaje->setPosicion(0, _personaje->getPosicion().y);
+			}
+			break;
 	}
-	if(numeroMapa == 4)
-	{
-		if(_personaje->getPosicion().x <= 0)
-		{
-			numeroMapa = 6;
-			i=0;
-			_personaje->setPosicion(1900,_personaje->getPosicion().y);
-		}
-		if(_personaje->getPosicion().x >= 1920)
-		{
-			numeroMapa = 5;
-			_personaje->setPosicion(20,_personaje->getPosicion().y);
-		} 
-		if(_personaje->getPosicion().y >= 980)
-		{
-			_personaje->recibiendoDanio(100, 0);
-		}
-	}
-	if(numeroMapa == 6)
-	{
-		
-		if(_personaje->getPosicion().x >= 1920)
-		{
-			numeroMapa = 4;
-			_personaje->setPosicion(20,_personaje->getPosicion().y);
-		} 
-		if(_personaje->getObjetos(1))
-		{
-			numeroMapa = 2;
-			_personaje->setPosicion(20,_personaje->getPosicion().y);
-		}
-	}
-	if(numeroMapa == 5)
-	{
-		if(_personaje->getPosicion().x <= 0)
-		{
-			numeroMapa = 4;
-			_personaje->setPosicion(1900,_personaje->getPosicion().y);
-		}
-		if(_personaje->getPosicion().y >= 980)
-		{
-			_personaje->recibiendoDanio(100, 0);
-		}
-		
-	}
-	if(numeroMapa == 12)
-	{
-		if(_personaje->getPosicion().x <= 0)
-		{
-			numeroMapa = 10;
-			_personaje->setPosicion(1900,_personaje->getPosicion().y);
-		}
-		if(_personaje->getPosicion().x == 1920)
-		{
-			numeroMapa = 8;
-			_personaje->setPosicion(20,_personaje->getPosicion().y);
-		}
-		if(_personaje->getPosicion().y >= 980)
-		{
-			_personaje->recibiendoDanio(100, 0);
-		}
-		
-	}
-	if(numeroMapa == 8)
-	{
-		if(_personaje->getPosicion().x <= 0 && !_personaje->getObjetos(2))
-		{
-			numeroMapa = 3;
-			_personaje->setPosicion(1900,_personaje->getPosicion().y);
-		}
-		else if(_personaje->getPosicion().x <= 0 && _personaje->getObjetos(2))
-		{
-			numeroMapa = 12;
-			_personaje->setPosicion(1900,_personaje->getPosicion().y);
-		}
-		if(_personaje->getPosicion().x >= 1920 && !_personaje->getObjetos(2))
-		{
-			numeroMapa = 9;
-			_personaje->setPosicion(20,_personaje->getPosicion().y);
-		}
-		else if(_personaje->getPosicion().x >= 1920 && _personaje->getObjetos(2))
-		{
-			_personaje->setPosicion(1920,_personaje->getPosicion().y);
-		}
-		
-		
-	}
-	if(numeroMapa == 9)
-	{
-		if(_personaje->getPosicion().x <= 0)
-		{
-			_personaje->setPosicion(0,_personaje->getPosicion().y);
-		}
-		if(_personaje->getPosicion().y >= 980)
-		{
-			_personaje->recibiendoDanio(100, 0);
-		}
-		if(_personaje->getPosicion().x >= 1920)
-		{
-			_personaje->setPosicion(1920,_personaje->getPosicion().y);
-		}
-	}
-	if(numeroMapa == 11)
-	{
-		if(_personaje->getPosicion().x <= 0)
-		{
-			_personaje->setPosicion(0,_personaje->getPosicion().y);
-		}
-	}
-	if(numeroMapa == 7)
-	{
-		if(_personaje->getPosicion().x <= 0)
-		{
-			_personaje->setPosicion(0,_personaje->getPosicion().y);
-		}
-	}
+	
 	if(_personaje->getSalud()<=0)
 	{
-		if(numeroMapa != 9 && numeroMapa != 1 && numeroMapa != 7 && numeroMapa != 11 )
+		if(numeroMapa != 9 && numeroMapa != 1 && numeroMapa != 7 && numeroMapa != 11 && numeroMapa != 12)
 		{
 
-			
 			nivel2->reiniciarNivel(sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 			nivel3->reiniciarNivel(sf::Vector2f(-300,772), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);			
 			nivel4->reiniciarNivel(sf::Vector2f(1500,260), sf::Vector2f(1341,700), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 			nivel5->reiniciarNivel(sf::Vector2f(650,700), sf::Vector2f(1680,260), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 			nivel6->reiniciarNivel(sf::Vector2f(250,240), sf::Vector2f(800,800), sf::Vector2f(1000,500), sf::Vector2f(0,0), 100);
-		
 			nivel8->reiniciarNivel(sf::Vector2f(1200,700), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
-			
 			nivel10->reiniciarNivel(sf::Vector2f(1735,700), sf::Vector2f(1100,700), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
-		
-			
-			
 			
 			if(!_personaje->getObjetos(1))
 			{
@@ -479,6 +472,11 @@ void Gameplay::cambioEscena()
 			nivel11->reiniciarNivel(sf::Vector2f(1800,450), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), 100);
 			_personaje->reiniciar(sf::Vector2f(100,750));
 			numeroMapa = 11;
+		}
+		else if(numeroMapa == 12)
+		{
+			_personaje->reiniciar(sf::Vector2f(100,750));
+			numeroMapa = 12;
 		}
 	}
 	
@@ -648,21 +646,26 @@ void Gameplay::ChequeoColisiones()
 		_personaje->setPosicion(100, 780);
 		numeroMapa = 10;
 	}
-	if(_personaje->getCajaCuerpo().intersects(_cabezaDiablo->getCuerpo()) && !_cabezaDiablo->getPause())
-	{
-		i=0;
-		texAux = cinematicaDesaparece->cargarImagenes(i);
-		_aux.setTexture(&texAux);
-		_cabezaDiablo->setPause();
-		_personaje->setObjetos(3);
-		numeroMapa = 11;
-	}
 	if(_personaje->getCajaCuerpo().intersects(_cabezaPombero->getCuerpo()) && !_cabezaPombero->getPause())
 	{
 		_cabezaPombero->setPause();
 		_personaje->setObjetos(2);
 		_personaje->setPosicion(1850, 780);
 		numeroMapa = 8;		
+	}
+	if(_personaje->getCajaCuerpo().intersects(_objetoLuz->getCuerpo()) && !_objetoLuz->getPause())
+	{
+		_objetoLuz->setPause();
+		_personaje->setObjetos(3);
+	}
+	if(_personaje->getCajaCuerpo().intersects(_cabezaDiablo->getCuerpo()) && !_cabezaDiablo->getPause())
+	{
+		i=0;
+		texAux = cinematicaDesaparece->cargarImagenes(i);
+		_aux.setTexture(&texAux);
+		_cabezaDiablo->setPause();
+		_personaje->setObjetos(4);
+		numeroMapa = 11;
 	}
 	for(int i=0; i<nivelActual->getCantidadEnemigos(); i++)
 	{
@@ -788,7 +791,8 @@ int Gameplay::draw(sf::RenderWindow& window)
 				{
 					window.draw(_aux);
 					_personaje->modoPausa();
-				}else{window.draw(_tutorial);}
+				}
+				else{window.draw(_tutorial);}
 				break;
 			case 2:
 				nivel2->dibujar(window);
@@ -808,7 +812,6 @@ int Gameplay::draw(sf::RenderWindow& window)
 				nivel5->dibujar(window);
 				break;
 			case 6:
-				
 				nivel6->dibujar(window);
 				if(nivel6->getEnemigo()[0]->getSalud() <= 0)
 				{
@@ -872,24 +875,29 @@ int Gameplay::draw(sf::RenderWindow& window)
 				break;
 			case 12:
 				nivel12->dibujar(window);
+				_objetoLuz->setPosition(sf::Vector2f(1800.0f,800.0f));
+				window.draw(*_objetoLuz);
 				if(i<=125)
 				{
 					window.draw(_aux);
 					_personaje->modoPausa();
 				}
-				_objetoLuz->setPosition(sf::Vector2f(1800.0f,800.0f));
-				window.draw(*_objetoLuz);
 		}
 	}
 
 	window.draw(*_personaje);
 	window.draw(_personaje->getBarraVida());
 	window.draw(_boleadora);
+	
 	if(muerto && a<126)
 	{
 		window.draw(_auxMuerte);
 		_personaje->modoPausa();
-	}else muerto = false;
+	}
+	else
+	{
+		muerto = false;
+	}
 }
 
 void Gameplay::ponerPausa()
