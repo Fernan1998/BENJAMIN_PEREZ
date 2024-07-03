@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 1;	
+	numeroMapa = 11;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -19,7 +19,8 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nocheADia = new  Cinematica("noche_dia/noche_dia", 125);
 	introJuego = new  Cinematica("intro/intro", 360);
 	cinematicaDesaparece = new Cinematica("desaparece/desaparece", 75);
-	/*teletransporte = new Cinematica("desaparece/desaparece", 75);*/
+	cinematicaDerrumbe = new Cinematica("derrumbe/aaa",167);
+	
 	
 	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_plataforma.txt", "Sonido/Folklore.ogg", 1);
 	nivel1->creadorDeEnemigos(100, 10, "Textura/Babosa/Baboscompleta.png", 63, 84, 84, 800, 3, 8);
@@ -158,6 +159,8 @@ void Gameplay::actualizar(float deltaTime)
 				break;
 			case 10:
 				nivel10->actualizar(deltaTime);
+				texAux = cinematicaDerrumbe->cargarImagenes(i);
+				_aux.setTexture(&texAux);
 				break;
 			case 11:
 				nivel11->actualizar(deltaTime);
@@ -297,6 +300,7 @@ void Gameplay::cambioEscena()
 		if(_personaje->getPosicion().x <= 0)
 		{
 			numeroMapa = 6;
+			i=0;
 			_personaje->setPosicion(1900,_personaje->getPosicion().y);
 		}
 		if(_personaje->getPosicion().x >= 1920)
@@ -632,6 +636,9 @@ void Gameplay::ChequeoColisiones()
 	}
 	if(_personaje->getCajaCuerpo().intersects(_cabezaDiablo->getCuerpo()) && !_cabezaDiablo->getPause())
 	{
+		i=0;
+		texAux = cinematicaDesaparece->cargarImagenes(i);
+		_aux.setTexture(&texAux);
 		_cabezaDiablo->setPause();
 		_personaje->setObjetos(3);
 		numeroMapa = 11;
@@ -831,9 +838,19 @@ int Gameplay::draw(sf::RenderWindow& window)
 				break;
 			case 10:
 				nivel10->dibujar(window);
+				if(i<=167)
+				{
+					window.draw(_aux);
+					_personaje->modoPausa();
+				}
 				break;
 			case 11:
 				nivel11->dibujar(window);
+				if(i<=74)
+				{
+					window.draw(_aux);
+					_personaje->modoPausa();
+				}
 				if(nivel11->getEnemigo()[0]->getSalud() <= 50)
 				{
 					nivel11->getEnemigo()[0]->setColor(sf::Color::Red);

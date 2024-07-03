@@ -58,6 +58,7 @@ class Gameplay
 		Cinematica *nocheADia;
 		Cinematica *introJuego;
 		Cinematica *cinematicaDesaparece;
+		Cinematica *cinematicaDerrumbe;
 		sf::RectangleShape _aux;
 		sf::Texture texAux;
 		

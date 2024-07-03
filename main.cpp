@@ -102,9 +102,7 @@ int main(int argc, char *argv[])
 				break;
 			}
 		}
-		
 		ventana.display();
-	
 	}
 	return 0;
 }
