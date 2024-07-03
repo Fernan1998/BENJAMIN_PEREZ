@@ -86,6 +86,9 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 		
 	_aux.setPosition(sf::Vector2f(0, 224));
 	_aux.setSize(sf::Vector2f(1024, 768));	
+	_auxMuerte.setPosition(sf::Vector2f(0, 224));
+	_auxMuerte.setSize(sf::Vector2f(1024, 768));	
+	
 	_boleadora.setPosition(_personaje->getPosicion());
 	_boleando = false;
 	
@@ -105,6 +108,16 @@ void Gameplay::cargarPartida(){
 
 void Gameplay::actualizar(float deltaTime)
 {
+	if(_personaje->getSalud()<=0 && !muerto)
+	{
+		muerto=true;
+		a=0;
+	}
+	if(muerto)
+	{
+		texAuxMuerte = cinematicaMuerte->cargarImagenes(a);
+		_auxMuerte.setTexture(&texAuxMuerte);
+	}
 	getDatosPoronga(_personaje->getPosicion(), _personaje->getSalud(), numeroMapa);
 	nivel6->getEnemigo()[0]->setColor(sf::Color::Red);
 	_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
@@ -130,8 +143,9 @@ void Gameplay::actualizar(float deltaTime)
 				break;
 			case 2:
 				nivel2->actualizar(deltaTime);
+				if(!muerto){
 				texAux = cinematicaPersonaje->cargarImagenes(i);
-				_aux.setTexture(&texAux);
+				_aux.setTexture(&texAux);}
 				break;
 			case 3:
 				nivel3->actualizar(deltaTime);
@@ -770,7 +784,7 @@ int Gameplay::draw(sf::RenderWindow& window)
 					window.draw(*_objetoOjo);
 				}
 				
-				if(i<=360)
+				if(i<=360 && !muerto)
 				{
 					window.draw(_aux);
 					_personaje->modoPausa();
@@ -778,7 +792,7 @@ int Gameplay::draw(sf::RenderWindow& window)
 				break;
 			case 2:
 				nivel2->dibujar(window);
-				if(i<=251)
+				if(i<=251 && !muerto)
 				{
 					window.draw(_aux);
 					_personaje->modoPausa();
@@ -871,6 +885,11 @@ int Gameplay::draw(sf::RenderWindow& window)
 	window.draw(*_personaje);
 	window.draw(_personaje->getBarraVida());
 	window.draw(_boleadora);
+	if(muerto && a<126)
+	{
+		window.draw(_auxMuerte);
+		_personaje->modoPausa();
+	}else muerto = false;
 }
 
 void Gameplay::ponerPausa()
