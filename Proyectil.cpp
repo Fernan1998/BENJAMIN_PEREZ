@@ -34,3 +34,23 @@ void Proyectil::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(_cuerpo, states);
 }
+void Proyectil::setPosition(sf::Vector2f aux)
+{
+	_cuerpo.setPosition(aux);
+}
+sf::FloatRect Proyectil::getCuerpo()
+{
+	return _cuerpo.getGlobalBounds();
+}
+sf::RectangleShape Proyectil::getSprite()
+{
+	return _cuerpo;
+}
+void Proyectil::setColor(sf::Color aux)
+{
+	_cuerpo.setFillColor(aux);
+}
+sf::Vector2f Proyectil::getPosition()
+{
+	return _cuerpo.getPosition();
+}

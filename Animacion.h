@@ -8,30 +8,13 @@ class Animacion
 		void Update(int columna, float deltaTime);
 		void Update(int columna, float deltaTime, bool atk);
 		sf::IntRect uvRect;
-		bool getFinAnimacion()
-		{
-			return finAnimacion;
-		}
-		int getColumna()
-		{
-			return imagenActual.y;
-		}
-		int getFila()
-		{
-			return imagenActual.x;
-		}
-		int getCantidadFila()
-		{
-			return imageCount.x;
-		}
-		int getCantidadColumna()
-		{
-			return imageCount.y;
-		}
-		void reiniciarFila()
-		{
-			imagenActual.x = 0;
-		}
+		bool getFinAnimacion();
+		int getColumna();
+		int getFila();
+		int getCantidadFila();
+		int getCantidadColumna();
+		void reiniciarFila();
+
 	
 	private:
 		sf::Vector2u imageCount;

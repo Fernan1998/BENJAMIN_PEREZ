@@ -48,5 +48,8 @@ void CamaraPrincipal::setCamera(int x, int y){
 	FollowAndUpdate(cameraPosition, this);
 	MoveCamera();
 }
+sf::Vector2f CamaraPrincipal::getCameraPosition(){
+	return cameraPosition;
+}
 
 

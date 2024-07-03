@@ -10,26 +10,12 @@ class Proyectil : public sf::Drawable
 		void actualizar(int other);
 		void actualizar(sf::Vector2f posicion);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-		void setPosition(sf::Vector2f aux)
-		{
-			_cuerpo.setPosition(aux);
-		}
-		sf::FloatRect getCuerpo()
-		{
-			return _cuerpo.getGlobalBounds();
-		}
-		sf::RectangleShape getSprite()
-		{
-			return _cuerpo;
-		}
-		void setColor(sf::Color aux)
-		{
-			_cuerpo.setFillColor(aux);
-		}
-		sf::Vector2f getPosition()
-		{
-			return _cuerpo.getPosition();
-		}
+		void setPosition(sf::Vector2f aux);
+		sf::FloatRect getCuerpo();
+		sf::RectangleShape getSprite();
+		void setColor(sf::Color aux);
+		sf::Vector2f getPosition();
+
 		
 	private:
 		sf::Texture _textura;

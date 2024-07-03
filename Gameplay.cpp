@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 7;	
+	numeroMapa = 9;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -401,9 +401,9 @@ void Gameplay::cambioEscena()
 			{
 				_personaje->setPosicion(0, _personaje->getPosicion().y);
 			} 
-			else if (_personaje->getPosicion().x >= 1920) 
+			else if (_personaje->getPosicion().x >= 1800) 
 			{
-				_personaje->setPosicion(1920, _personaje->getPosicion().y);
+				_personaje->setPosicion(1800, _personaje->getPosicion().y);
 			} 
 			else if (_personaje->getPosicion().y >= 980) 
 			{

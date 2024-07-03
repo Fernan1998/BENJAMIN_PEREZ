@@ -215,3 +215,28 @@ void Enemigo::actualizar(float deltaTime)
 		_animacionDanio->reiniciarFila();
 	}
 }
+
+bool Enemigo::getMuerto(){
+	if (_estado == ESTADOS::MUERTO) {
+		return true;
+	}
+	return false;
+}
+	
+sf::FloatRect Enemigo::devolver()
+{
+	return _cuerpo.getGlobalBounds();
+}
+
+float Enemigo::getArmadura()
+{
+	return _armadura;
+}
+void Enemigo::setArmadura(float armadura)
+{
+	_armadura = armadura;
+}
+void Enemigo::setSize(sf::Vector2f aux)
+{
+	_cuerpo.setSize(aux);
+}

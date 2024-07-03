@@ -45,7 +45,20 @@ Nivel::Nivel(std::string mapa, std::string fondo, std::string plataformas, std::
 	_sonido->PlayMusic();
 
 }
-
+void Nivel::creadorDeEnemigos(float salud, float danio, std::string textura, float alto, float ancho, float altoRangoVision, float anchoRangoVision, int filaAnimacion, int columnaAnimacion)
+{
+	for(int i = 0; i<_cantidadEnemigos; i++)
+	{
+		_vectorEnemigo.push_back(new Enemigo(salud, danio, textura, ancho, alto, altoRangoVision, anchoRangoVision, filaAnimacion, columnaAnimacion));
+	}
+}
+void Nivel::creadorDeJefes(float salud, float danio, std::string textura, float alto, float ancho, float altoRangoVision, float anchoRangoVision, int filaAnimacion, int columnaAnimacion)
+{
+	for(int i = 0; i<_cantidadEnemigos; i++)
+	{
+		_vectorEnemigo.push_back(new Jefe(salud, danio, textura, ancho, alto, altoRangoVision, anchoRangoVision, filaAnimacion, columnaAnimacion));
+	}
+}
 Nivel::~Nivel()
 {
 }
@@ -120,3 +133,12 @@ void Nivel::dibujar(sf::RenderWindow& window)
 	}
 	
 }
+std::vector<Enemigo*> Nivel::getEnemigo()
+{
+	return  _vectorEnemigo;
+} 
+int Nivel::getCantidadEnemigos()
+{
+	return _cantidadEnemigos;
+}
+void reiniciarNivel(sf::Vector2f pos1, sf::Vector2f pos2, sf::Vector2f pos3, sf::Vector2f pos4, float vida);

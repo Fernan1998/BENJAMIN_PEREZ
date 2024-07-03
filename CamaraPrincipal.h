@@ -18,10 +18,8 @@ class CamaraPrincipal : public sf::View
 		void FollowAndUpdate(sf::Vector2f target, CamaraPrincipal *camera);
 		
 		/// Getters
-		sf::Vector2f getCameraPosition(){
-			return cameraPosition;
-		}
-		
+		sf::Vector2f getCameraPosition();
+
 		/// Setters
 		void setCamera(int x, int y);
 };

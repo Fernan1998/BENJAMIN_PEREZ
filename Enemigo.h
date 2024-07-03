@@ -31,32 +31,11 @@ class Enemigo : public sf::Drawable
 		sf::FloatRect getHitBox();
 		sf::Vector2f getPosition(){return _cuerpo.getPosition();};
 		BarraVida getBarraVida();
-		ESTADOS getEstado()
-		{
-			return _estado;
-		}
 		
-		bool getMuerto(){
-			if (_estado == ESTADOS::MUERTO) {
-				return true;
-			}
-			return false;
-		}
-		
-		virtual sf::FloatRect devolver()
-		{
-			return _cuerpo.getGlobalBounds();
-		}
-		
-		float getArmadura()
-		{
-			return _armadura;
-		}
-		void setArmadura(float armadura)
-		{
-			_armadura = armadura;
-		}
-		
+		bool getMuerto();
+		virtual sf::FloatRect devolver();
+		float getArmadura();
+		void setArmadura(float armadura);
 		void recibiendoDanio(int lado);
 		void quieto();
 		void setDerecha();
@@ -70,9 +49,11 @@ class Enemigo : public sf::Drawable
 		void setPosition(sf::Vector2f aux);
 		void setVelocidadCaminata(float aux);
 		void setEstado(ESTADOS estado);
-		void setSize(sf::Vector2f aux)
+		void setSize(sf::Vector2f aux);
+		
+		ESTADOS getEstado()
 		{
-			_cuerpo.setSize(aux);
+			return _estado;
 		}
 		
 	protected:

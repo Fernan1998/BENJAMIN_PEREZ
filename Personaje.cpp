@@ -36,6 +36,49 @@ sf::RectangleShape Personaje::getCuerpo()
 {
 	return _cuerpo;
 }
+void Personaje::setObjetos(int numeroObjeto)
+{
+	_objetos[numeroObjeto] = true;
+}
+bool Personaje::getObjetos(int numeroObjeto)
+{
+	return _objetos[numeroObjeto];
+}
+void Personaje::setBoleadora(bool other)
+{
+	_boleadora = other;
+}
+void Personaje::setSalud(float vida)
+{
+	_salud = vida;
+}
+BarraVida Personaje::getBarraVida()
+{
+	return *_barraVida;
+}
+bool Personaje::getBoleadora()
+{
+	return _boleadora;
+}
+void Personaje::limpiarObjetos()
+{
+	_objetos[0] = false;
+	_objetos[1] = false;
+	_objetos[2] = false;
+	_objetos[3] = false;
+}
+bool* Personaje::getObjeto()
+{
+	return _objetos;
+}
+
+void Personaje::setOBjeto(bool *objetos)
+{
+	for(int i=0; i<5; i++)
+	{
+		_objetos[i] = objetos[i];
+	}
+}
 void Personaje::modoPausa()
 {
 	_pausa = true;

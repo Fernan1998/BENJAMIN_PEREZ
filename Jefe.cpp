@@ -129,3 +129,7 @@ void Jefe::actualizar(float deltaTime)
 		_animacionDanio->reiniciarFila();
 	}
 }
+Proyectil* Jefe::getPiedra()
+{
+	return _piedra;
+}

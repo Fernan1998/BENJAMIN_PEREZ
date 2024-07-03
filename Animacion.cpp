@@ -50,3 +50,28 @@ void Animacion::Update(int columna, float deltaTime, bool atk)
 	uvRect.left = imagenActual.x * uvRect.width;
 	uvRect.top = imagenActual.y * uvRect.height;
 }
+
+bool Animacion::getFinAnimacion()
+{
+	return finAnimacion;
+}
+int Animacion::getColumna()
+{
+	return imagenActual.y;
+}
+int Animacion::getFila()
+{
+	return imagenActual.x;
+}
+int Animacion::getCantidadFila()
+{
+	return imageCount.x;
+}
+int Animacion::getCantidadColumna()
+{
+	return imageCount.y;
+}
+void Animacion::reiniciarFila()
+{
+	imagenActual.x = 0;
+}

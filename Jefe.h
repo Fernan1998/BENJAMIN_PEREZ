@@ -11,11 +11,8 @@ class Jefe : public Enemigo
 		void comando(Personaje personaje) override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		bool soyEnemigo() override;
-		Proyectil *getPiedra()
-		{
-			return _piedra;
-		}
 		sf::FloatRect devolver() override;
+		Proyectil *getPiedra();
 	private:
 		Proyectil *_piedra;
 		int i=0;
