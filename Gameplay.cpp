@@ -3,13 +3,12 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 1;	
+	numeroMapa = 7;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
 	_personaje = new Personaje();
-	_personaje->setObjetos(1);
-	_personaje->setObjetos(2);
+
 	_objetoOjo = new Objetos(51,25, "Textura/Objetos/ojoBabosa.png");
 	_objetoLobizon = new Objetos(68,48, "Textura/Objetos/objetoLobizon.png");
 	_cabezaDiablo = new Objetos(51,40, "Textura/Objetos/objetoDiablo.png");
@@ -114,6 +113,8 @@ void Gameplay::actualizar(float deltaTime)
 	_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
 	ponerPausa();
 	std::cout << _personaje->getObjetos(0) << std::endl;
+	std::cout << _personaje->getObjetos(1) << std::endl;
+	std::cout << _personaje->getObjetos(2) << std::endl;
 	if(_personaje->getObjetos(1) && _personaje->getObjetos(2) && _personaje->getObjetos(3))
 	{
 		numeroMapa = 7;
@@ -380,16 +381,17 @@ void Gameplay::cambioEscena()
 					_personaje->setPosicion(1900, _personaje->getPosicion().y);
 				} 
 			} 
-			else if (_personaje->getPosicion().x >= 1920) 
+			
+			if(_personaje->getPosicion().x >= 1920) 
 			{
-				if (!_personaje->getObjetos(2)) 
+				if (_personaje->getObjetos(2)) 
 				{
-					numeroMapa = 9;
-					_personaje->setPosicion(20, _personaje->getPosicion().y);
+					_personaje->setPosicion(1920, _personaje->getPosicion().y);
 				} 
 				else 
 				{
-					_personaje->setPosicion(1920, _personaje->getPosicion().y);
+					numeroMapa = 9;
+					_personaje->setPosicion(20, _personaje->getPosicion().y);
 				}
 			}
 			break;
@@ -660,7 +662,7 @@ void Gameplay::ChequeoColisiones()
 	}
 	if(_personaje->getCajaCuerpo().intersects(_cabezaDiablo->getCuerpo()) && !_cabezaDiablo->getPause())
 	{
-		i=0;
+		
 		texAux = cinematicaDesaparece->cargarImagenes(i);
 		_aux.setTexture(&texAux);
 		_cabezaDiablo->setPause();
@@ -863,11 +865,11 @@ int Gameplay::draw(sf::RenderWindow& window)
 				break;
 			case 11:
 				nivel11->dibujar(window);
-				if(i<=74)
-				{
-					window.draw(_aux);
-					_personaje->modoPausa();
-				}
+//				if(i<=74)
+//				{
+//					window.draw(_aux);
+//					_personaje->modoPausa();
+//				}
 				if(nivel11->getEnemigo()[0]->getSalud() <= 50)
 				{
 					nivel11->getEnemigo()[0]->setColor(sf::Color::Red);

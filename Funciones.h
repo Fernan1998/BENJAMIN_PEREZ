@@ -5,7 +5,8 @@
 class Guardado
 {
 	public:
-		Guardado(){
+		Guardado()
+		{
 			posicion = sf::Vector2f(100, 750);
 			vida = 100;
 			nMapa = 1;
@@ -40,9 +41,9 @@ class Guardado
 		}
 		void setObjetos(bool *objetos)
 		{
-			for(bool objeto : this->objetos)
+			for(int i=0; i<5; i++)
 			{
-				this->objetos[objeto] = objetos[objeto];
+				this->objetos[i] = objetos[i];
 			}
 		}
 	private:

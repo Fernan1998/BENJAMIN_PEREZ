@@ -79,9 +79,9 @@ class Personaje : public sf::Drawable
 		float getScale();
 		void setOBjeto(bool *objetos)
 		{
-			for(bool objeto : _objetos)
+			for(int i=0; i<5; i++)
 			{
-				_objetos[objeto] = objetos[objeto];
+				_objetos[i] = objetos[i];
 			}
 		}
 
