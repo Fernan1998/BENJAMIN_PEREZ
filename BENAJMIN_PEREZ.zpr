@@ -23,7 +23,7 @@ cursor=35:0
 open=true
 [source]
 path=Gameplay.cpp
-cursor=5:15
+cursor=132:4
 open=true
 [source]
 path=CamaraPrincipal.cpp

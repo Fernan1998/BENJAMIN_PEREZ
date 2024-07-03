@@ -130,7 +130,6 @@ void Gameplay::actualizar(float deltaTime)
 			case 2:
 				nivel2->actualizar(deltaTime);
 				texAux = cinematicaPersonaje->cargarImagenes(i);
-				_aux.setSize(sf::Vector2f(1024,768));
 				_aux.setTexture(&texAux);
 				break;
 			case 3:
