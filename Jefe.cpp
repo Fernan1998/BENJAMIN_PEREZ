@@ -59,12 +59,10 @@ void Jefe::comando(Personaje personaje)
 			if(_recibiendoDanio == 1)
 			{
 				_estado = ESTADOS::RDANIO;
-				_velocidad.x = 50;
 			}
 			else
 			{
 				_estado = ESTADOS::RDANIO;
-				_velocidad.x = -50;
 			}
 			
 			_cuerpo.move(0,25);

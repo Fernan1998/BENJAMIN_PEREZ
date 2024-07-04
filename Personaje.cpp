@@ -23,7 +23,7 @@ Personaje::Personaje()
 	_saltoInvertido = false;
 	animacion = new Animacion(&_textura, sf::Vector2u(16,2), 0.05f, 108,73);
 	animacionAtaque = new Animacion(&_texturaAtaque, sf::Vector2u(8,2), 0.065f, 108,91);
-	_sonido = new Sonidos("Sonido/Salto.ogg","Sonido/navajazo.ogg","Sonido/Salto.ogg");
+	_sonido = new Sonidos("Sonido/Salto.ogg","Sonido/navajazo.ogg","Sonido/boleadora.ogg");
 	_ultimoAtaque = 0;
 	_pausa = false;
 	_barraVida = new BarraVida(sf::Color::Green);
@@ -324,18 +324,24 @@ void Personaje::actualizar(float deltaTime)
 			_cuerpo.setTextureRect(animacion->uvRect);
 			break;
 		case ATACANDO:
+
 			if (clock.getElapsedTime().asSeconds() - _ultimoAtaque >= 0.75f)
 			{
 				_ultimoAtaque = clock.getElapsedTime().asSeconds();
 				_atacando = true;
+				_sonido->reproducirSonidos(1);
 			}
-			_sonido->reproducirSonidos(1);
 			_cuerpo.setTexture(&_texturaAtaque);
 			animacionAtaque->Update(0, deltaTime);
 			_cuerpo.setTextureRect(animacionAtaque->uvRect);
 			break;
 		case BOLEADORA:
 			_boleadora = true;
+			if (clock.getElapsedTime().asSeconds() - _ultimoAtaqueBoleadora >= 1.1f)
+			{
+				_ultimoAtaqueBoleadora = clock.getElapsedTime().asSeconds();
+				_sonido->reproducirSonidos(2);
+			}
 			_cuerpo.setTexture(&_texturaAtaque);
 			animacionAtaque->Update(1, deltaTime);
 			_cuerpo.setTextureRect(animacionAtaque->uvRect);

@@ -22,4 +22,10 @@ class CamaraPrincipal : public sf::View
 
 		/// Setters
 		void setCamera(int x, int y);
+		
+		sf::Vector2f getPosition()
+		{
+			return sf::Vector2f(cameraPosition.x,cameraPosition.y);
+			
+		}
 };

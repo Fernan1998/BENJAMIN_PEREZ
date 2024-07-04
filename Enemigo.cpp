@@ -95,6 +95,7 @@ void Enemigo::reiniciar(sf::Vector2f position, float salud)
 void Enemigo::recibiendoDanio(int lado)
 {
 	_recibiendoDanio = lado;
+	_animacion->reiniciarFila();
 }
 sf::FloatRect Enemigo::getHitBox()
 {

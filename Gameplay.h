@@ -41,7 +41,7 @@ class Gameplay
 		Nivel *nivel8;
 		Nivel *nivel9;
 		Nivel *nivelActual;
-		Nivel *listaNiveles[12];
+		Nivel *listaNiveles[13];
 		Objetos *_objetoOjo;
 		Objetos *_objetoLobizon;
 		Objetos *_cabezaDiablo;

@@ -31,6 +31,10 @@ class Enemigo : public sf::Drawable
 		sf::FloatRect getHitBox();
 		sf::Vector2f getPosition(){return _cuerpo.getPosition();};
 		BarraVida getBarraVida();
+		bool getDiablo()
+		{
+			return _diablo;
+		}
 		
 		bool getMuerto();
 		virtual sf::FloatRect devolver();
@@ -42,6 +46,7 @@ class Enemigo : public sf::Drawable
 		void setIzquierda();
 		void setAtacando();
 		void reiniciar(sf::Vector2f position, float salud);
+
 		
 		void setColor(sf::Color color);
 		void setSalud(float danio);
@@ -50,6 +55,10 @@ class Enemigo : public sf::Drawable
 		void setVelocidadCaminata(float aux);
 		void setEstado(ESTADOS estado);
 		void setSize(sf::Vector2f aux);
+		void setDiablo()
+		{
+			_diablo = true;
+		}
 		
 		ESTADOS getEstado()
 		{
@@ -67,6 +76,7 @@ class Enemigo : public sf::Drawable
 		float _danio;
 		float _armadura = 2;
 		bool _vivo;
+		bool _diablo = false;
 		bool _colisionandoDer;
 		bool _colisionandoIzq;
 		bool _siguiendoPersonaje;
