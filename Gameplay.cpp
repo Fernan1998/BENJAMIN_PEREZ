@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 2;	
+	numeroMapa = 11;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -16,13 +16,15 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	_cabezaPombero = new Objetos(69,53, "Textura/Objetos/objetoPombero1.png");
 	_objetoLuz = new Objetos(56,52,"Textura/Objetos/objetoLuz.png");
 	
-	cinematicaPersonaje = new  Cinematica("dia_noche/dia_noche", 251);
+
+	cinematicaPersonaje = new  Cinematica("roll/dia_noche", 251);
 	nocheADia = new  Cinematica("noche_dia/noche_dia", 125);
 	introJuego = new  Cinematica("intro/intro", 360);
 	cinematicaDesaparece = new Cinematica("desaparece/desaparece", 75);
 	cinematicaDerrumbe = new Cinematica("derrumbe/aaa",167);
 	cinematicaMuerte = new Cinematica("muerte/muerte",125);
 	cinematicaCreditos = new Cinematica("creditos/creditos",405);
+	roll  = new Cinematica("roll/00",999);
 	
 	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_plataforma.txt", 1);
 	nivel1->creadorDeEnemigos(100, 10, "Textura/Babosa/Baboscompleta.png", 63, 84, 84, 800, 4, 8);
@@ -193,6 +195,12 @@ void Gameplay::actualizar(float deltaTime)
 				{
 					texAux = cinematicaCreditos->cargarImagenes(i);
 					_aux.setTexture(&texAux);
+				}
+				if(i>=405)
+				{
+					texAux = roll->cargarImagenes(b);
+					_aux.setTexture(&texAux);
+					_aux.setScale(3.3,3);
 				}
 				break;
 			case 12:
@@ -950,6 +958,17 @@ int Gameplay::draw(sf::RenderWindow& window)
 							_sonido->cambiarMusica("Sonido/ganaste.ogg");
 							_sonido->PlayMusic();
 						}
+						if(i>=404)
+						{
+							_sonido->cambiarMusica("Sonido/roll.ogg");
+							_sonido->PlayMusic();
+						}
+						window.draw(_aux);
+						_personaje->modoPausa();
+					}
+					else if(b<=999)
+					{
+						
 						window.draw(_aux);
 						_personaje->modoPausa();
 					}

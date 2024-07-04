@@ -60,6 +60,8 @@ class Gameplay
 		Cinematica *cinematicaDerrumbe;
 		Cinematica *cinematicaMuerte;
 		Cinematica *cinematicaCreditos;
+		Cinematica *roll;
+		int b=0;
 		
 		Sonidos *_sonido;
 		Sonidos *_sonidos;
