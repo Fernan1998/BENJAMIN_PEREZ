@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 9;	
+	numeroMapa = 1;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -108,6 +108,12 @@ void Gameplay::cargarPartida(){
 
 void Gameplay::actualizar(float deltaTime)
 {
+	if(_personaje->getSalud()<=0 && !muerto)
+	{
+		muerto=true;
+		a=0;
+	}
+	
 	getDatos(_personaje->getPosicion(), _personaje->getSalud(), numeroMapa, _personaje->getObjeto());
 	nivel6->getEnemigo()[0]->setColor(sf::Color::Red);
 	_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
@@ -122,11 +128,7 @@ void Gameplay::actualizar(float deltaTime)
 		_personaje->limpiarObjetos();
 	};
 	
-	if(_personaje->getSalud()<=0 && !muerto)
-	{
-		muerto=true;
-		a=0;
-	}
+	
 	if(muerto)
 	{
 		texAuxMuerte = cinematicaMuerte->cargarImagenes(a);
@@ -529,6 +531,7 @@ void Gameplay::comando(int c)
 void Gameplay::ChequeoColisiones()
 {
 	//Creacion de las diferentes HitBox/s
+	//HitBox de la parte baja del personaje, o sea los pies.
 	sf::FloatRect hitBoxPlayer(_personaje->getCajaCuerpo().left +10, _personaje->getCajaCuerpo().top + _personaje->getCajaCuerpo().height,_personaje->getCajaCuerpo().width -20, 16);
 	auto playerGlobalBounds = _personaje->getCajaCuerpo();
 	
@@ -586,11 +589,7 @@ void Gameplay::ChequeoColisiones()
 		    {
 			   _personaje->setIzquierda();
 		    }
-			//Colision cabeza
-			if(hitBoxPlayerHead.intersects(hitBoxMapHead))
-			{
-				_personaje->cayendo();
-			}
+			//
 			//Colision enemigo mapa
 			for(int a=0; a<nivelActual->getCantidadEnemigos(); a++)
 			{
@@ -714,11 +713,6 @@ void Gameplay::ChequeoColisiones()
 	}
 }
 
-sf::Vector2f Gameplay::getPosicionPersonaje()
-{
-	return _personaje->getPosicion();
-}	
-
 int Gameplay::draw(sf::RenderWindow& window)
 {
 	if (pausa)
@@ -762,7 +756,7 @@ int Gameplay::draw(sf::RenderWindow& window)
 				nivel12->dibujar(window);
 				break;
 		}
-		switch(menu.mostrar(window, getPosicionPersonaje()))
+		switch(menu.mostrar(window, _personaje->getPosicion()))
 		{
 			case 1:
 				pausa = false;

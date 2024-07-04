@@ -39,7 +39,7 @@ sf::Texture Cinematica::cargarImagenes(int &i)
 		}
 		else
 		{
-			std::cerr << "Error al cargar la imagen " << rutaCompleta << std::endl;
+			std::cout << "Error al cargar la imagen " << rutaCompleta << std::endl;
 		}
 	}
 	if(i==_cantFrames)exit;

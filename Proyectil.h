@@ -8,7 +8,6 @@ class Proyectil : public sf::Drawable
 	public:
 		Proyectil (std::string textura);
 		void actualizar(int other);
-		void actualizar(sf::Vector2f posicion);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		void setPosition(sf::Vector2f aux);
 		sf::FloatRect getCuerpo();

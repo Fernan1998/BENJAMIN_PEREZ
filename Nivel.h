@@ -12,7 +12,6 @@ class Nivel
 {
 	public:
 		Nivel(std::string mapa, std::string fondo, std::string plataformas, std::string ruta_musica, int cantidadEnemigos);
-		Nivel(std::string mapa, std::string fondo, std::string plataformas, std::string ruta_musica, int cantidadEnemigos, bool hayJefe);
 		~Nivel();
 		void actualizar(float deltaTime);
 		void comando(Personaje &personaje);

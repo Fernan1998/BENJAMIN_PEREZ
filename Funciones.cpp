@@ -9,7 +9,6 @@ float darNum()
 {
 	return _tiempo;
 }
-
 void getDatos(sf::Vector2f posicion, float vida, int nMapa, bool *objetos)
 {
 	objetoAuxiliar.setPosicion(posicion);
@@ -26,7 +25,6 @@ void cerrarJuego()
 		fclose(file);
 	}
 }
-
 void cargarJuego(Personaje *auxiliar, int &nMapaAux)
 {
 	FILE *file = fopen("data/Guardar.bpg", "rb");
@@ -53,6 +51,5 @@ void cargarJuego(Personaje *auxiliar, int &nMapaAux)
 	{
 		nMapaAux = 1;
 	}
-	
 }
 

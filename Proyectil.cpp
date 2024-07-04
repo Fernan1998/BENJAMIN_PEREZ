@@ -23,13 +23,7 @@ void Proyectil::actualizar(int other)
 	}
 
 }
-void Proyectil::actualizar(sf::Vector2f Posicion)
-{
-	if(_cuerpo.getPosition().x> Posicion.x)
-	{
-		_cuerpo.move(-7,0);
-	}
-}
+
 void Proyectil::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 {
 	target.draw(_cuerpo, states);

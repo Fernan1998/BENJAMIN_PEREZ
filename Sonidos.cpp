@@ -5,7 +5,6 @@ Sonidos::Sonidos(std::string ruta_sonido)
 	music.openFromFile(ruta_sonido);
 	music.setLoop(true);
 	music.setVolume(10);
-
 }
 Sonidos::Sonidos(std::string ruta_sonido_caminar, std::string ruta_sonido_saltar, std::string ruta_sonido_atacar) {
 	
@@ -41,6 +40,5 @@ void Sonidos::reproducirSonidosBucle(int numero_sonido)
 {	
 	sonidosPersonaje[numero_sonido].setLoop(true);
 	sonidosPersonaje[numero_sonido].play();
-	
 }
 

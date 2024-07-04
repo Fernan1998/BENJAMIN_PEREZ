@@ -13,8 +13,6 @@ BarraVida::BarraVida(sf::Color aux)
 	_centroBlanco.setOrigin(_centroBlanco.getGlobalBounds().width/2,_centroBlanco.getGlobalBounds().height/2); 
 	_vida.setOrigin(_vida.getGlobalBounds().width/2,_vida.getGlobalBounds().height/2); 
 	_centroBlanco.setFillColor(sf::Color(255, 255, 255));
-	
-	
 }
 
 BarraVida::~BarraVida()

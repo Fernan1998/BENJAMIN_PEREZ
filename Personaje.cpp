@@ -153,11 +153,11 @@ void Personaje::setIzquierda()
 }
 void Personaje::comandos(int c)
 {
+	setControles(c);
 	if(_salud <= 0)
 	{
 		_estado = ESTADOS::MUERTO;
 	}
-	setControles(c);
 	if(_estado == ESTADOS::QUIETO && !_colisionandoIzq && !_pausa ||
 	   _estado == ESTADOS::CAYENDO && !_colisionandoIzq && !_pausa ||
 	   _estado == ESTADOS::CAMINANDO_ATRAS && !_colisionandoIzq && !_pausa)

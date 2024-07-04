@@ -22,7 +22,6 @@ class Gameplay
 		void comando(int c);
 		int draw(sf::RenderWindow& window);
 		void ChequeoColisiones();
-		sf::Vector2f getPosicionPersonaje();
 		void cambioEscena();
 		void ponerPausa();
 		void cargarPartida();
