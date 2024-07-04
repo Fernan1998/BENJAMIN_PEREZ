@@ -2,7 +2,7 @@
 
 Jefe::Jefe(float salud, float danio, std::string textura, float alto, float ancho, float altoRangoVision, float anchoRangoVision, int filaAnimacion, int columnaAnimacion) : Enemigo(salud, danio, textura,  alto,  ancho, altoRangoVision, anchoRangoVision, filaAnimacion, columnaAnimacion)
 {
-	_piedra = new Proyectil("Piedra.png");
+	_piedra = new Proyectil("Textura/piedra/Piedra.png");
 	_estado = ESTADOS::PATRULLANDO;
 	
 }

@@ -11,6 +11,12 @@ int main(int argc, char *argv[])
 	ventana.setFramerateLimit(60);
 
 	int numeroMapa = 1;
+	
+	sf::Image icon;
+	icon.loadFromFile("icon.png");
+	ventana.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+	
+	
 	CamaraPrincipal camaraPrincipal(&ventana,1024,768,1920,992);
 	Gameplay *juego = new Gameplay(camaraPrincipal);
 	
@@ -38,8 +44,11 @@ int main(int argc, char *argv[])
 		
 		ventana.clear();
 		
-		if (jugando) {
-			if (cargar) {
+		if (jugando) 
+		{
+			ventana.setMouseCursorVisible(false);
+			if (cargar)
+			{
 				juego->cargarPartida();
 				cargar = false;
 			}
@@ -68,11 +77,15 @@ int main(int argc, char *argv[])
 		}
 		else if (enOpciones)
 		{
+			ventana.setMouseCursorVisible(true);
 			camaraPrincipal.setCamera(0,0);
-			if (menu.entrarOpciones(ventana) && !enOpcionesDesdeJugando) {
+			if (menu.entrarOpciones(ventana) && !enOpcionesDesdeJugando)
+			{
 				enOpciones = false;
 				menu.setOpcionesDefault();
-			}else if (menu.entrarOpciones(ventana) && enOpcionesDesdeJugando) {
+			}
+			else if (menu.entrarOpciones(ventana) && enOpcionesDesdeJugando)
+			{
 				enOpciones = false;
 				enOpcionesDesdeJugando = false;
 				jugando = true;
@@ -81,8 +94,6 @@ int main(int argc, char *argv[])
 		}
 		else 
 		{
-			//std::cout << camaraPrincipal.getCameraPosition().x << std::endl;
-			//std::cout << camaraPrincipal.getCameraPosition().y << std::endl;
 			camaraPrincipal.setCamera(0,0);
 			switch (menu.mostrar(ventana)) 
 			{

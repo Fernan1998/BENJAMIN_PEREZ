@@ -1,9 +1,9 @@
 #include "Gameplay.h"
 #include <iostream>
 
-Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
+Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("Textura/boleadora/boleadora.png")
 {
-	numeroMapa = 11;	
+	numeroMapa = 9;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -260,9 +260,17 @@ void Gameplay::cambioEscena()
 		case 1:
 			if (_personaje->getPosicion().x >= 1920) 
 			{
-				i = 0;
-				numeroMapa = 2;
-				_personaje->setPosicion(20, _personaje->getPosicion().y);
+				if(nivel1->getEnemigo()[0]->getSalud() <= 0)
+				{
+					i = 0;
+					numeroMapa = 2;
+					_personaje->setPosicion(20, _personaje->getPosicion().y);
+				}
+				else
+				{
+					_personaje->setPosicion(1920, _personaje->getPosicion().y);
+				}
+				
 				
 			} 
 			else if (_personaje->getPosicion().x <= 0) 
@@ -276,7 +284,7 @@ void Gameplay::cambioEscena()
 			break;
 			
 		case 2:
-			if(_personaje->getPosicion().x >= 138 && _personaje->getPosicion().x <= 224 && _personaje->getPosicion().y > 980) 
+			if(_personaje->getPosicion().y >= 980) 
 			{
 				numeroMapa = 4;
 				_personaje->setPosicion(_personaje->getPosicion().x, 0);
