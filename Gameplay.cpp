@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("Textura/boleadora/boleadora.png")
 {
-	numeroMapa = 9;	
+	numeroMapa = 7;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
