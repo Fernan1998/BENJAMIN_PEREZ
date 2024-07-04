@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 1;	
+	numeroMapa = 8;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -22,39 +22,39 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	cinematicaDerrumbe = new Cinematica("derrumbe/aaa",167);
 	cinematicaMuerte = new Cinematica("muerte/muerte",125);
 	
-	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_plataforma.txt", "Sonido/Folklore.ogg", 1);
+	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_plataforma.txt", 1);
 	nivel1->creadorDeEnemigos(100, 10, "Textura/Babosa/Baboscompleta.png", 63, 84, 84, 800, 3, 8);
 	
-	nivel2 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg", 0);
+	nivel2 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", 0);
 	
-	nivel10 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche2.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", "Sonido/Folklore.ogg", 2);
+	nivel10 = new Nivel("Mapas_txt/mapa_agujero/mapa_noche2.txt", "Mapas_txt/mapa_agujero/fondo_noche.txt", "Mapas_txt/mapa_agujero/mapa_tutorial_relleno.txt", 2);
 	nivel10->creadorDeEnemigos(100, 25, "Textura/Wolf/idle.png", 170, 160, 84, 800, 3, 10);
 	
-	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", "Sonido/Folklore.ogg", 1);
+	nivel3 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_piso.txt", "Mapas_txt/mapa_luz_mala/fondo_noche.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_agua.txt", 1);
 	nivel3->creadorDeEnemigos(100, 100, "Textura/Luz Mala/luzmala.png", 98, 98, 1000, 1000, 3, 8);
 	
-	nivel12 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_dia.txt", "Mapas_txt/mapa_luz_mala/fondo_dia.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_plataformas.txt", "Sonido/Folklore.ogg", 0);
+	nivel12 = new Nivel("Mapas_txt/mapa_luz_mala/mapa_luz_mala_dia.txt", "Mapas_txt/mapa_luz_mala/fondo_dia.txt", "Mapas_txt/mapa_luz_mala/mapa_luz_mala_plataformas.txt", 0);
 	
-	nivel4 = new Nivel("Mapas_txt/mapa_cueva_1/mapa_cueva1.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_plataformas.txt", "Sonido/Folklore.ogg", 2);
+	nivel4 = new Nivel("Mapas_txt/mapa_cueva_1/mapa_cueva1.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_fondo.txt", "Mapas_txt/mapa_cueva_1/mapa_cueva1_plataformas.txt", 2);
 	nivel4->creadorDeEnemigos(100, 10, "Textura/Wolf/idle.png", 170, 160, 84, 800, 3, 10);
 	
-	nivel5 = new Nivel("Mapas_txt/mapa_cueva_2/mapa_cueva2.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_fondo.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_plataformas.txt", "Sonido/Folklore.ogg", 2);
+	nivel5 = new Nivel("Mapas_txt/mapa_cueva_2/mapa_cueva2.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_fondo.txt", "Mapas_txt/mapa_cueva_2/mapa_cueva2_plataformas.txt", 2);
 	nivel5->creadorDeEnemigos(100, 25, "Textura/Wolf/idle.png", 170, 160, 84, 800, 4, 10);
 	
-	nivel6 = new Nivel("Mapas_txt/mapa_cueva_3/mapa_cueva3.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_fondo.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_plataformas.txt", "Sonido/Folklore.ogg", 3);
+	nivel6 = new Nivel("Mapas_txt/mapa_cueva_3/mapa_cueva3.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_fondo.txt", "Mapas_txt/mapa_cueva_3/mapa_cueva3_plataformas.txt", 3);
 	nivel6->creadorDeEnemigos(100, 25, "Textura/Wolf/idle.png", 170, 160, 84, 800, 3, 10);
 	nivel6->getEnemigo()[0]->setArmadura(2.5);
 	
-	nivel7 = new Nivel("Mapas_txt/mapa_infierno/infernal_piso.txt", "Mapas_txt/mapa_infierno/infernal_fondo.txt", "Mapas_txt/mapa_infierno/infernal_relleno.txt", "Sonido/Folklore.ogg", 1);
+	nivel7 = new Nivel("Mapas_txt/mapa_infierno/infernal_piso.txt", "Mapas_txt/mapa_infierno/infernal_fondo.txt", "Mapas_txt/mapa_infierno/infernal_relleno.txt", 1);
 	nivel7->creadorDeEnemigos(100, 25, "Textura/Diablo/Diablo2b.png", 89, 128, 84, 800, 3, 7);
 	
-	nivel11 = new Nivel("Mapas_txt/mapa_infierno/infernal_piso.txt", "Mapas_txt/mapa_infierno/infernal_fondo.txt", "Mapas_txt/mapa_infierno/infernal_relleno.txt", "Sonido/Folklore.ogg", 1);
+	nivel11 = new Nivel("Mapas_txt/mapa_infierno/infernal_piso.txt", "Mapas_txt/mapa_infierno/infernal_fondo.txt", "Mapas_txt/mapa_infierno/infernal_relleno.txt", 1);
 	nivel11->creadorDeEnemigos(100, 50, "Textura/Diablo/Diablo.png", 327, 245, 84, 800, 3, 8);
 	nivel11->getEnemigo()[0]->setArmadura(3);
 	
-	nivel8 = new Nivel("Mapas_txt/mapa_montania/noche_piso_montania.txt", "Mapas_txt/mapa_montania/noche_fondo_montania.txt", "Mapas_txt/mapa_montania/noche_relleno_montania.txt", "Sonido/Folklore.ogg", 0);
+	nivel8 = new Nivel("Mapas_txt/mapa_montania/noche_piso_montania.txt", "Mapas_txt/mapa_montania/noche_fondo_montania.txt", "Mapas_txt/mapa_montania/noche_relleno_montania.txt", 0);
 	
-	nivel9 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", "Sonido/Folklore.ogg", 1);
+	nivel9 = new Nivel("Mapas_txt/mapa_pombero/pombero_piso.txt", "Mapas_txt/mapa_pombero/pombero_fondo.txt", "Mapas_txt/mapa_pombero/pombero_plataforma.txt", 1);
 	nivel9->creadorDeJefes(100, 25, "Textura/Pombero/Pombero2.png", 98, 98, 50, 2000, 1, 6);
 	nivel9->getEnemigo()[0]->setArmadura(1);
 	
@@ -96,6 +96,11 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	_tutorial.setTexture(&texTutorial);
 	_tutorial.setSize(sf::Vector2f(3072, 768));
 	_tutorial.setPosition(sf::Vector2f(25, 170));
+	
+	_sonido = new Sonidos( "Sonido/Folklore.ogg");
+	_sonido->PlayMusic();
+	_sonidos = new Sonidos("Sonido/risaDiablo.ogg","Sonido/gameover.ogg","Sonido/agarrarItem.ogg","Sonido/derrumbe.ogg","Sonido/silvido.ogg","Sonido/derrumbe.ogg");
+	
 }
 Gameplay::~Gameplay()
 {
@@ -108,12 +113,7 @@ void Gameplay::cargarPartida(){
 
 void Gameplay::actualizar(float deltaTime)
 {
-	if(_personaje->getSalud()<=0 && !muerto)
-	{
-		muerto=true;
-		a=0;
-	}
-	
+
 	getDatos(_personaje->getPosicion(), _personaje->getSalud(), numeroMapa, _personaje->getObjeto());
 	nivel6->getEnemigo()[0]->setColor(sf::Color::Red);
 	_camaraPrincipal.FollowAndUpdate(_personaje->getPosicion(), &_camaraPrincipal);
@@ -246,6 +246,7 @@ void Gameplay::cambioEscena()
 				numeroMapa = 2;
 				i = 0;
 				_personaje->setPosicion(20, _personaje->getPosicion().y);
+				
 			} 
 			else if (_personaje->getPosicion().x <= 0) 
 			{
@@ -320,6 +321,8 @@ void Gameplay::cambioEscena()
 				numeroMapa = 6;
 				i = 0;
 				_personaje->setPosicion(1900, _personaje->getPosicion().y);
+				_sonido->cambiarMusica("Sonido/Libertango.ogg");
+				_sonido->PlayMusic();
 			} 
 			else if (_personaje->getPosicion().x >= 1920) 
 			{
@@ -381,6 +384,7 @@ void Gameplay::cambioEscena()
 				{
 					numeroMapa = 3;
 					_personaje->setPosicion(1900, _personaje->getPosicion().y);
+					
 				} 
 			} 
 			
@@ -394,6 +398,9 @@ void Gameplay::cambioEscena()
 				{
 					numeroMapa = 9;
 					_personaje->setPosicion(20, _personaje->getPosicion().y);
+					_sonido->cambiarMusica("Sonido/Libertango.ogg");
+					_sonido->PlayMusic();
+					_sonidos->reproducirSonidosGenerales(4);
 				}
 			}
 			break;
@@ -430,6 +437,10 @@ void Gameplay::cambioEscena()
 	
 	if(_personaje->getSalud()<=0)
 	{
+		muerto=true;
+		a=0;
+		_sonidos->reproducirSonidosGenerales(1);
+		
 		if(numeroMapa != 9 && numeroMapa != 1 && numeroMapa != 7 && numeroMapa != 11 && numeroMapa != 12)
 		{
 
@@ -589,7 +600,10 @@ void Gameplay::ChequeoColisiones()
 		    {
 			   _personaje->setIzquierda();
 		    }
-			//
+		    if(hitBoxPlayerHead.intersects(hitBoxMapHead))
+		    {
+				_personaje->cayendo();
+		    }
 			//Colision enemigo mapa
 			for(int a=0; a<nivelActual->getCantidadEnemigos(); a++)
 			{
@@ -635,10 +649,11 @@ void Gameplay::ChequeoColisiones()
 		    }
 		}
 	}
-	if(_personaje->getCajaCuerpo().intersects(_objetoOjo->getCuerpo()))
+	if(_personaje->getCajaCuerpo().intersects(_objetoOjo->getCuerpo()) && !_objetoOjo->getPause())
 	{
 		_objetoOjo->setPause();
 		_personaje->setObjetos(0);
+		_sonidos->reproducirSonidosGenerales(2);
 	}
 	if(_personaje->getCajaCuerpo().intersects(_objetoLobizon->getCuerpo()) && !_objetoLobizon->getPause())
 	{
@@ -646,6 +661,10 @@ void Gameplay::ChequeoColisiones()
 		_personaje->setObjetos(1);
 		_personaje->setPosicion(100, 780);
 		numeroMapa = 10;
+		_sonidos->reproducirSonidosGenerales(3);
+		_sonido->cambiarMusica("Sonido/Folklore.ogg");
+		_sonido->PlayMusic();
+		
 	}
 	if(_personaje->getCajaCuerpo().intersects(_cabezaPombero->getCuerpo()) && !_cabezaPombero->getPause())
 	{
@@ -653,6 +672,8 @@ void Gameplay::ChequeoColisiones()
 		_personaje->setObjetos(2);
 		_personaje->setPosicion(1850, 780);
 		numeroMapa = 8;		
+		_sonido->cambiarMusica("Sonido/Folklore.ogg");
+		_sonido->PlayMusic();
 	}
 	if(_personaje->getCajaCuerpo().intersects(_objetoLuz->getCuerpo()) && !_objetoLuz->getPause())
 	{
@@ -662,11 +683,12 @@ void Gameplay::ChequeoColisiones()
 	if(_personaje->getCajaCuerpo().intersects(_cabezaDiablo->getCuerpo()) && !_cabezaDiablo->getPause())
 	{
 		
-		texAux = cinematicaDesaparece->cargarImagenes(i);
-		_aux.setTexture(&texAux);
 		_cabezaDiablo->setPause();
 		_personaje->setObjetos(4);
 		numeroMapa = 11;
+		_sonido->cambiarMusica("Sonido/Diablo.ogg");
+		_sonido->PlayMusic();
+		_sonidos->reproducirSonidosGenerales(0);
 	}
 	for(int i=0; i<nivelActual->getCantidadEnemigos(); i++)
 	{

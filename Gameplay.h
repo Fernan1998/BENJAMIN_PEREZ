@@ -60,7 +60,8 @@ class Gameplay
 		Cinematica *cinematicaDerrumbe;
 		Cinematica *cinematicaMuerte;
 		
-		
+		Sonidos *_sonido;
+		Sonidos *_sonidos;
 		sf::RectangleShape _aux;
 		sf::RectangleShape _auxMuerte;
 		sf::Texture texAux;
