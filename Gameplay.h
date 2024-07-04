@@ -59,6 +59,7 @@ class Gameplay
 		Cinematica *cinematicaDesaparece;
 		Cinematica *cinematicaDerrumbe;
 		Cinematica *cinematicaMuerte;
+		Cinematica *cinematicaCreditos;
 		
 		Sonidos *_sonido;
 		Sonidos *_sonidos;
@@ -73,6 +74,7 @@ class Gameplay
 		sf::Texture texTutorial;
 		
 		bool muerto = false;
+		bool creditos = false;
 		
 		
 		int i=0;

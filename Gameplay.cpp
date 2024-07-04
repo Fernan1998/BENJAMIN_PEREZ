@@ -3,7 +3,7 @@
 
 Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png")
 {
-	numeroMapa = 8;	
+	numeroMapa = 11;	
 	
 	_camaraPrincipal = camaraPrincipal;
 	
@@ -21,6 +21,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	cinematicaDesaparece = new Cinematica("desaparece/desaparece", 75);
 	cinematicaDerrumbe = new Cinematica("derrumbe/aaa",167);
 	cinematicaMuerte = new Cinematica("muerte/muerte",125);
+	cinematicaCreditos = new Cinematica("creditos/creditos",405);
 	
 	nivel1 = new Nivel("Mapas_txt/mapa_tutorial/mapa_tutorial_piso.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_fondo.txt", "Mapas_txt/mapa_tutorial/mapa_tutorial_plataforma.txt", 1);
 	nivel1->creadorDeEnemigos(100, 10, "Textura/Babosa/Baboscompleta.png", 63, 84, 84, 800, 3, 8);
@@ -183,6 +184,11 @@ void Gameplay::actualizar(float deltaTime)
 				break;
 			case 11:
 				nivel11->actualizar(deltaTime);
+				if(creditos)
+				{
+					texAux = cinematicaCreditos->cargarImagenes(i);
+					_aux.setTexture(&texAux);
+				}
 				break;
 			case 12:
 				nivel12->actualizar(deltaTime);
@@ -890,6 +896,17 @@ int Gameplay::draw(sf::RenderWindow& window)
 				{
 					nivel11->getEnemigo()[0]->setColor(sf::Color::Red);
 				}
+				if(nivel11->getEnemigo()[0]->getSalud() <= 0)
+				{
+					creditos = true;
+					if(i<=405)
+					{
+						window.draw(_aux);
+						_personaje->modoPausa();
+					}
+					
+				}
+				
 				break;
 			case 12:
 				nivel12->dibujar(window);
