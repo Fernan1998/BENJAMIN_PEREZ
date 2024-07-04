@@ -8,8 +8,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	_camaraPrincipal = camaraPrincipal;
 	
 	_personaje = new Personaje();
-//	_personaje->setObjetos(1);
-//	_personaje->setObjetos(2);
+
 	_objetoOjo = new Objetos(51,25, "Textura/Objetos/ojoBabosa.png");
 	_objetoLobizon = new Objetos(68,48, "Textura/Objetos/objetoLobizon.png");
 	_cabezaDiablo = new Objetos(51,40, "Textura/Objetos/objetoDiablo.png");
@@ -17,7 +16,7 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	_objetoLuz = new Objetos(56,52,"Textura/Objetos/objetoLuz.png");
 	
 
-	cinematicaPersonaje = new  Cinematica("roll/dia_noche", 251);
+	cinematicaPersonaje = new  Cinematica("dia_noche/dia_noche", 251);
 	nocheADia = new  Cinematica("noche_dia/noche_dia", 125);
 	introJuego = new  Cinematica("intro/intro", 360);
 	cinematicaDesaparece = new Cinematica("desaparece/desaparece", 75);
@@ -50,10 +49,10 @@ Gameplay::Gameplay(CamaraPrincipal &camaraPrincipal) : _boleadora("boleadora.png
 	nivel6->getEnemigo()[0]->setArmadura(2.5);
 	
 	nivel7 = new Nivel("Mapas_txt/mapa_infierno/infernal_piso.txt", "Mapas_txt/mapa_infierno/infernal_fondo.txt", "Mapas_txt/mapa_infierno/infernal_relleno.txt", 1);
-	nivel7->creadorDeEnemigos(100, 25, "Textura/Diablo/Diablo2b.png", 89, 128, 84, 800, 3, 7);
+	nivel7->creadorDeEnemigos(100, 25, "Textura/Diablo/Diablo2b.png", 89, 128, 84, 1600, 3, 7);
 	
 	nivel11 = new Nivel("Mapas_txt/mapa_infierno/infernal_piso.txt", "Mapas_txt/mapa_infierno/infernal_fondo.txt", "Mapas_txt/mapa_infierno/infernal_relleno.txt", 1);
-	nivel11->creadorDeEnemigos(100, 50, "Textura/Diablo/Diablo.png", 327, 245, 300, 800, 3, 8);
+	nivel11->creadorDeEnemigos(100, 50, "Textura/Diablo/Diablo.png", 327, 245, 300, 1200, 3, 8);
 	nivel11->getEnemigo()[0]->setArmadura(3);
 	nivel11->getEnemigo()[0]->setDiablo();
 	
@@ -200,7 +199,6 @@ void Gameplay::actualizar(float deltaTime)
 				{
 					texAux = roll->cargarImagenes(b);
 					_aux.setTexture(&texAux);
-					_aux.setScale(3.3,3);
 				}
 				break;
 			case 12:
@@ -950,6 +948,10 @@ int Gameplay::draw(sf::RenderWindow& window)
 				}
 				if(nivel11->getEnemigo()[0]->getSalud() <= 0)
 				{
+					if(!creditos)
+					{
+						i = 0;
+					}
 					creditos = true;
 					if(i<=405)
 					{
@@ -958,10 +960,12 @@ int Gameplay::draw(sf::RenderWindow& window)
 							_sonido->cambiarMusica("Sonido/ganaste.ogg");
 							_sonido->PlayMusic();
 						}
-						if(i>=404)
+						if(i==404)
 						{
 							_sonido->cambiarMusica("Sonido/roll.ogg");
 							_sonido->PlayMusic();
+							_aux.setScale(3.3,3);
+							b=0;
 						}
 						window.draw(_aux);
 						_personaje->modoPausa();
